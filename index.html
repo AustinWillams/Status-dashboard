@@ -3,116 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Status Dashboard</title>
+  <title>RENDEX Status Dashboard</title>
   <style>
     body {
-      background-color: #1e1e2f;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
       margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+      transition: background-color 0.4s, color 0.4s;
+    }
+    .light-mode {
+      background-color: #f0f0f0;
+      color: #121212;
+    }
+    header {
+      text-align: center;
       padding: 20px;
     }
-    .search-bar {
-      margin-bottom: 20px;
+    .logo {
+      width: 150px;
+    }
+    .mode-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+    }
+    #loading {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      flex-direction: column;
+    }
+    .glow-box {
+      border: 2px solid #00f0ff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00f0ff;
       text-align: center;
     }
-    input[type="text"] {
-      padding: 10px;
-      width: 80%;
-      max-width: 400px;
-      border-radius: 5px;
-      border: none;
-      font-size: 16px;
-    }
-    .cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-    .card {
-      background-color: #2a2a40;
-      border-radius: 10px;
-      padding: 20px;
-      width: 300px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .dot {
-      height: 10px;
-      width: 10px;
-      border-radius: 50%;
-      display: inline-block;
-      margin-right: 5px;
-    }
-    .green { background-color: #3fef6c; }
-    .red { background-color: #ff4c4c; }
-    .yellow { background-color: #ffe600; }
-    .btn {
-      background-color: #3f51b5;
-      color: white;
-      padding: 8px 12px;
-      text-decoration: none;
-      border-radius: 5px;
-      display: inline-block;
-      margin-top: 10px;
-      margin-right: 10px;
-    }
-    .discord { background-color: #7289da; }
   </style>
 </head>
 <body>
-
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search tools..." onkeyup="searchCards()" />
-  </div>
-
-  <div class="cards" id="cardsContainer">
-    <div class="card" data-name="Delta">
-      <div class="header">
-        <h2>✅ Delta</h2>
-      </div>
-      <p>Last updated: 09/19/2024 at 12:11 AM UTC</p>
-      <p><span class="dot green"></span>Status: Working</p>
-      <p>Version: 10.27</p>
-      <p><span class="dot yellow"></span>Type: Free and Paid</p>
-      <p><span class="dot red"></span>Detection: Detected</p>
-      <p>Platform: Android</p>
-      <p>Roblox Version: 2.642.635</p>
-      <a href="#" class="btn">Website</a>
-      <a href="#" class="btn discord">Discord</a>
-    </div>
-
-    <div class="card" data-name="Ronix">
-      <div class="header">
-        <h2>✅ Ronix</h2>
-      </div>
-      <p>Last updated: 05/21/2025 at 7:51 PM UTC</p>
-      <p><span class="dot green"></span>Status: Working</p>
-      <p>Version: Unknown</p>
-      <p><span class="dot yellow"></span>Type: Free and Paid</p>
-      <p><span class="dot green"></span>Detection: Undetected</p>
-      <p>Platform: Android</p>
-      <p>Roblox Version: 2.671.818</p>
-      <a href="#" class="btn">Website</a>
-      <a href="#" class="btn discord">Discord</a>
+  <div id="loading">
+    <div class="glow-box">
+      <img src="assets/rendex_logo.png" alt="RENDEX Logo" class="logo" />
+      <p>Initializing core systems...</p>
     </div>
   </div>
+  <div class="mode-toggle" onclick="toggleMode()">🌓</div>
+  <header>
+    <img src="assets/rendex_logo.png" alt="RENDEX Logo" class="logo" />
+    <h1>RENDEX Status Dashboard</h1>
+  </header>
+  <main style="text-align:center;">
+    <p>All systems operational.</p>
+  </main>
 
   <script>
-    function searchCards() {
-      const input = document.getElementById("searchInput").value.toLowerCase();
-      const cards = document.querySelectorAll(".card");
-      cards.forEach(card => {
-        const name = card.getAttribute("data-name").toLowerCase();
-        card.style.display = name.includes(input) ? "block" : "none";
-      });
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loading").style.display = "none";
+      }, 2000);
+    });
+
+    function toggleMode() {
+      document.body.classList.toggle("light-mode");
+      localStorage.setItem("mode", document.body.classList.contains("light-mode") ? "light" : "dark");
+    }
+
+    if (localStorage.getItem("mode") === "light") {
+      document.body.classList.add("light-mode");
     }
   </script>
-
 </body>
 </html>
