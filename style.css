@@ -1,0 +1,67 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #111;
+  color: white;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 1em;
+}
+
+.header-logo {
+  height: 40px;
+}
+
+#searchBar {
+  padding: 0.5em;
+  border-radius: 4px;
+  border: none;
+}
+
+#modeToggle {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card {
+  background-color: #1f1f1f;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #000;
+}
+
+.card.working {
+  border-left: 4px solid #0f0;
+}
+
+#loading-screen {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.logo {
+  width: 100px;
+  margin-bottom: 1em;
+}
+
+.loading-msg {
+  color: white;
+}
