@@ -1,106 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RENDEX Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <style>
-    body { background-color: #101018; }
-    .logo-img { height: 40px; border-radius: 8px; }
-    .executor-card { background-color: #1a1a25; border-radius: 12px; }
-    .tag { font-weight: 500; }
-    #theme-toggle { cursor: pointer; }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="rendex_logo.png" type="image/png" />
 </head>
-<body class="text-white font-sans p-6">
-
-  <!-- Header -->
-  <div class="flex justify-between items-center mb-6">
-    <div class="flex items-center gap-3">
-      <img src="RENDex.png" alt="RENDEX Logo" class="logo-img">
-      <span class="text-xl font-bold">RENDEX</span>
-    </div>
-    <div class="flex items-center gap-4">
-      <input type="text" id="search" placeholder="Search..." class="px-3 py-1 rounded bg-gray-800 text-white">
-      <button id="theme-toggle" class="text-white text-xl">
-        <i class="fas fa-moon" id="theme-icon"></i>
-      </button>
+<body>
+  <div id="loading-screen" class="loading">
+    <div class="loader-container">
+      <img src="rendex_logo.png" class="logo" />
+      <div class="loader"></div>
+      <p>Initializing RENDEX Dashboard...</p>
     </div>
   </div>
 
-  <!-- Executor Cards -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <header>
+    <img src="rendex_logo.png" alt="RENDEX Logo" class="logo-header" />
+    <input type="text" id="search" placeholder="Search executors..." />
+    <button id="theme-toggle">
+      <img src="theme-icon.svg" id="theme-icon" />
+    </button>
+  </header>
 
-    <!-- Delta Android -->
-    <div class="executor-card p-5">
-      <div class="flex justify-between items-center mb-3">
-        <div class="flex items-center gap-2">
-          <div class="w-4 h-4 bg-green-500 rounded-full"></div>
-          <h2 class="text-xl font-semibold">Delta</h2>
-        </div>
-        <span class="text-xs text-gray-400">Last updated: 09/19/2024 at 12:11 AM UTC</span>
+  <main>
+    <section class="card">
+      <h2>Delta Android</h2>
+      <p>Version: 2.673.713 (Roblox 10.52)</p>
+      <p>Status: <span class="status detected">Detected</span></p>
+      <div class="btn-group">
+        <a href="https://deltaexploits.gg/delta-executor-mobile" target="_blank" class="btn site">🌐 Website</a>
+        <a href="https://discord.gg/deltax" target="_blank" class="btn discord">💬 Discord</a>
+        <a href="https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file" target="_blank" class="btn download">⬇️ Download</a>
       </div>
-      <div class="grid grid-cols-2 gap-2 text-sm">
-        <div><span class="tag">Status:</span> <span class="text-green-400">Working</span></div>
-        <div><span class="tag">Version:</span> 10.52</div>
-        <div><span class="tag">Type:</span> Free & Paid</div>
-        <div><span class="tag">Detection:</span> <span class="text-red-400">Detected</span></div>
-        <div><span class="tag">Platform:</span> Android</div>
-        <div><span class="tag">Roblox Version:</span> 2.673.713</div>
-      </div>
-      <div class="flex gap-2 mt-4">
-        <a href="https://deltaexploits.gg/delta-executor-mobile" class="bg-blue-600 px-3 py-1 rounded flex items-center gap-2">
-          <i class="fas fa-globe"></i> Website
-        </a>
-        <a href="https://discord.gg/deltax" class="bg-[#5865F2] px-3 py-1 rounded flex items-center gap-2">
-          <i class="fab fa-discord"></i> Discord
-        </a>
-        <a href="https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file" class="bg-green-600 px-3 py-1 rounded flex items-center gap-2">
-          <i class="fas fa-download"></i> Download
-        </a>
-      </div>
-    </div>
+    </section>
 
-    <!-- Ronix Android -->
-    <div class="executor-card p-5">
-      <div class="flex justify-between items-center mb-3">
-        <div class="flex items-center gap-2">
-          <div class="w-4 h-4 bg-green-500 rounded-full"></div>
-          <h2 class="text-xl font-semibold">Ronix</h2>
-        </div>
-        <span class="text-xs text-gray-400">Last updated: 05/21/2025 at 7:51 PM UTC</span>
+    <section class="card">
+      <h2>Ronix Android</h2>
+      <p>Version: 671</p>
+      <p>Status: <span class="status detected">Detected</span></p>
+      <div class="btn-group">
+        <a href="https://discord.gg/ronix" target="_blank" class="btn discord">💬 Discord</a>
+        <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file" target="_blank" class="btn download">⬇️ Download</a>
       </div>
-      <div class="grid grid-cols-2 gap-2 text-sm">
-        <div><span class="tag">Status:</span> <span class="text-green-400">Working</span></div>
-        <div><span class="tag">Version:</span> Unknown</div>
-        <div><span class="tag">Type:</span> Free & Paid</div>
-        <div><span class="tag">Detection:</span> <span class="text-green-400">Undetected</span></div>
-        <div><span class="tag">Platform:</span> Android</div>
-        <div><span class="tag">Roblox Version:</span> 2.671.818</div>
-      </div>
-      <div class="flex gap-2 mt-4">
-        <a href="https://discord.gg/ronix" class="bg-[#5865F2] px-3 py-1 rounded flex items-center gap-2">
-          <i class="fab fa-discord"></i> Discord
-        </a>
-        <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file" class="bg-green-600 px-3 py-1 rounded flex items-center gap-2">
-          <i class="fas fa-download"></i> Download
-        </a>
-      </div>
-    </div>
-  </div>
+    </section>
+  </main>
 
-  <!-- Dark/Light Toggle Script -->
-  <script>
-    const toggle = document.getElementById("theme-toggle");
-    const icon = document.getElementById("theme-icon");
-    toggle.addEventListener("click", () => {
-      document.body.classList.toggle("bg-white");
-      document.body.classList.toggle("text-black");
-      icon.classList.toggle("fa-moon");
-      icon.classList.toggle("fa-sun");
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
