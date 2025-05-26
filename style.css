@@ -5,6 +5,12 @@ body {
   padding: 0;
   background-color: #111;
   color: white;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.light {
+  background-color: #f5f5f5;
+  color: #222;
 }
 
 header {
@@ -15,8 +21,13 @@ header {
   padding: 1em;
 }
 
+body.light header {
+  background: #ddd;
+}
+
 .header-logo {
-  height: 40px;
+  height: 60px;
+  border-radius: 12px;
 }
 
 #searchBar {
@@ -26,12 +37,15 @@ header {
 }
 
 #modeToggle {
-  background-color: #444;
+  background-color: transparent;
   color: white;
+  font-size: 1.4em;
   border: none;
-  padding: 0.5em 1em;
-  border-radius: 5px;
   cursor: pointer;
+}
+
+body.light #modeToggle {
+  color: #000;
 }
 
 .card {
@@ -42,8 +56,32 @@ header {
   box-shadow: 0 0 10px #000;
 }
 
+body.light .card {
+  background-color: #fff;
+  color: #000;
+}
+
 .card.working {
   border-left: 4px solid #0f0;
+}
+
+.actions {
+  margin-top: 1em;
+}
+
+.btn {
+  text-decoration: none;
+  background: #333;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  margin-right: 0.5em;
+  display: inline-block;
+}
+
+body.light .btn {
+  background: #ccc;
+  color: #000;
 }
 
 #loading-screen {
@@ -58,7 +96,8 @@ header {
 }
 
 .logo {
-  width: 100px;
+  width: 120px;
+  border-radius: 15px;
   margin-bottom: 1em;
 }
 
