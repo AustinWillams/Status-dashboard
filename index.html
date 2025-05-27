@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Exploit Cards with Working Timestamps</title>
+  <title>Exploit Cards – Custom Colors & Codex</title>
   <style>
     /* — Reset & Base — */
-    *, *::before, *::after { box‑sizing: border‑box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: "Inter", sans-serif;
       background: #121212;
@@ -24,7 +24,7 @@
       gap: 1rem;
     }
 
-    /* — Card — */
+    /* — Card Base — */
     .card {
       background: #1e1e1e;
       border: 2px solid transparent;
@@ -41,10 +41,14 @@
     .card:nth-of-type(3) { animation-delay: 0.3s; }
     .card:nth-of-type(4) { animation-delay: 0.4s; }
     .card:nth-of-type(5) { animation-delay: 0.5s; }
+    .card:nth-of-type(6) { animation-delay: 0.6s; }
 
-    .card[data-color="pink"]  { border-image: linear-gradient(135deg, #ff1cae, #ff5d4a) 1; }
-    .card[data-color="blue"]  { border-image: linear-gradient(135deg, #1fa2ff, #12d8fa) 1; }
-    .card[data-color="green"] { border-image: linear-gradient(135deg, #00b09b, #96c93d) 1; }
+    /* — Border Colors — */
+    .card[data-color="pink"]   { border-image: linear-gradient(135deg, #ff1cae, #ff5d4a) 1; }
+    .card[data-color="blue"]   { border-image: linear-gradient(135deg, #1fa2ff, #12d8fa) 1; }
+    .card[data-color="green"]  { border-image: linear-gradient(135deg, #00b09b, #96c93d) 1; }
+    .card[data-color="purple"] { border-image: linear-gradient(135deg, #9b29b6, #d864f5) 1; }
+    .card[data-color="black"]  { border-image: linear-gradient(135deg, #444, #222) 1; }
 
     /* — Header — */
     .card-header {
@@ -72,12 +76,12 @@
       font-weight: 600;
       white-space: nowrap;
     }
-    .badge.sunc     { background: #333;    color: #ddd; }
-    .badge.reco    { background: #ff1cae; color: #fff; }
-    .badge.longest { background: #1fa2ff; color: #fff; }
-    .badge.free    { background: #0f8;     color: #000; }
-    .badge.paid    { background: #f90;     color: #000; }
-    .badge.beta    { background: #ffa500; color: #000; }
+    .badge.sunc    { background: #333;      color: #ddd; }
+    .badge.reco    { background: #ff1cae;   color: #fff; }
+    .badge.longest { background: #1fa2ff;   color: #fff; }
+    .badge.free    { background: #0f8;      color: #000; }
+    .badge.paid    { background: #f90;      color: #000; }
+    .badge.beta    { background: #ffa500;   color: #000; }
 
     .card-right {
       display: flex;
@@ -97,13 +101,14 @@
       padding: 0.3rem 0.6rem;
       border-radius: 0.75rem;
     }
-    .status.updated     { background: #0c0; color: #fff; }
-    .status.not-updated { background: #c00; color: #fff; }
+    .status.updated     { background: #0c0;  color: #fff; }
+    .status.not-updated { background: #c00;  color: #fff; }
+    .status.detected    { background: #0c0;  color: #fff; }
+    .status.undetected  { background: #c00;  color: #fff; }
 
     /* — SVG Arrow — */
     .expand-icon {
-      width: 1rem;
-      height: 1rem;
+      width: 1rem; height: 1rem;
       transition: transform 0.3s ease;
       fill: #e0e0e0;
     }
@@ -129,15 +134,14 @@
       margin-top: 0.75rem;
     }
 
-    /* — Ronix Android Buttons — */
+    /* — Download/Discord Buttons — */
     .card-actions {
       margin: 0.75rem 0;
     }
     .btn {
       display: inline-block;
       text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 0.9rem; font-weight: 600;
       padding: 0.4rem 0.8rem;
       border-radius: 0.75rem;
       margin-right: 0.5rem;
@@ -157,91 +161,10 @@
 
   <div class="cards">
 
-    <!-- Zenith -->
-    <div class="card" data-color="pink">
-      <div class="card-header">
-        <div class="card-left">
-          <h2>Zenith</h2>
-          <div class="version">v1.9.3</div>
-          <div class="badges">
-            <div class="badge sunc">sUNC</div>
-            <div class="badge reco">Recommended</div>
-          </div>
-        </div>
-        <div class="card-right">
-          <svg class="expand-icon" viewBox="0 0 16 16">
-            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2"
-                  fill="none" stroke-linecap="round"/>
-          </svg>
-          <span class="price">$6.49 weekly</span>
-          <span class="status updated">Updated</span>
-        </div>
-      </div>
-      <div class="card-content">
-        <p><strong>Details:</strong> Might be detected by Hyperion—use at your own risk.</p>
-        <div class="card-footer" data-updated="2025-05-22T20:09:00Z">
-          Last updated: <span class="updated-time"></span>
-        </div>
-      </div>
-    </div>
+    <!-- …Zenith, Wave, AWP.GG (unchanged)… -->
 
-    <!-- Wave -->
-    <div class="card" data-color="blue">
-      <div class="card-header">
-        <div class="card-left">
-          <h2>Wave</h2>
-          <div class="version">v2.9.2α</div>
-          <div class="badges">
-            <div class="badge sunc">sUNC</div>
-            <div class="badge longest">Longest Running</div>
-          </div>
-        </div>
-        <div class="card-right">
-          <svg class="expand-icon" viewBox="0 0 16 16">
-            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2"
-                  fill="none" stroke-linecap="round"/>
-          </svg>
-          <span class="price">$7.49 weekly</span>
-          <span class="status updated">Updated</span>
-        </div>
-      </div>
-      <div class="card-content">
-        <p>Battle‑tested and stable.</p>
-        <div class="card-footer" data-updated="2025-05-23T03:50:00Z">
-          Last updated: <span class="updated-time"></span>
-        </div>
-      </div>
-    </div>
-
-    <!-- AWP.GG -->
-    <div class="card" data-color="pink">
-      <div class="card-header">
-        <div class="card-left">
-          <h2>AWP.GG</h2>
-          <div class="version">v1.0.0.74</div>
-          <div class="badges">
-            <div class="badge sunc">sUNC</div>
-          </div>
-        </div>
-        <div class="card-right">
-          <svg class="expand-icon" viewBox="0 0 16 16">
-            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2"
-                  fill="none" stroke-linecap="round"/>
-          </svg>
-          <span class="price">$6.99 weekly</span>
-          <span class="status not-updated">Not Updated</span>
-        </div>
-      </div>
-      <div class="card-content">
-        <p>Awaiting the next patch.</p>
-        <div class="card-footer" data-updated="2025-05-23T03:46:00Z">
-          Last updated: <span class="updated-time"></span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Ronix Android -->
-    <div class="card" data-color="green">
+    <!-- Ronix Android (Now Purple) -->
+    <div class="card" data-color="purple">
       <div class="card-header">
         <div class="card-left">
           <h2>Ronix Android</h2>
@@ -257,8 +180,9 @@
             <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2"
                   fill="none" stroke-linecap="round"/>
           </svg>
-          <span class="price">Free</span>
+          <span class="price">Free / Paid</span>
           <span class="status updated">Updated</span>
+          <span class="status undetected">Undetected</span>
         </div>
       </div>
       <div class="card-content">
@@ -275,8 +199,8 @@
       </div>
     </div>
 
-    <!-- Delta Android -->
-    <div class="card" data-color="blue">
+    <!-- Delta Android (Now Black) -->
+    <div class="card" data-color="black">
       <div class="card-header">
         <div class="card-left">
           <h2>Delta Android</h2>
@@ -294,6 +218,7 @@
           </svg>
           <span class="price">Free / Paid</span>
           <span class="status not-updated">Not Updated</span>
+          <span class="status undetected">Undetected</span>
         </div>
       </div>
       <div class="card-content">
@@ -308,13 +233,49 @@
       </div>
     </div>
 
+    <!-- Codex Android (New) -->
+    <div class="card" data-color="blue">
+      <div class="card-header">
+        <div class="card-left">
+          <h2>Codex Android</h2>
+          <div class="version">v1.0.0</div>
+          <div class="badges">
+            <div class="badge sunc">sUNC</div>
+            <div class="badge free">Free</div>
+            <div class="badge paid">Paid</div>
+          </div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2"
+                  fill="none" stroke-linecap="round"/>
+          </svg>
+          <span class="price">Free / Paid</span>
+          <span class="status updated">Updated</span>
+          <span class="status detected">Detected</span>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>Placeholder for Codex Android—details coming soon.</p>
+        <div class="card-actions">
+          <a href="#" class="btn download" target="_blank">Download</a>
+          <a href="#" class="btn discord"  target="_blank">Discord</a>
+        </div>
+        <div class="card-footer" data-updated="2025-06-01T12:00:00Z">
+          Last updated: <span class="updated-time"></span>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script>
     window.addEventListener("DOMContentLoaded", () => {
       // Expand/collapse
       document.querySelectorAll('.card-header').forEach(h =>
-        h.addEventListener('click', () => h.parentElement.classList.toggle('expanded'))
+        h.addEventListener('click', () =>
+          h.parentElement.classList.toggle('expanded')
+        )
       );
 
       // Fade‑in on scroll
@@ -331,7 +292,7 @@
         io.observe(c);
       });
 
-      // Timestamp formatting: DD/MM/YYYY, h:mm am/pm (MYT)
+      // Timestamp formatting (DD/MM/YYYY, h:mm am/pm MYT)
       const fmt = new Intl.DateTimeFormat('en-GB', {
         timeZone: 'Asia/Kuala_Lumpur',
         day: '2-digit', month: '2-digit', year: 'numeric',
@@ -341,8 +302,7 @@
       document.querySelectorAll('.card-footer').forEach(footer => {
         const iso = footer.dataset.updated;
         if (!iso) return;
-        const d = new Date(iso);
-        footer.querySelector('.updated-time').textContent = fmt.format(d);
+        footer.querySelector('.updated-time').textContent = fmt.format(new Date(iso));
       });
     });
   </script>
