@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RENDEX Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="dark-mode">
+    <div class="loader">
+        <img src="logo.png" alt="RENDEX Logo" class="logo-load">
+        <p>Initializing core systems...</p>
+    </div>
+    <header>
+        <img src="logo.png" alt="RENDEX" class="logo">
+        <div class="toggle-theme">
+            <img id="theme-icon" src="dark_light_icon.png" alt="Toggle Theme">
+        </div>
+    </header>
+    <main>
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Search exploits...">
+        </div>
+        <div class="card" onclick="toggleDetails(this)">
+            <div class="card-header">
+                <h2>Ronix</h2><span class="badge updated">Detected</span>
+            </div>
+            <p>Last updated: 05/27/2025</p>
+            <div class="badges">
+                <span class="badge">Android</span>
+                <span class="badge free">Free</span>
+            </div>
+            <div class="card-details">
+                <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file" target="_blank">Download</a>
+                <a href="https://discord.gg/ronix" target="_blank">Discord</a>
+                <span>Roblox Version: 2.673.713</span>
+                <span>Ronix Version: 10.52</span>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
