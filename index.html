@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Exploit Cards with UTC & MYT</title>
+  <title>Exploit Cards with Local Timestamp</title>
   <style>
     /* — Reset & Base — */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -53,14 +53,8 @@
       padding: 1rem;
       cursor: pointer;
     }
-    .card-left {
-      display: flex;
-      align-items: baseline;
-      gap: 0.5rem;
-    }
-    .card-left h2 {
-      font-size: 1.25rem;
-    }
+    .card-left { display: flex; align-items: baseline; gap: 0.5rem; }
+    .card-left h2 { font-size: 1.25rem; }
     .version {
       background: #2a2a2a;
       padding: 0.3rem 0.6rem;
@@ -68,10 +62,7 @@
       font-size: 0.9rem;
       color: #aaa;
     }
-    .badges {
-      display: flex;
-      gap: 0.4rem;
-    }
+    .badges { display: flex; gap: 0.4rem; }
     .badge {
       font-size: 0.75rem;
       padding: 0.3rem 0.6rem;
@@ -156,7 +147,9 @@
         </div>
         <div class="card-right">
           <svg class="expand-icon" viewBox="0 0 16 16">
-            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M6 4l4 4-4 4"
+                  stroke="currentColor" stroke-width="2"
+                  fill="none" stroke-linecap="round"/>
           </svg>
           <span class="price">$6.49 weekly</span>
           <span class="status updated">Updated</span>
@@ -183,7 +176,9 @@
         </div>
         <div class="card-right">
           <svg class="expand-icon" viewBox="0 0 16 16">
-            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M6 4l4 4-4 4"
+                  stroke="currentColor" stroke-width="2"
+                  fill="none" stroke-linecap="round"/>
           </svg>
           <span class="price">$7.49 weekly</span>
           <span class="status updated">Updated</span>
@@ -209,7 +204,9 @@
         </div>
         <div class="card-right">
           <svg class="expand-icon" viewBox="0 0 16 16">
-            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M6 4l4 4-4 4"
+                  stroke="currentColor" stroke-width="2"
+                  fill="none" stroke-linecap="round"/>
           </svg>
           <span class="price">$6.99 weekly</span>
           <span class="status not-updated">Not Updated</span>
@@ -236,7 +233,9 @@
         </div>
         <div class="card-right">
           <svg class="expand-icon" viewBox="0 0 16 16">
-            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M6 4l4 4-4 4"
+                  stroke="currentColor" stroke-width="2"
+                  fill="none" stroke-linecap="round"/>
           </svg>
           <span class="price">Free</span>
           <span class="status updated">Updated</span>
@@ -252,17 +251,15 @@
   </div>
 
   <script>
-    // 1) Expand/collapse
-    document.querySelectorAll('.card-header').forEach(header => {
-      header.addEventListener('click', () => {
-        header.parentElement.classList.toggle('expanded');
-      });
+    // Expand/collapse
+    document.querySelectorAll('.card-header').forEach(h => {
+      h.addEventListener('click', () => h.parentElement.classList.toggle('expanded'));
     });
 
     document.addEventListener("DOMContentLoaded", () => {
-      // 2) Fade‑in on scroll
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
+      // Fade‑in on scroll
+      const io = new IntersectionObserver((ents) => {
+        ents.forEach(e => {
           if (e.isIntersecting) {
             e.target.style.animationPlayState = 'running';
             io.unobserve(e.target);
@@ -274,28 +271,27 @@
         io.observe(c);
       });
 
-      // 3) Populate UTC & MYT times
+      // Format each footer’s timestamp as "DD/MM/YYYY, h:mm am/pm"
       document.querySelectorAll('.card-footer').forEach(footer => {
         const iso = footer.getAttribute('data-updated');
         if (!iso) return;
-        const d = new Date(iso);
+        // parse into JS date, then convert to Malaysia time
+        const dUTC = new Date(iso);
+        const local = new Date(
+          dUTC.toLocaleString("en-US", { timeZone: "Asia/Kuala_Lumpur" })
+        );
 
-        const utcFmt = new Intl.DateTimeFormat('en-GB', {
-          timeZone: 'UTC',
-          year: 'numeric', month: '2-digit', day: '2-digit',
-          hour: '2-digit', minute: '2-digit',
-          hour12: false,
-        }).format(d) + ' UTC';
-
-        const mytFmt = new Intl.DateTimeFormat('en-GB', {
-          timeZone: 'Asia/Kuala_Lumpur',
-          year: 'numeric', month: '2-digit', day: '2-digit',
-          hour: '2-digit', minute: '2-digit',
-          hour12: false,
-        }).format(d) + ' MYT';
+        const pad = n => n.toString().padStart(2, '0');
+        const day   = pad(local.getDate());
+        const month = pad(local.getMonth()+1);
+        const year  = local.getFullYear();
+        let   hr    = local.getHours();
+        const min   = pad(local.getMinutes());
+        const ampm  = hr >= 12 ? 'pm' : 'am';
+        hr = hr % 12 || 12;
 
         footer.querySelector('.updated-time').textContent =
-          `${utcFmt} / ${mytFmt}`;
+          `${day}/${month}/${year}, ${hr}:${min} ${ampm}`;
       });
     });
   </script>
