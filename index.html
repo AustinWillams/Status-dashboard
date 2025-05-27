@@ -1,233 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rendex - Script Executions</title>
+  <meta charset="UTF-8">
+  <title>Rendex - Script Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    :root {
+      --bg-dark: #121212;
+      --bg-light: #f5f5f5;
+      --card-dark: #1e1e1e;
+      --card-light: #ffffff;
+      --text-dark: #f5f5f5;
+      --text-light: #1e1e1e;
+      --green: #2ecc71;
+      --red: #e74c3c;
+      --blue: #3498db;
+      --pink: #ff5ea2;
+      --gray: #7f8c8d;
+    }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #121212;
-      color: white;
       margin: 0;
-      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
     }
 
     header {
       display: flex;
       align-items: center;
+      gap: 10px;
       padding: 20px;
-      background-color: #1e1e1e;
-      border-bottom: 2px solid #282828;
     }
 
-    .logo {
+    header img {
       width: 50px;
       height: 50px;
-      margin-right: 15px;
+      border-radius: 10px;
     }
 
-    .title {
-      font-size: 2rem;
-      font-weight: bold;
+    h1 {
+      font-size: 30px;
+      margin: 0;
     }
 
     .container {
       max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
+      margin: auto;
+      padding: 20px;
     }
 
-    .search-bar {
-      margin-bottom: 20px;
+    .search-mode {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
+      margin-bottom: 20px;
     }
 
-    .search-bar input {
-      flex: 1;
+    input[type="text"] {
+      width: 70%;
       padding: 10px;
-      border-radius: 8px;
       border: none;
-      font-size: 1rem;
-      background-color: #1f1f1f;
-      color: white;
+      border-radius: 8px;
+      font-size: 16px;
     }
 
     .toggle-mode {
-      cursor: pointer;
       padding: 10px 15px;
-      background-color: #282828;
       border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: var(--blue);
       color: white;
     }
 
     .card {
-      background-color: #1a1a1a;
-      margin-bottom: 20px;
+      background: var(--card-dark);
       border-radius: 12px;
-      overflow: hidden;
+      margin: 15px 0;
+      padding: 15px;
       transition: all 0.3s ease;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    body.light .card {
+      background: var(--card-light);
     }
 
     .card-header {
-      padding: 15px 20px;
-      cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #222;
-    }
-
-    .card-header:hover {
-      background-color: #2a2a2a;
+      cursor: pointer;
     }
 
     .card-title {
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: var(--gray);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+    }
+
+    .tag.green { background: var(--green); }
+    .tag.red { background: var(--red); }
+    .tag.blue { background: var(--blue); }
+    .tag.pink { background: var(--pink); }
+
+    .card-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .card.open .card-content {
+      max-height: 400px;
+      margin-top: 15px;
     }
 
     .arrow {
       transition: transform 0.3s ease;
     }
 
-    .arrow.rotate {
+    .card.open .arrow {
       transform: rotate(90deg);
-    }
-
-    .card-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease, padding 0.3s ease;
-      padding: 0 20px;
-    }
-
-    .card-content.open {
-      padding: 15px 20px;
-      max-height: 300px;
-    }
-
-    .tags {
-      margin-top: 10px;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 8px;
-      background-color: #444;
-      color: white;
-      font-size: 0.75rem;
-      margin-right: 5px;
-    }
-
-    .light-mode {
-      background-color: #f2f2f2;
-      color: black;
-    }
-
-    .light-mode .card {
-      background-color: white;
-      color: black;
-    }
-
-    .light-mode .card-header {
-      background-color: #f0f0f0;
-    }
-
-    .light-mode .card-header:hover {
-      background-color: #e0e0e0;
-    }
-
-    .light-mode .search-bar input {
-      background-color: #ddd;
-      color: black;
-    }
-
-    .light-mode .toggle-mode {
-      background-color: #ccc;
-      color: black;
-    }
-
-    .light-mode .tag {
-      background-color: #888;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="https://i.imgur.com/YyO9R5A.png" alt="Logo" class="logo" />
-    <div class="title">Rendex</div>
+    <img src="https://cdn.discordapp.com/attachments/1102912442498748456/1244345791867981884/A_2D_digital_design_of_a_webpage_for_a_script_exec.png?ex=6655d389&is=66548109&hm=0586ec1acb348e7f6b0c5050b4219185b46a61e7389c17d2b4e5dfbb4baf8a3e&" alt="Rendex Logo">
+    <h1>Rendex</h1>
   </header>
 
   <div class="container">
-    <div class="search-bar">
-      <input type="text" id="search" placeholder="Search executors..." />
-      <div class="toggle-mode" onclick="toggleTheme()">Toggle Theme</div>
+    <div class="search-mode">
+      <input type="text" id="search" placeholder="Search executors...">
+      <button class="toggle-mode" onclick="toggleMode()">Toggle Theme</button>
     </div>
 
-    <div class="card" data-title="Ronix Android" data-tags="android,free,paid">
+    <!-- CARD TEMPLATE -->
+    <div class="card" data-name="Ronix Android">
       <div class="card-header" onclick="toggleCard(this)">
-        <span class="card-title">Ronix Android</span>
-        <span class="arrow">▶</span>
+        <div class="card-title">Ronix Android</div>
+        <div class="tags">
+          <span class="tag green">Free</span>
+          <span class="tag red">Paid</span>
+          <span class="tag blue">Android</span>
+        </div>
+        <div class="arrow">▶</div>
       </div>
       <div class="card-content">
-        <p>Ronix Android executor supports both free and premium plans. Works on most Android devices with strong script execution and UI.</p>
-        <div class="tags">
-          <span class="tag">Free</span>
-          <span class="tag">Paid</span>
-          <span class="tag">Android</span>
-        </div>
+        <p>Ronix Android is a hybrid script hub executor available for Android users. It supports free and premium features.</p>
       </div>
     </div>
 
-    <!-- Add more cards here -->
+    <!-- Add more cards below as needed -->
   </div>
 
   <script>
-    const cards = document.querySelectorAll(".card");
-    const search = document.getElementById("search");
-
     function toggleCard(header) {
-      cards.forEach((card) => {
-        const content = card.querySelector(".card-content");
-        const arrow = card.querySelector(".arrow");
-        if (card.querySelector(".card-header") !== header) {
-          content.classList.remove("open");
-          arrow.classList.remove("rotate");
-        }
-      });
-
-      const content = header.nextElementSibling;
-      const arrow = header.querySelector(".arrow");
-      content.classList.toggle("open");
-      arrow.classList.toggle("rotate");
+      const card = header.closest('.card');
+      const openCard = document.querySelector('.card.open');
+      if (openCard && openCard !== card) openCard.classList.remove('open');
+      card.classList.toggle('open');
     }
 
-    document.addEventListener("click", function (e) {
-      if (!e.target.closest(".card")) {
-        cards.forEach((card) => {
-          card.querySelector(".card-content").classList.remove("open");
-          card.querySelector(".arrow").classList.remove("rotate");
-        });
+    window.addEventListener('click', function(e) {
+      if (!e.target.closest('.card')) {
+        document.querySelectorAll('.card.open').forEach(card => card.classList.remove('open'));
       }
     });
 
-    function toggleTheme() {
-      document.body.classList.toggle("light-mode");
+    function toggleMode() {
+      document.body.classList.toggle('light');
     }
 
-    search.addEventListener("input", () => {
-      const val = search.value.toLowerCase();
-      cards.forEach((card) => {
-        const title = card.dataset.title.toLowerCase();
-        const tags = card.dataset.tags.toLowerCase();
-        card.style.display = title.includes(val) || tags.includes(val)
-          ? "block"
-          : "none";
+    document.getElementById("search").addEventListener("input", function () {
+      const query = this.value.toLowerCase();
+      document.querySelectorAll(".card").forEach(card => {
+        const name = card.getAttribute("data-name").toLowerCase();
+        card.style.display = name.includes(query) ? "block" : "none";
       });
     });
   </script>
