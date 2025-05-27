@@ -2,252 +2,212 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>RENDEX</title>
+  <title>Exploit List UI</title>
   <style>
-    :root {
-      --bg: #0d0d0d;
-      --fg: #ffffff;
-      --card: #111111;
-      --text-light: #cccccc;
-      --accent: #8b5cf6;
-      --button: #374151;
-      --updated: #4ade80;
-      --outdated: #f87171;
-      --paid: #7e22ce;
-      --free: #10b981;
-      --tag: #1f2937;
-    }
-    [data-theme="light"] {
-      --bg: #ffffff;
-      --fg: #000000;
-      --card: #f3f4f6;
-      --text-light: #4b5563;
-      --button: #d1d5db;
-      --accent: #7c3aed;
-      --updated: #16a34a;
-      --outdated: #dc2626;
-      --paid: #9333ea;
-      --free: #059669;
-      --tag: #e5e7eb;
-    }
+    /* --- Root & Reset --- */
+    *, *::before, *::after { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg);
-      color: var(--fg);
-      transition: background-color 0.3s, color 0.3s;
-    }
-    header {
-      text-align: center;
-      padding: 2rem;
-    }
-    .logo {
+      font-family: "Inter", sans-serif;
+      background: #121212;
+      color: #e0e0e0;
       display: flex;
       justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: var(--accent);
-    }
-    .logo img {
-      height: 48px;
-    }
-    .logo span {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-    }
-    .logo span .e {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      border-top: 2px solid var(--accent);
-      border-bottom: 2px solid var(--accent);
-      position: relative;
-    }
-    .logo span .e::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      width: 100%;
-      height: 2px;
-      background: var(--accent);
-      transform: translateY(-50%);
+      padding: 2rem;
     }
 
-    .controls {
+    /* --- Container --- */
+    .cards {
+      max-width: 800px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* --- Card Base --- */
+    .card {
+      position: relative;
+      padding: 1rem;
+      border: 2px solid transparent;
+      border-radius: 0.5rem;
+      background: #1e1e1e;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+    }
+    /* staggered delays */
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+
+    /* gradient border via border-image */
+    .card[data-color="pink"] {
+      border-image: linear-gradient(135deg, #ff1cae, #ff5d4a) 1;
+    }
+    .card[data-color="blue"] {
+      border-image: linear-gradient(135deg, #1fa2ff, #12d8fa) 1;
+    }
+    .card[data-color="green"] {
+      border-image: linear-gradient(135deg, #00b09b, #96c93d) 1;
+    }
+
+    /* --- Layout Rows --- */
+    .card-header {
       display: flex;
       justify-content: space-between;
-      padding: 0 1rem;
-      margin-bottom: 1rem;
+      align-items: center;
     }
-
-    .search {
-      flex-grow: 1;
-      margin-right: 1rem;
-      padding: 0.5rem;
-      border: none;
-      border-radius: 5px;
-      background: var(--card);
-      color: var(--fg);
-    }
-
-    .toggle-mode {
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      background: var(--button);
-      color: var(--fg);
-      border: none;
-      cursor: pointer;
-    }
-
-    .card {
-      background: var(--card);
-      margin: 0.75rem 1rem;
-      padding: 1rem;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .card-content {
-      display: none;
-      margin-top: 0.5rem;
-      color: var(--text-light);
-    }
-
-    .card.open .card-content {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .tags {
-      margin-top: 0.5rem;
+    .card-left {
       display: flex;
+      align-items: baseline;
       gap: 0.5rem;
-      flex-wrap: wrap;
+    }
+    .card-left h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    .card-left .version {
+      background: #2a2a2a;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.9rem;
+      color: #aaa;
     }
 
-    .tag {
-      background: var(--tag);
-      padding: 0.25rem 0.5rem;
-      border-radius: 5px;
-      font-size: 0.8rem;
-    }
-
-    .updated { background: var(--updated); color: #000; }
-    .outdated { background: var(--outdated); color: #fff; }
-
-    .action-buttons {
-      margin-top: 0.5rem;
+    .badges {
       display: flex;
-      gap: 1rem;
+      gap: 0.4rem;
+    }
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.25rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge.sunc    { background: #333; color: #ddd; }
+    .badge.reco   { background: #ff1cae; color: #fff; }
+    .badge.longest { background: #1fa2ff; color: #fff; }
+    .badge.free   { background: #0f8;    color: #000; }
+
+    .price {
+      background: #0066ff;
+      color: #fff;
+      font-size: 0.9rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 0.25rem;
+      margin-left: 0.5rem;
     }
 
-    .action-buttons a {
-      padding: 0.5rem 1rem;
-      background: var(--accent);
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
+    .status {
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.25rem;
+    }
+    .status.updated    { background: #0c0; color: #fff; }
+    .status.not-updated{ background: #c00; color: #fff; }
+
+    .card-footer {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: #888;
     }
 
-    .arrow {
-      position: absolute;
-      right: 1rem;
-      top: 1rem;
-      transition: transform 0.3s;
-    }
-
-    .card.open .arrow {
-      transform: rotate(90deg);
+    /* --- Fade In Up Animation --- */
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
-<body data-theme="dark">
-  <header>
-    <div class="logo">
-      <img src="https://i.imgur.com/hTg3HXO.png" alt="R logo">
-      <span>R<span class="e"></span>ND<span class="e"></span>X</span>
-    </div>
-  </header>
+<body>
 
-  <div class="controls">
-    <input type="text" class="search" id="search" placeholder="Search executors...">
-    <button class="toggle-mode" onclick="toggleMode()">Toggle mode</button>
-  </div>
-
-  <div id="cards-container">
-    <!-- Example Card -->
-    <div class="card" onclick="toggleCard(this)">
-      <div><strong>Ronix Android</strong> <span class="arrow">▶</span></div>
-      <div class="tags">
-        <div class="tag" style="background: var(--free);">Free</div>
-        <div class="tag" style="background: var(--paid);">Paid</div>
-        <div class="tag">Android</div>
-      </div>
-      <div class="card-content">
-        Last updated: 05/27/2025<br>
-        <div class="action-buttons">
-          <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file" target="_blank">Download</a>
-          <a href="https://discord.gg/ronix" target="_blank">Discord</a>
+  <div class="cards">
+    <div class="card" data-color="pink">
+      <div class="card-header">
+        <div class="card-left">
+          <h2>Zenith</h2>
+          <div class="version">v1.9.3</div>
+          <div class="badges">
+            <div class="badge sunc">sUNC</div>
+            <div class="badge reco">Recommended</div>
+          </div>
         </div>
-        <span class="tag updated">Updated</span>
+        <div class="card-right">
+          <span class="price">$6.49 weekly</span>
+          <span class="status updated">Updated</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        Last updated: 05/22/2025 at 8:09 PM UTC
       </div>
     </div>
 
-    <div class="card" onclick="toggleCard(this)">
-      <div><strong>Delta Android</strong> <span class="arrow">▶</span></div>
-      <div class="tags">
-        <div class="tag" style="background: var(--free);">Free</div>
-        <div class="tag" style="background: var(--paid);">Paid</div>
-        <div class="tag">Android</div>
-      </div>
-      <div class="card-content">
-        Last updated: 05/27/2025<br>
-        <div class="action-buttons">
-          <a href="#" onclick="alert('Delta Android Download Coming Soon')">Download</a>
-          <a href="https://discord.gg/ronix" target="_blank">Discord</a>
+    <div class="card" data-color="blue">
+      <div class="card-header">
+        <div class="card-left">
+          <h2>Wave</h2>
+          <div class="version">v2.9.2α</div>
+          <div class="badges">
+            <div class="badge sunc">sUNC</div>
+            <div class="badge longest">Longest Running</div>
+          </div>
         </div>
-        <span class="tag updated">Updated</span>
+        <div class="card-right">
+          <span class="price">$7.49 weekly</span>
+          <span class="status updated">Updated</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        Last updated: 05/23/2025 at 3:50 AM UTC
       </div>
     </div>
+
+    <div class="card" data-color="pink">
+      <div class="card-header">
+        <div class="card-left">
+          <h2>AWP.GG</h2>
+          <div class="version">v1.0.0.74</div>
+          <div class="badges">
+            <div class="badge sunc">sUNC</div>
+          </div>
+        </div>
+        <div class="card-right">
+          <span class="price">$6.99 weekly</span>
+          <span class="status not-updated">Not Updated</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        Last updated: 05/23/2025 at 3:46 AM UTC
+      </div>
+    </div>
+
+    <!-- Repeat more cards as needed -->
   </div>
 
   <script>
-    const toggleMode = () => {
-      const body = document.body;
-      body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-    }
-
-    const toggleCard = (el) => {
-      document.querySelectorAll('.card').forEach(card => {
-        if (card !== el) card.classList.remove('open');
-      });
-      el.classList.toggle('open');
-    }
-
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.card')) {
-        document.querySelectorAll('.card').forEach(c => c.classList.remove('open'));
-      }
-    });
-
-    const searchInput = document.getElementById("search");
-    searchInput.addEventListener("input", () => {
-      const val = searchInput.value.toLowerCase();
-      document.querySelectorAll('.card').forEach(card => {
-        const title = card.querySelector('strong').textContent.toLowerCase();
-        card.style.display = title.includes(val) ? "" : "none";
+    // If you want cards to animate only when scrolled into view:
+    document.addEventListener("DOMContentLoaded", () => {
+      const cards = document.querySelectorAll('.card');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.style.animationPlayState = 'running';
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      cards.forEach(c => {
+        c.style.animationPlayState = 'paused';
+        io.observe(c);
       });
     });
   </script>
+
 </body>
 </html>
