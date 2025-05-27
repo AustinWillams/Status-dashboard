@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Exploit Cards</title>
+  <style>
+    :root {
+      --bg-light: #f5f5f5;
+      --bg-dark: #1e1e1e;
+      --card-light: #ffffff;
+      --card-dark: #2a2a2a;
+      --text-light: #000000;
+      --text-dark: #ffffff;
+      --accent: #3b82f6;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .search {
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      width: 60%;
+      font-size: 1rem;
+    }
+
+    .toggle-mode {
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    .card {
+      background-color: var(--card-dark);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transition: background-color 0.3s, max-height 0.5s ease-in-out;
+      overflow: hidden;
+      max-height: 80px;
+      cursor: pointer;
+    }
+
+    .card.open {
+      max-height: 300px;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .info {
+      margin-top: 10px;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card.open .info {
+      display: block;
+      opacity: 1;
+    }
+
+    .buttons {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    body.light {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    body.light .card {
+      background-color: var(--card-light);
+    }
+
+    body.light .btn, body.light .toggle-mode {
+      background: #3b82f6;
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <input type="text" class="search" placeholder="Search exploits..." oninput="searchCards(this.value)">
+      <button class="toggle-mode" onclick="toggleMode()">Toggle Mode</button>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <h3>Zenith</h3>
+      <div class="info">
+        <p>Updated: 05/22/2025 8:09 PM UTC</p>
+        <div class="buttons">
+          <button class="btn">Website</button>
+          <button class="btn">Discord</button>
+          <button class="btn">Purchase</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <h3>Wave</h3>
+      <div class="info">
+        <p>Updated: 05/23/2025 3:50 AM UTC</p>
+        <div class="buttons">
+          <button class="btn">Website</button>
+          <button class="btn">Discord</button>
+          <button class="btn">Purchase</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <h3>AWP.GG</h3>
+      <div class="info">
+        <p>Updated: 05/23/2025 3:46 AM UTC</p>
+        <div class="buttons">
+          <button class="btn">Website</button>
+          <button class="btn">Discord</button>
+          <button class="btn">Purchase</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleCard(card) {
+      card.classList.toggle("open");
+    }
+
+    function toggleMode() {
+      document.body.classList.toggle("light");
+    }
+
+    function searchCards(query) {
+      query = query.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        card.style.display = title.includes(query) ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
