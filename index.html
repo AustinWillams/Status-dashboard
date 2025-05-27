@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Exploit Cards with Download & Discord</title>
+  <title>Exploit Cards with Working Timestamps</title>
   <style>
     /* — Reset & Base — */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box‑sizing: border‑box; margin: 0; padding: 0; }
     body {
       font-family: "Inter", sans-serif;
       background: #121212;
@@ -40,6 +40,7 @@
     .card:nth-of-type(2) { animation-delay: 0.2s; }
     .card:nth-of-type(3) { animation-delay: 0.3s; }
     .card:nth-of-type(4) { animation-delay: 0.4s; }
+    .card:nth-of-type(5) { animation-delay: 0.5s; }
 
     .card[data-color="pink"]  { border-image: linear-gradient(135deg, #ff1cae, #ff5d4a) 1; }
     .card[data-color="blue"]  { border-image: linear-gradient(135deg, #1fa2ff, #12d8fa) 1; }
@@ -75,6 +76,7 @@
     .badge.reco    { background: #ff1cae; color: #fff; }
     .badge.longest { background: #1fa2ff; color: #fff; }
     .badge.free    { background: #0f8;     color: #000; }
+    .badge.paid    { background: #f90;     color: #000; }
     .badge.beta    { background: #ffa500; color: #000; }
 
     .card-right {
@@ -127,9 +129,9 @@
       margin-top: 0.75rem;
     }
 
-    /* — Buttons for Ronix Android — */
+    /* — Ronix Android Buttons — */
     .card-actions {
-      margin-top: 0.75rem;
+      margin: 0.75rem 0;
     }
     .btn {
       display: inline-block;
@@ -138,13 +140,13 @@
       font-weight: 600;
       padding: 0.4rem 0.8rem;
       border-radius: 0.75rem;
-      transition: background 0.2s;
       margin-right: 0.5rem;
+      transition: background 0.2s;
     }
     .btn.download { background: #00b09b; color: #fff; }
     .btn.download:hover { background: #07856b; }
-    .btn.discord { background: #5865F2; color: #fff; }
-    .btn.discord:hover { background: #4752C4; }
+    .btn.discord  { background: #5865F2; color: #fff; }
+    .btn.discord:hover  { background: #4752C4; }
 
     @keyframes fadeInUp {
       to { opacity: 1; transform: translateY(0); }
@@ -154,6 +156,7 @@
 <body>
 
   <div class="cards">
+
     <!-- Zenith -->
     <div class="card" data-color="pink">
       <div class="card-header">
@@ -246,6 +249,7 @@
           <div class="badges">
             <div class="badge sunc">sUNC</div>
             <div class="badge free">Free</div>
+            <div class="badge paid">Paid</div>
           </div>
         </div>
         <div class="card-right">
@@ -259,16 +263,46 @@
       </div>
       <div class="card-content">
         <p>Android‑specific build—lightweight but may still have bugs.</p>
-
-        <!-- ← NEW BUTTONS -->
         <div class="card-actions">
           <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file"
              class="btn download" target="_blank">Download</a>
           <a href="https://discord.gg/ronix"
-             class="btn discord" target="_blank">Discord</a>
+             class="btn discord"  target="_blank">Discord</a>
         </div>
-
         <div class="card-footer" data-updated="2025-05-24T13:15:00Z">
+          Last updated: <span class="updated-time"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delta Android -->
+    <div class="card" data-color="blue">
+      <div class="card-header">
+        <div class="card-left">
+          <h2>Delta Android</h2>
+          <div class="version">vX.Y.Z</div>
+          <div class="badges">
+            <div class="badge sunc">sUNC</div>
+            <div class="badge free">Free</div>
+            <div class="badge paid">Paid</div>
+          </div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2"
+                  fill="none" stroke-linecap="round"/>
+          </svg>
+          <span class="price">Free / Paid</span>
+          <span class="status not-updated">Not Updated</span>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>Placeholder description—update with real details.</p>
+        <div class="card-actions">
+          <a href="#" class="btn download" target="_blank">Download</a>
+          <a href="#" class="btn discord"  target="_blank">Discord</a>
+        </div>
+        <div class="card-footer" data-updated="2025-05-27T00:00:00Z">
           Last updated: <span class="updated-time"></span>
         </div>
       </div>
@@ -277,15 +311,15 @@
   </div>
 
   <script>
-    // 1) Expand/collapse
-    document.querySelectorAll('.card-header').forEach(h => {
-      h.addEventListener('click', () => h.parentElement.classList.toggle('expanded'));
-    });
+    window.addEventListener("DOMContentLoaded", () => {
+      // Expand/collapse
+      document.querySelectorAll('.card-header').forEach(h =>
+        h.addEventListener('click', () => h.parentElement.classList.toggle('expanded'))
+      );
 
-    document.addEventListener("DOMContentLoaded", () => {
-      // 2) Fade‑in on scroll
-      const io = new IntersectionObserver((ents) => {
-        ents.forEach(e => {
+      // Fade‑in on scroll
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
           if (e.isIntersecting) {
             e.target.style.animationPlayState = 'running';
             io.unobserve(e.target);
@@ -297,25 +331,18 @@
         io.observe(c);
       });
 
-      // 3) Format each footer’s timestamp as "DD/MM/YYYY, h:mm am/pm" MYT
+      // Timestamp formatting: DD/MM/YYYY, h:mm am/pm (MYT)
+      const fmt = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Kuala_Lumpur',
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: 'numeric', minute: '2-digit',
+        hour12: true
+      });
       document.querySelectorAll('.card-footer').forEach(footer => {
-        const iso = footer.getAttribute('data-updated');
+        const iso = footer.dataset.updated;
         if (!iso) return;
-        const dUTC = new Date(iso);
-        const local = new Date(
-          dUTC.toLocaleString("en-US", { timeZone: "Asia/Kuala_Lumpur" })
-        );
-        const pad = n => n.toString().padStart(2, '0');
-        const day   = pad(local.getDate());
-        const month = pad(local.getMonth()+1);
-        const year  = local.getFullYear();
-        let   hr    = local.getHours();
-        const min   = pad(local.getMinutes());
-        const ampm  = hr >= 12 ? 'pm' : 'am';
-        hr = hr % 12 || 12;
-
-        footer.querySelector('.updated-time').textContent =
-          `${day}/${month}/${year}, ${hr}:${min} ${ampm}`;
+        const d = new Date(iso);
+        footer.querySelector('.updated-time').textContent = fmt.format(d);
       });
     });
   </script>
