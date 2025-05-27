@@ -2,23 +2,82 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Exploit Cards – Custom Colors & Codex</title>
+  <title>Executor Dashboard</title>
   <style>
-    /* — Reset & Base — */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: "Inter", sans-serif;
-      background: #121212;
-      color: #e0e0e0;
-      display: flex;
-      justify-content: center;
-      padding: 2rem;
+    /* — CSS Variables for Theming — */
+    :root {
+      --bg: #121212;
+      --fg: #e0e0e0;
+      --card-bg: #1e1e1e;
+      --card-fg: #e0e0e0;
+      --input-bg: #2a2a2a;
+      --input-fg: #e0e0e0;
+      --btn-bg: #0066ff;
+      --btn-fg: #fff;
+    }
+    [data-theme="light"] {
+      --bg: #f5f5f5;
+      --fg: #222;
+      --card-bg: #fff;
+      --card-fg: #222;
+      --input-bg: #eee;
+      --input-fg: #222;
+      --btn-bg: #0066ff;
+      --btn-fg: #fff;
     }
 
-    /* — Container — */
+    /* — Base & Reset — */
+    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      transition: background .3s, color .3s;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* — Header Placeholder — */
+    .header {
+      width: 100%; max-width: 800px;
+      margin-bottom: 1rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo-placeholder, .title-placeholder {
+      background: var(--input-bg);
+      color: var(--input-fg);
+      padding: .5rem 1rem;
+      border-radius: .5rem;
+    }
+
+    /* — Controls — */
+    .controls {
+      width: 100%; max-width: 800px;
+      display: flex; gap: 1rem; margin-bottom: 1rem;
+    }
+    .controls input {
+      flex: 1;
+      padding: .5rem 1rem;
+      border: none;
+      border-radius: .5rem;
+      background: var(--input-bg);
+      color: var(--input-fg);
+    }
+    .controls button {
+      padding: .5rem 1rem;
+      border: none;
+      border-radius: .5rem;
+      background: var(--btn-bg);
+      color: var(--btn-fg);
+      cursor: pointer;
+    }
+
+    /* — Card Container — */
     .cards {
-      max-width: 800px;
-      width: 100%;
+      width: 100%; max-width: 800px;
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -26,57 +85,52 @@
 
     /* — Card Base — */
     .card {
-      background: #1e1e1e;
+      background: var(--card-bg);
+      color: var(--card-fg);
       border: 2px solid transparent;
-      border-radius: 0.75rem;
+      border-radius: .75rem;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       opacity: 0;
       transform: translateY(20px);
-      animation: fadeInUp 0.6s forwards;
+      animation: fadeInUp .6s forwards;
     }
-    .card:nth-of-type(1) { animation-delay: 0.1s; }
-    .card:nth-of-type(2) { animation-delay: 0.2s; }
-    .card:nth-of-type(3) { animation-delay: 0.3s; }
-    .card:nth-of-type(4) { animation-delay: 0.4s; }
-    .card:nth-of-type(5) { animation-delay: 0.5s; }
-    .card:nth-of-type(6) { animation-delay: 0.6s; }
+    .card:nth-of-type(odd)   { animation-delay: .1s; }
+    .card:nth-of-type(even)  { animation-delay: .2s; }
 
-    /* — Border Colors — */
-    .card[data-color="pink"]   { border-image: linear-gradient(135deg, #ff1cae, #ff5d4a) 1; }
-    .card[data-color="blue"]   { border-image: linear-gradient(135deg, #1fa2ff, #12d8fa) 1; }
-    .card[data-color="green"]  { border-image: linear-gradient(135deg, #00b09b, #96c93d) 1; }
-    .card[data-color="purple"] { border-image: linear-gradient(135deg, #9b29b6, #d864f5) 1; }
-    .card[data-color="black"]  { border-image: linear-gradient(135deg, #444, #222) 1; }
+    /* — Gradient Borders — */
+    .card[data-color="pink"]   { border-image: linear-gradient(135deg,#ff1cae,#ff5d4a) 1; }
+    .card[data-color="blue"]   { border-image: linear-gradient(135deg,#1fa2ff,#12d8fa) 1; }
+    .card[data-color="green"]  { border-image: linear-gradient(135deg,#00b09b,#96c93d) 1; }
+    .card[data-color="purple"] { border-image: linear-gradient(135deg,#9b29b6,#d864f5) 1; }
+    .card[data-color="black"]  { border-image: linear-gradient(135deg,#444,#222) 1; }
+    .card[data-color="red"]    { border-image: linear-gradient(135deg,#ff4e50,#f9d423) 1; }
 
-    /* — Header — */
+    /* — Card Header — */
     .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem; cursor: pointer;
     }
-    .card-left { display: flex; align-items: baseline; gap: 0.5rem; }
-    .card-left h2 { font-size: 1.25rem; }
+    .card-left { display: flex; align-items: baseline; gap: .5rem; }
+    .card-left h2 { font-size: 1.25rem; margin: 0; }
     .version {
-      background: #2a2a2a;
-      padding: 0.3rem 0.6rem;
-      border-radius: 0.75rem;
-      font-size: 0.9rem;
-      color: #aaa;
+      background: var(--input-bg);
+      padding: .3rem .6rem;
+      border-radius: .75rem;
+      font-size: .9rem;
+      color: var(--input-fg);
     }
-    .badges { display: flex; gap: 0.4rem; }
+    .badges { display: flex; gap: .4rem; }
     .badge {
-      font-size: 0.75rem;
-      padding: 0.3rem 0.6rem;
-      border-radius: 0.75rem;
-      text-transform: uppercase;
+      background: var(--input-bg);
+      padding: .3rem .6rem;
+      border-radius: .75rem;
+      font-size: .75rem;
       font-weight: 600;
-      white-space: nowrap;
+      text-transform: uppercase;
     }
-    .badge.sunc    { background: #333;      color: #ddd; }
+    .badge.sunc     { background: #333;      color: #ddd; }
     .badge.reco    { background: #ff1cae;   color: #fff; }
     .badge.longest { background: #1fa2ff;   color: #fff; }
     .badge.free    { background: #0f8;      color: #000; }
@@ -84,33 +138,31 @@
     .badge.beta    { background: #ffa500;   color: #000; }
 
     .card-right {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      display: flex; align-items: center; gap: .5rem;
     }
     .price {
-      background: #0066ff;
-      color: #fff;
-      font-size: 0.9rem;
-      padding: 0.3rem 0.7rem;
-      border-radius: 0.75rem;
+      background: var(--btn-bg);
+      color: var(--btn-fg);
+      padding: .3rem .7rem;
+      border-radius: .75rem;
+      font-size: .9rem;
     }
     .status {
+      padding: .3rem .6rem;
+      border-radius: .75rem;
+      font-size: .9rem;
       font-weight: 600;
-      font-size: 0.9rem;
-      padding: 0.3rem 0.6rem;
-      border-radius: 0.75rem;
     }
-    .status.updated     { background: #0c0;  color: #fff; }
-    .status.not-updated { background: #c00;  color: #fff; }
-    .status.detected    { background: #0c0;  color: #fff; }
-    .status.undetected  { background: #c00;  color: #fff; }
+    .status.updated     { background: #0c0;  color:#fff; }
+    .status.not-updated { background: #c00;  color:#fff; }
+    .status.detected    { background: #0c0;  color:#fff; }
+    .status.undetected  { background: #c00;  color:#fff; }
 
-    /* — SVG Arrow — */
+    /* — Expand Arrow — */
     .expand-icon {
       width: 1rem; height: 1rem;
-      transition: transform 0.3s ease;
-      fill: #e0e0e0;
+      fill: var(--card-fg);
+      transition: transform .3s ease;
     }
     .card.expanded .expand-icon {
       transform: rotate(90deg);
@@ -120,51 +172,60 @@
     .card-content {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.4s ease;
+      transition: max-height .4s ease, padding .4s ease;
       padding: 0 1rem;
-      background: #2a2a2a;
+      background: var(--input-bg);
     }
     .card.expanded .card-content {
       max-height: 300px;
       padding: 1rem;
     }
     .card-footer {
-      font-size: 0.85rem;
-      color: #888;
-      margin-top: 0.75rem;
+      font-size: .85rem;
+      color: var(--fg);
+      margin-top: .75rem;
     }
 
     /* — Download/Discord Buttons — */
     .card-actions {
-      margin: 0.75rem 0;
+      margin: .75rem 0;
     }
     .btn {
       display: inline-block;
       text-decoration: none;
-      font-size: 0.9rem; font-weight: 600;
-      padding: 0.4rem 0.8rem;
-      border-radius: 0.75rem;
-      margin-right: 0.5rem;
-      transition: background 0.2s;
+      font-size: .9rem; font-weight: 600;
+      padding: .4rem .8rem; border-radius: .75rem;
+      margin-right: .5rem;
+      background: var(--btn-bg); color: var(--btn-fg);
+      transition: background .2s;
     }
-    .btn.download { background: #00b09b; color: #fff; }
     .btn.download:hover { background: #07856b; }
-    .btn.discord  { background: #5865F2; color: #fff; }
     .btn.discord:hover  { background: #4752C4; }
 
     @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
+      to { opacity:1; transform:translateY(0); }
     }
   </style>
 </head>
-<body>
+<body data-theme="dark">
 
-  <div class="cards">
+  <!-- Header Placeholder -->
+  <div class="header">
+    <div class="logo-placeholder">LOGO</div>
+    <div class="title-placeholder">YOUR TITLE HERE</div>
+  </div>
 
-    <!-- …Zenith, Wave, AWP.GG (unchanged)… -->
+  <!-- Controls -->
+  <div class="controls">
+    <input type="text" id="search" placeholder="Search executors…">
+    <button id="toggle-theme">Toggle Light/Dark</button>
+  </div>
 
-    <!-- Ronix Android (Now Purple) -->
-    <div class="card" data-color="purple">
+  <!-- Cards -->
+  <div class="cards" id="cards">
+
+    <!-- Ronix Android (Purple) -->
+    <div class="card" data-color="purple" data-name="ronix android">
       <div class="card-header">
         <div class="card-left">
           <h2>Ronix Android</h2>
@@ -199,8 +260,8 @@
       </div>
     </div>
 
-    <!-- Delta Android (Now Black) -->
-    <div class="card" data-color="black">
+    <!-- Delta Android (Black) -->
+    <div class="card" data-color="black" data-name="delta android">
       <div class="card-header">
         <div class="card-left">
           <h2>Delta Android</h2>
@@ -233,8 +294,8 @@
       </div>
     </div>
 
-    <!-- Codex Android (New) -->
-    <div class="card" data-color="blue">
+    <!-- Codex Android (Red) -->
+    <div class="card" data-color="red" data-name="codex android">
       <div class="card-header">
         <div class="card-left">
           <h2>Codex Android</h2>
@@ -270,15 +331,15 @@
   </div>
 
   <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      // Expand/collapse
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1) Expand/collapse
       document.querySelectorAll('.card-header').forEach(h =>
         h.addEventListener('click', () =>
           h.parentElement.classList.toggle('expanded')
         )
       );
 
-      // Fade‑in on scroll
+      // 2) Fade‑in on scroll
       const io = new IntersectionObserver(entries => {
         entries.forEach(e => {
           if (e.isIntersecting) {
@@ -292,17 +353,33 @@
         io.observe(c);
       });
 
-      // Timestamp formatting (DD/MM/YYYY, h:mm am/pm MYT)
+      // 3) Timestamp formatting (DD/MM/YYYY, h:mm am/pm MYT)
       const fmt = new Intl.DateTimeFormat('en-GB', {
         timeZone: 'Asia/Kuala_Lumpur',
         day: '2-digit', month: '2-digit', year: 'numeric',
         hour: 'numeric', minute: '2-digit',
         hour12: true
       });
-      document.querySelectorAll('.card-footer').forEach(footer => {
-        const iso = footer.dataset.updated;
+      document.querySelectorAll('.card-footer').forEach(f => {
+        const iso = f.dataset.updated;
         if (!iso) return;
-        footer.querySelector('.updated-time').textContent = fmt.format(new Date(iso));
+        f.querySelector('.updated-time').textContent = fmt.format(new Date(iso));
+      });
+
+      // 4) Light/Dark toggle
+      document.getElementById('toggle-theme')
+        .addEventListener('click', () => {
+          const b = document.body;
+          b.dataset.theme = b.dataset.theme === 'light' ? 'dark' : 'light';
+        });
+
+      // 5) Search filter
+      document.getElementById('search').addEventListener('input', e => {
+        const q = e.target.value.toLowerCase();
+        document.querySelectorAll('.card').forEach(card => {
+          const name = card.dataset.name;
+          card.style.display = name.includes(q) ? '' : 'none';
+        });
       });
     });
   </script>
