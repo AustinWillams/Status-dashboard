@@ -1,186 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Exploit Cards</title>
-  <style>
-    :root {
-      --bg-light: #f5f5f5;
-      --bg-dark: #1e1e1e;
-      --card-light: #ffffff;
-      --card-dark: #2a2a2a;
-      --text-light: #000000;
-      --text-dark: #ffffff;
-      --accent: #3b82f6;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <title>Script Hub</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-dark);
-      transition: background-color 0.3s, color 0.3s;
-    }
+      :root {
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --text: #fff;
+        --highlight: #4b9eff;
+        --accent: #00e676;
+        --danger: #ff5252;
+        --tag-bg: #2a2a2a;
+      }
 
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
+      [data-theme="light"] {
+        --bg: #f4f4f4;
+        --card-bg: #ffffff;
+        --text: #000;
+        --highlight: #4b9eff;
+        --accent: #00c853;
+        --danger: #ff1744;
+        --tag-bg: #e0e0e0;
+      }
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
+      }
 
-    .search {
-      padding: 10px;
-      border-radius: 6px;
-      border: none;
-      width: 60%;
-      font-size: 1rem;
-    }
+      body {
+        background: var(--bg);
+        font-family: 'Inter', sans-serif;
+        color: var(--text);
+        padding: 2rem;
+      }
 
-    .toggle-mode {
-      cursor: pointer;
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-    }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
 
-    .card {
-      background-color: var(--card-dark);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      transition: background-color 0.3s, max-height 0.5s ease-in-out;
-      overflow: hidden;
-      max-height: 80px;
-      cursor: pointer;
-    }
+      .search {
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        border: none;
+        width: 200px;
+      }
 
-    .card.open {
-      max-height: 300px;
-    }
+      .toggle {
+        background: var(--tag-bg);
+        color: var(--text);
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        cursor: pointer;
+      }
 
-    .card h3 {
-      margin: 0;
-      font-size: 1.3rem;
-    }
+      .card {
+        background: var(--card-bg);
+        border-left: 5px solid var(--accent);
+        margin-bottom: 1rem;
+        border-radius: 10px;
+        overflow: hidden;
+      }
 
-    .info {
-      margin-top: 10px;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
+      .card-header {
+        padding: 1rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-    .card.open .info {
-      display: block;
-      opacity: 1;
-    }
+      .card-header h3 {
+        font-size: 1.2rem;
+      }
 
-    .buttons {
-      margin-top: 15px;
-      display: flex;
-      gap: 10px;
-    }
+      .tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
+      }
 
-    .btn {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
+      .tag {
+        background: var(--tag-bg);
+        padding: 0.3rem 0.6rem;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
 
-    body.light {
-      background-color: var(--bg-light);
-      color: var(--text-light);
-    }
+      .card-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+        padding: 0 1rem;
+      }
 
-    body.light .card {
-      background-color: var(--card-light);
-    }
+      .card.open .card-body {
+        max-height: 300px;
+        padding: 1rem;
+      }
 
-    body.light .btn, body.light .toggle-mode {
-      background: #3b82f6;
-      color: white;
-    }
+      .buttons {
+        margin-top: 1rem;
+        display: none;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
 
-  </style>
-</head>
-<body>
-  <div class="container">
+      .card.open .buttons {
+        display: flex;
+      }
+
+      .btn {
+        background: var(--highlight);
+        border: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+
+  <body>
     <div class="header">
-      <input type="text" class="search" placeholder="Search exploits..." oninput="searchCards(this.value)">
-      <button class="toggle-mode" onclick="toggleMode()">Toggle Mode</button>
+      <input type="text" class="search" placeholder="Search executors..." oninput="filterCards(this.value)">
+      <div class="toggle" onclick="toggleTheme()">Toggle Theme</div>
     </div>
 
-    <div class="card" onclick="toggleCard(this)">
-      <h3>Zenith</h3>
-      <div class="info">
-        <p>Updated: 05/22/2025 8:09 PM UTC</p>
-        <div class="buttons">
-          <button class="btn">Website</button>
-          <button class="btn">Discord</button>
-          <button class="btn">Purchase</button>
+    <div id="card-container">
+      <!-- Card Template -->
+      <div class="card" data-title="Zenith">
+        <div class="card-header" onclick="toggleCard(this)">
+          <h3>Zenith</h3>
+          <div class="tags">
+            <div class="tag" style="background:#ff4081;">Recommended</div>
+            <div class="tag">$6.49 weekly</div>
+            <div class="tag" style="background:var(--accent);">Updated</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>Last updated: 05/22/2025 - Hyperion risk warning.</p>
+          <div class="buttons">
+            <a href="#" class="btn">Website</a>
+            <a href="#" class="btn">Discord</a>
+            <a href="#" class="btn">Purchase</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-title="Wave">
+        <div class="card-header" onclick="toggleCard(this)">
+          <h3>Wave</h3>
+          <div class="tags">
+            <div class="tag">Longest Running</div>
+            <div class="tag">$7.49 weekly</div>
+            <div class="tag" style="background:var(--accent);">Updated</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>Last updated: 05/23/2025</p>
+          <div class="buttons">
+            <a href="#" class="btn">Website</a>
+            <a href="#" class="btn">Discord</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-title="AWP.GG">
+        <div class="card-header" onclick="toggleCard(this)">
+          <h3>AWP.GG</h3>
+          <div class="tags">
+            <div class="tag">$6.99 weekly</div>
+            <div class="tag" style="background:var(--danger);">Not Updated</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>Last updated: 05/23/2025</p>
+          <div class="buttons">
+            <a href="#" class="btn">Website</a>
+            <a href="#" class="btn">Discord</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-title="Ronix Android">
+        <div class="card-header" onclick="toggleCard(this)">
+          <h3>Ronix Android</h3>
+          <div class="tags">
+            <div class="tag" style="background:var(--accent);">Free</div>
+            <div class="tag" style="background:var(--accent);">Updated</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>Last updated: 05/27/2025</p>
+          <div class="buttons">
+            <a href="#" class="btn">Download</a>
+            <a href="#" class="btn">Guide</a>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="card" onclick="toggleCard(this)">
-      <h3>Wave</h3>
-      <div class="info">
-        <p>Updated: 05/23/2025 3:50 AM UTC</p>
-        <div class="buttons">
-          <button class="btn">Website</button>
-          <button class="btn">Discord</button>
-          <button class="btn">Purchase</button>
-        </div>
-      </div>
-    </div>
+    <script>
+      function toggleCard(header) {
+        const card = header.parentElement;
+        card.classList.toggle("open");
+      }
 
-    <div class="card" onclick="toggleCard(this)">
-      <h3>AWP.GG</h3>
-      <div class="info">
-        <p>Updated: 05/23/2025 3:46 AM UTC</p>
-        <div class="buttons">
-          <button class="btn">Website</button>
-          <button class="btn">Discord</button>
-          <button class="btn">Purchase</button>
-        </div>
-      </div>
-    </div>
+      function toggleTheme() {
+        const current = document.body.getAttribute("data-theme");
+        document.body.setAttribute("data-theme", current === "light" ? "dark" : "light");
+      }
 
-  </div>
+      function filterCards(query) {
+        const cards = document.querySelectorAll('.card');
+        query = query.toLowerCase();
+        cards.forEach(card => {
+          const title = card.getAttribute('data-title').toLowerCase();
+          card.style.display = title.includes(query) ? '' : 'none';
+        });
+      }
 
-  <script>
-    function toggleCard(card) {
-      card.classList.toggle("open");
-    }
-
-    function toggleMode() {
-      document.body.classList.toggle("light");
-    }
-
-    function searchCards(query) {
-      query = query.toLowerCase();
-      const cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
-        const title = card.querySelector('h3').textContent.toLowerCase();
-        card.style.display = title.includes(query) ? 'block' : 'none';
-      });
-    }
-  </script>
-</body>
+      // Default theme
+      document.body.setAttribute("data-theme", "dark");
+    </script>
+  </body>
 </html>
