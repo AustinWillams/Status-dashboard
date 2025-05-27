@@ -1,179 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>RENDEX</title>
   <style>
+    :root {
+      --bg: #0d0d0d;
+      --fg: #ffffff;
+      --card: #111111;
+      --text-light: #cccccc;
+      --accent: #8b5cf6;
+      --button: #374151;
+      --updated: #4ade80;
+      --outdated: #f87171;
+      --paid: #7e22ce;
+      --free: #10b981;
+      --tag: #1f2937;
+    }
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --fg: #000000;
+      --card: #f3f4f6;
+      --text-light: #4b5563;
+      --button: #d1d5db;
+      --accent: #7c3aed;
+      --updated: #16a34a;
+      --outdated: #dc2626;
+      --paid: #9333ea;
+      --free: #059669;
+      --tag: #e5e7eb;
+    }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #0d0d0d;
-      color: white;
+      background-color: var(--bg);
+      color: var(--fg);
+      transition: background-color 0.3s, color 0.3s;
     }
-
-    .header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px 0 10px;
+    header {
+      text-align: center;
+      padding: 2rem;
     }
-
     .logo {
-      width: 60px;
-      height: auto;
-      margin-bottom: 10px;
-    }
-
-    .title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
       font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: 1px;
+      font-weight: bold;
+      color: var(--accent);
     }
-
-    .title span.e {
+    .logo img {
+      height: 48px;
+    }
+    .logo span {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+    .logo span .e {
       display: inline-block;
-      letter-spacing: 2px;
+      width: 12px;
+      height: 12px;
+      border-top: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
       position: relative;
     }
-
-    .title span.e::before,
-    .title span.e::after {
-      content: '';
+    .logo span .e::before {
+      content: "";
       position: absolute;
-      left: 0;
-      height: 2px;
-      background: #8a6eff;
+      top: 50%;
       width: 100%;
+      height: 2px;
+      background: var(--accent);
+      transform: translateY(-50%);
     }
 
-    .title span.e::before {
-      top: 0;
-    }
-
-    .title span.e::after {
-      bottom: 0;
-    }
-
-    .search-bar {
+    .controls {
       display: flex;
       justify-content: space-between;
-      padding: 10px 20px;
-      max-width: 800px;
-      margin: 0 auto;
+      padding: 0 1rem;
+      margin-bottom: 1rem;
     }
 
-    .search-bar input {
-      flex: 1;
-      padding: 10px;
-      font-size: 16px;
-      background: #111;
+    .search {
+      flex-grow: 1;
+      margin-right: 1rem;
+      padding: 0.5rem;
       border: none;
-      color: #fff;
-      border-radius: 8px;
-      margin-right: 10px;
+      border-radius: 5px;
+      background: var(--card);
+      color: var(--fg);
     }
 
     .toggle-mode {
-      color: #aaa;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      background: var(--button);
+      color: var(--fg);
+      border: none;
       cursor: pointer;
-      font-size: 14px;
-      padding: 10px;
     }
 
     .card {
-      background: #111;
-      margin: 10px auto;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 800px;
-      box-shadow: 0 0 15px #000;
-      transition: 0.3s ease;
+      background: var(--card);
+      margin: 0.75rem 1rem;
+      padding: 1rem;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
     }
 
-    .card:hover {
-      background: #151515;
+    .card-content {
+      display: none;
+      margin-top: 0.5rem;
+      color: var(--text-light);
     }
 
-    .card h2 {
-      margin: 0 0 10px;
-      font-size: 20px;
+    .card.open .card-content {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .tags {
+      margin-top: 0.5rem;
       display: flex;
+      gap: 0.5rem;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
     }
 
     .tag {
-      font-size: 12px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background-color: #222;
-      color: white;
+      background: var(--tag);
+      padding: 0.25rem 0.5rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
     }
 
-    .paid { background-color: #57314e; }
-    .free { background-color: #2d594e; }
-    .windows { background-color: #4b4b4b; }
-    .android { background-color: #2e584e; }
-    .ios { background-color: #334e57; }
+    .updated { background: var(--updated); color: #000; }
+    .outdated { background: var(--outdated); color: #fff; }
 
-    .status {
-      float: right;
-      font-size: 13px;
-      background: #3a5;
-      padding: 4px 12px;
-      border-radius: 999px;
-      color: white;
-    }
-
-    .btn-group {
+    .action-buttons {
+      margin-top: 0.5rem;
       display: flex;
-      gap: 10px;
-      margin-top: 10px;
+      gap: 1rem;
     }
 
-    .btn {
-      text-decoration: none;
+    .action-buttons a {
+      padding: 0.5rem 1rem;
+      background: var(--accent);
       color: white;
-      background: #333;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 14px;
+      text-decoration: none;
+      border-radius: 5px;
     }
 
-    .btn:hover {
-      background: #444;
+    .arrow {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .card.open .arrow {
+      transform: rotate(90deg);
     }
   </style>
 </head>
-<body>
-  <div class="header">
-    <img class="logo" src="https://i.imgur.com/hTg3HXO.png" alt="R Logo" />
-    <div class="title">R<span class="e">E</span>NDEX</div>
-  </div>
-
-  <div class="search-bar">
-    <input type="text" placeholder="Search executors .." />
-    <div class="toggle-mode">Toggle mode</div>
-  </div>
-
-  <div class="card">
-    <h2>Ronix Android <span class="status">Updated</span></h2>
-    <div class="tags">
-      <span class="tag free">Free</span>
-      <span class="tag paid">Paid</span>
-      <span class="tag android">Android</span>
+<body data-theme="dark">
+  <header>
+    <div class="logo">
+      <img src="https://i.imgur.com/hTg3HXO.png" alt="R logo">
+      <span>R<span class="e"></span>ND<span class="e"></span>X</span>
     </div>
-    <div class="btn-group">
-      <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file" class="btn">Download</a>
-      <a href="https://discord.gg/ronix" class="btn">Discord</a>
-    </div>
-    <small>Last updated: 05/27/2025 at 9:22 AM UTC</small>
+  </header>
+
+  <div class="controls">
+    <input type="text" class="search" id="search" placeholder="Search executors...">
+    <button class="toggle-mode" onclick="toggleMode()">Toggle mode</button>
   </div>
 
+  <div id="cards-container">
+    <!-- Example Card -->
+    <div class="card" onclick="toggleCard(this)">
+      <div><strong>Ronix Android</strong> <span class="arrow">▶</span></div>
+      <div class="tags">
+        <div class="tag" style="background: var(--free);">Free</div>
+        <div class="tag" style="background: var(--paid);">Paid</div>
+        <div class="tag">Android</div>
+      </div>
+      <div class="card-content">
+        Last updated: 05/27/2025<br>
+        <div class="action-buttons">
+          <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file" target="_blank">Download</a>
+          <a href="https://discord.gg/ronix" target="_blank">Discord</a>
+        </div>
+        <span class="tag updated">Updated</span>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div><strong>Delta Android</strong> <span class="arrow">▶</span></div>
+      <div class="tags">
+        <div class="tag" style="background: var(--free);">Free</div>
+        <div class="tag" style="background: var(--paid);">Paid</div>
+        <div class="tag">Android</div>
+      </div>
+      <div class="card-content">
+        Last updated: 05/27/2025<br>
+        <div class="action-buttons">
+          <a href="#" onclick="alert('Delta Android Download Coming Soon')">Download</a>
+          <a href="https://discord.gg/ronix" target="_blank">Discord</a>
+        </div>
+        <span class="tag updated">Updated</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleMode = () => {
+      const body = document.body;
+      body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+
+    const toggleCard = (el) => {
+      document.querySelectorAll('.card').forEach(card => {
+        if (card !== el) card.classList.remove('open');
+      });
+      el.classList.toggle('open');
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.card')) {
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('open'));
+      }
+    });
+
+    const searchInput = document.getElementById("search");
+    searchInput.addEventListener("input", () => {
+      const val = searchInput.value.toLowerCase();
+      document.querySelectorAll('.card').forEach(card => {
+        const title = card.querySelector('strong').textContent.toLowerCase();
+        card.style.display = title.includes(val) ? "" : "none";
+      });
+    });
+  </script>
 </body>
 </html>
