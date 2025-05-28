@@ -54,7 +54,7 @@
       font-weight: bold;
     }
 
-    /* ---------------- CARDS POP‐IN ANIMATION ---------------- */
+    /* ---------------- CARDS POP‑IN ANIMATION ---------------- */
     @keyframes cardFadeIn {
       from {
         opacity: 0;
@@ -203,21 +203,19 @@
       padding: 0 20px 12px 20px;
     }
 
-    /* ---------------- CARD BODY (scaleY + opacity) ---------------- */
+    /* ---------------- CARD BODY (display + opacity) ---------------- */
     .item-body {
-      transform-origin: top;
-      transform: scaleY(0);
+      display: none;
       opacity: 0;
-      overflow: hidden;
       border-top: 1px solid #333;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      padding: 0 20px; /* top/bottom padding toggled in .show */
+      transition: opacity 0.3s ease;
+      padding: 0 20px;
     }
     .item-body.show {
-      transform: scaleY(1);
-      opacity: 1;
+      display: block;
       padding-top: 20px;
       padding-bottom: 20px;
+      opacity: 1;
     }
 
     /* ---------------- BUTTONS ---------------- */
@@ -478,9 +476,10 @@
 
   <script>
     /**
-     * Toggle the “show” class on .item-body, and switch header classes
-     * so the chevron rotates. The CSS transform/opacity transitions
-     * handle the smooth expand/collapse without stutter.
+     * Toggle the “show” class on .item-body and switch
+     * header classes so the chevron rotates. Since .item-body
+     * goes between display: none ↔ display: block, there’s no
+     * leftover space when it’s closed.
      */
     function toggleBody(headerEl) {
       const item = headerEl.closest(".exploit-item");
