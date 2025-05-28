@@ -47,14 +47,14 @@
       --dropdown-text:        #000000;
 
       /* Lighter variations for gradients in light mode */
-      --gradient-cyan-light:  #b3fbff;
-      --gradient-cyan-dark:   #a3e5ff;
-      --gradient-pink-light:  #ffb3d9;
-      --gradient-pink-dark:   #f48fb1;
-      --gradient-green-light: #c8e6c9;
-      --gradient-green-dark:  #a5d6a7;
-      --gradient-red-light:   #ffcdd2;
-      --gradient-red-dark:    #ef9a9a;
+      --gradient-cyan-light:  #B3F9FF;
+      --gradient-cyan-dark:   #A3E5FF;
+      --gradient-pink-light:  #FFB3D9;
+      --gradient-pink-dark:   #F48FB1;
+      --gradient-green-light: #C8E6C9;
+      --gradient-green-dark:  #A5D6A7;
+      --gradient-red-light:   #FFCDD2;
+      --gradient-red-dark:    #EF9A9A;
     }
 
     /* ==================== GLOBAL TRANSITIONS ==================== */
@@ -67,7 +67,10 @@
     .item-header,
     .item-body,
     .exploit-item {
-      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+      transition: background-color 0.5s ease,
+                  color 0.5s ease,
+                  border-color 0.5s ease,
+                  box-shadow 0.5s ease;
     }
 
     /* ==================== RESET & BASE ==================== */
@@ -124,7 +127,9 @@
       background-color: var(--input-bg);
       color: var(--input-text);
       font-size: 0.9rem;
-      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+      transition: background-color 0.5s ease,
+                  color 0.5s ease,
+                  border-color 0.5s ease;
     }
     .navbar .search-container input[type="search"]::placeholder {
       color: var(--input-text);
@@ -148,12 +153,19 @@
       justify-content: space-between;
       gap: 6px;
       cursor: pointer;
-      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+      transition: background-color 0.5s ease,
+                  color 0.5s ease,
+                  border-color 0.5s ease;
     }
     .navbar .dropdown-selected svg.icon {
       width: 16px;
       height: 16px;
-      fill: var(--dropdown-text);
+      fill: none;
+      stroke: var(--dropdown-text);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: middle;
     }
     .navbar .dropdown-selected::after {
       content: "▾";
@@ -174,7 +186,9 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.3);
       display: none;
       z-index: 100;
-      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+      transition: background-color 0.5s ease,
+                  color 0.5s ease,
+                  border-color 0.5s ease;
     }
     .navbar .custom-dropdown.open .dropdown-options {
       display: block;
@@ -187,7 +201,8 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: background-color 0.2s ease, color 0.5s ease;
+      transition: background-color 0.2s ease,
+                  color 0.5s ease;
     }
     .navbar .dropdown-options div:hover {
       background-color: var(--dropdown-hover);
@@ -195,7 +210,12 @@
     .navbar .dropdown-options svg.icon {
       width: 16px;
       height: 16px;
-      fill: var(--dropdown-text);
+      fill: none;
+      stroke: var(--dropdown-text);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: middle;
     }
 
     /* ==================== CONTAINER ==================== */
@@ -239,7 +259,10 @@
       border-left-width: 6px;
       border-radius: 8px;
       overflow: hidden;
-      transition: transform 0.1s, box-shadow 0.2s, background-color 0.5s ease, border-color 0.5s ease;
+      transition: transform 0.1s,
+                  box-shadow 0.2s,
+                  background-color 0.5s ease,
+                  border-color 0.5s ease;
     }
     .exploit-item:hover {
       transform: translateY(-2px);
@@ -267,7 +290,8 @@
       );
       cursor: pointer;
       user-select: none;
-      transition: background-color 0.5s ease, color 0.5s ease;
+      transition: background-color 0.5s ease,
+                  color 0.5s ease;
     }
     .item-title {
       display: flex;
@@ -294,9 +318,7 @@
       transition: background 0.5s ease;
     }
     .tag-version      { background-color: #333; }
-    .tag-sunc         {
-      background-color: #333;
-    }
+    .tag-sunc         { background-color: #333; }
     .tag-sunc .s-letter {
       color: var(--color-purple-solid);
     }
@@ -352,7 +374,10 @@
       fill: none;
       stroke: #bbb;
       stroke-width: 2;
-      transition: transform 0.3s ease, stroke 0.2s ease;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.3s ease,
+                  stroke 0.2s ease;
     }
     .item-header.open .chevron {
       transform: rotate(90deg);
@@ -402,7 +427,8 @@
       padding: 10px 16px;
       border-radius: 6px;
       font-size: 0.88rem;
-      transition: background-color 0.1s, color 0.5s;
+      transition: background-color 0.1s,
+                  color 0.5s;
     }
     .button-group button:hover {
       background-color: var(--input-border);
@@ -454,14 +480,14 @@
         <span>Theme</span>
         <!-- Default: moon icon (dark mode) -->
         <svg class="icon" viewBox="0 0 24 24">
-          <path d="M21 12.79A9 9 0 0111.21 3a7 7 0 100 14 9 9 0 019.79-4.21z" />
+          <path d="M21 12.79A9 9 0 1112.21 3a7 7 0 109.79 9.79z" />
         </svg>
       </div>
       <div class="dropdown-options">
         <!-- Dark option -->
         <div data-value="dark">
           <svg class="icon" viewBox="0 0 24 24">
-            <path d="M21 12.79A9 9 0 0111.21 3a7 7 0 100 14 9 9 0 019.79-4.21z" />
+            <path d="M21 12.79A9 9 0 1112.21 3a7 7 0 109.79 9.79z" />
           </svg>
           Dark
         </div>
@@ -469,7 +495,14 @@
         <div data-value="light">
           <svg class="icon" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="5" />
-            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
           Light
         </div>
@@ -494,7 +527,9 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -544,7 +579,9 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -594,7 +631,9 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -644,7 +683,9 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -705,10 +746,10 @@
     dropdownOptions.querySelectorAll("div").forEach(option => {
       option.addEventListener("click", () => {
         const chosenValue = option.getAttribute("data-value");
-        // Grab the SVG markup of that option’s <svg> (cloneNode)
+        // Clone that option’s <svg>
         const svgIcon = option.querySelector("svg.icon").cloneNode(true);
 
-        // Update visible text/icon: “Theme <svg>”
+        // Update “Theme <svg>”
         dropdownSelected.innerHTML = `<span>Theme</span>`;
         dropdownSelected.appendChild(svgIcon);
 
