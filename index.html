@@ -27,7 +27,7 @@
     }
 
     /* — Base & Reset — */
-    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+    *, *::before, *::after { box‑sizing: border‑box; margin:0; padding:0; }
     body {
       font-family: "Inter", sans-serif;
       background: var(--bg);
@@ -96,8 +96,8 @@
       transform: translateY(20px);
       animation: fadeInUp .6s forwards;
     }
-    .card:nth-of-type(odd)   { animation-delay: .1s; }
-    .card:nth-of-type(even)  { animation-delay: .2s; }
+    .card:nth-of-type(odd)  { animation-delay: .1s; }
+    .card:nth-of-type(even) { animation-delay: .2s; }
 
     /* — Gradient Borders — */
     .card[data-color="pink"]   { border-image: linear-gradient(135deg,#ff1cae,#ff5d4a) 1; }
@@ -130,12 +130,12 @@
       font-weight: 600;
       text-transform: uppercase;
     }
-    .badge.sunc     { background: #333;      color: #ddd; }
-    .badge.reco    { background: #ff1cae;   color: #fff; }
-    .badge.longest { background: #1fa2ff;   color: #fff; }
-    .badge.free    { background: #0f8;      color: #000; }
-    .badge.paid    { background: #f90;      color: #000; }
-    .badge.beta    { background: #ffa500;   color: #000; }
+    .badge.sunc     { background: #333;    color: #ddd; }
+    .badge.reco     { background: #ff1cae; color: #fff; }
+    .badge.longest  { background: #1fa2ff; color: #fff; }
+    .badge.free     { background: #0f8;    color: #000; }
+    .badge.paid     { background: #f90;    color: #000; }
+    .badge.beta     { background: #ffa500; color: #000; }
 
     .card-right {
       display: flex; align-items: center; gap: .5rem;
@@ -153,10 +153,10 @@
       font-size: .9rem;
       font-weight: 600;
     }
-    .status.updated     { background: #0c0;  color:#fff; }
-    .status.not-updated { background: #c00;  color:#fff; }
-    .status.detected    { background: #0c0;  color:#fff; }
-    .status.undetected  { background: #c00;  color:#fff; }
+    .status.updated     { background: #0c0; color:#fff; }
+    .status.not-updated { background: #c00; color:#fff; }
+    .status.detected    { background: #0c0; color:#fff; }
+    .status.undetected  { background: #c00; color:#fff; }
 
     /* — Expand Arrow — */
     .expand-icon {
@@ -186,7 +186,7 @@
       margin-top: .75rem;
     }
 
-    /* — Download/Discord Buttons — */
+    /* — Download/Discord/Website Buttons — */
     .card-actions {
       margin: .75rem 0;
     }
@@ -201,6 +201,7 @@
     }
     .btn.download:hover { background: #07856b; }
     .btn.discord:hover  { background: #4752C4; }
+    .btn.website:hover  { background: #0051a8; }
 
     @keyframes fadeInUp {
       to { opacity:1; transform:translateY(0); }
@@ -294,7 +295,7 @@
       </div>
     </div>
 
-    <!-- Codex Android (Red) -->
+    <!-- Codex Android (Red) with Website + Download -->
     <div class="card" data-color="red" data-name="codex android">
       <div class="card-header">
         <div class="card-left">
@@ -319,8 +320,11 @@
       <div class="card-content">
         <p>Placeholder for Codex Android—details coming soon.</p>
         <div class="card-actions">
-          <a href="#" class="btn download" target="_blank">Download</a>
-          <a href="#" class="btn discord"  target="_blank">Discord</a>
+          <a href="https://codex.lol/android"
+             class="btn website" target="_blank">Website</a>
+          <a href="https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/file"
+             class="btn download" target="_blank">Download</a>
+          <a href="#" class="btn discord" target="_blank">Discord</a>
         </div>
         <div class="card-footer" data-updated="2025-06-01T12:00:00Z">
           Last updated: <span class="updated-time"></span>
@@ -332,14 +336,14 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // 1) Expand/collapse
+      // Expand/collapse
       document.querySelectorAll('.card-header').forEach(h =>
         h.addEventListener('click', () =>
           h.parentElement.classList.toggle('expanded')
         )
       );
 
-      // 2) Fade‑in on scroll
+      // Fade‑in on scroll
       const io = new IntersectionObserver(entries => {
         entries.forEach(e => {
           if (e.isIntersecting) {
@@ -353,7 +357,7 @@
         io.observe(c);
       });
 
-      // 3) Timestamp formatting (DD/MM/YYYY, h:mm am/pm MYT)
+      // Timestamp formatting (DD/MM/YYYY, h:mm am/pm MYT)
       const fmt = new Intl.DateTimeFormat('en-GB', {
         timeZone: 'Asia/Kuala_Lumpur',
         day: '2-digit', month: '2-digit', year: 'numeric',
@@ -366,19 +370,18 @@
         f.querySelector('.updated-time').textContent = fmt.format(new Date(iso));
       });
 
-      // 4) Light/Dark toggle
+      // Light/Dark toggle
       document.getElementById('toggle-theme')
         .addEventListener('click', () => {
           const b = document.body;
           b.dataset.theme = b.dataset.theme === 'light' ? 'dark' : 'light';
         });
 
-      // 5) Search filter
+      // Search filter
       document.getElementById('search').addEventListener('input', e => {
         const q = e.target.value.toLowerCase();
         document.querySelectorAll('.card').forEach(card => {
-          const name = card.dataset.name;
-          card.style.display = name.includes(q) ? '' : 'none';
+          card.style.display = card.dataset.name.includes(q) ? '' : 'none';
         });
       });
     });
