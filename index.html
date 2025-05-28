@@ -23,168 +23,162 @@
     }
 
     /* — Base — */
-    *,*::before,*::after { box-sizing:border-box;margin:0;padding:0; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body {
       background:var(--bg); color:var(--fg);
       font-family:Inter,sans-serif;
       display:flex; flex-direction:column; align-items:center;
       padding:2rem; transition:background .3s,color .3s;
     }
-    a { color:inherit; text-decoration:none; }
+    a{color:inherit;text-decoration:none;}
 
     /* — Header & Controls — */
-    .header { width:100%; max-width:800px; margin-bottom:1rem;
-      display:flex; justify-content:space-between; align-items:center;
+    .header{width:100%;max-width:800px;margin-bottom:1rem;
+      display:flex;justify-content:space-between;align-items:center;
     }
-    .logo-placeholder,.title-placeholder {
-      background:var(--input-bg); color:var(--input-fg);
-      padding:.5rem 1rem; border-radius:.5rem;
+    .logo-placeholder,.title-placeholder{
+      background:var(--input-bg);color:var(--input-fg);
+      padding:.5rem 1rem;border-radius:.5rem;
     }
-    .controls {
-      position:relative; z-index:100;
-      width:100%; max-width:800px;
-      display:flex; gap:1rem; margin-bottom:1rem; align-items:center;
+    .controls{
+      position:relative;z-index:100;
+      width:100%;max-width:800px;
+      display:flex;gap:1rem;margin-bottom:1rem;align-items:center;
     }
-    .controls input {
-      flex:1; padding:.5rem 1rem; border:none; border-radius:.5rem;
-      background:var(--input-bg); color:var(--input-fg);
+    .controls input{
+      flex:1;padding:.5rem 1rem;border:none;border-radius:.5rem;
+      background:var(--input-bg);color:var(--input-fg);
     }
 
     /* — Theme Dropdown — */
-    .theme-dropdown { position:relative; user-select:none; z-index:101; }
-    .theme-toggle {
-      display:flex; align-items:center; gap:.5rem;
-      padding:.5rem 1rem; border-radius:.5rem;
-      background:var(--input-bg); color:var(--input-fg);
+    .theme-dropdown{position:relative;user-select:none;z-index:101;}
+    .theme-toggle{
+      display:flex;align-items:center;gap:.5rem;
+      padding:.5rem 1rem;border-radius:.5rem;
+      background:var(--input-bg);color:var(--input-fg);
       cursor:pointer;
     }
-    .theme-toggle svg { width:.8rem; height:.8rem; transition:transform .2s; }
-    .theme-dropdown.open .theme-toggle svg { transform:rotate(180deg); }
-    .theme-menu {
-      position:absolute; top:100%; right:0;
-      background:var(--card-bg); border-radius:.5rem;
-      margin-top:.3rem; overflow:hidden;
+    .theme-toggle svg{width:.8rem;height:.8rem;transition:transform .2s;}
+    .theme-dropdown.open .theme-toggle svg{transform:rotate(180deg);}
+    .theme-menu{
+      position:absolute;top:100%;right:0;
+      background:var(--card-bg);border-radius:.5rem;
+      margin-top:.3rem;overflow:hidden;
       box-shadow:0 4px 12px var(--shadow);
-      opacity:0; visibility:hidden; transform:translateY(-5px);
+      opacity:0;visibility:hidden;transform:translateY(-5px);
       transition:opacity .2s,transform .2s,visibility .2s;
     }
-    .theme-dropdown.open .theme-menu {
-      opacity:1; visibility:visible; transform:translateY(0);
+    .theme-dropdown.open .theme-menu{
+      opacity:1;visibility:visible;transform:translateY(0);
     }
-    .theme-item { padding:.5rem 1rem; cursor:pointer; white-space:nowrap; }
-    .theme-item:hover { background:var(--input-bg); }
+    .theme-item{padding:.5rem 1rem;cursor:pointer;white-space:nowrap;}
+    .theme-item:hover{background:var(--input-bg);}
 
     /* — Cards Container — */
-    .cards {
-      width:100%; max-width:800px;
-      display:flex; flex-direction:column; gap:1rem;
+    .cards{
+      width:100%;max-width:800px;
+      display:flex;flex-direction:column;gap:1rem;
     }
 
     /* — Card — */
-    .card {
+    .card{
       position:relative;
-      background:var(--card-bg); color:var(--card-fg);
-      border-radius:.75rem; overflow:hidden;
+      background:var(--card-bg);color:var(--card-fg);
+      border-radius:.75rem;overflow:hidden;
       box-shadow:0 8px 20px var(--shadow);
-      opacity:0; transform:translateY(20px);
+      opacity:0;transform:translateY(20px);
       animation:fadeInUp .6s forwards;
     }
     .card:nth-of-type(odd){animation-delay:.1s;}
     .card:nth-of-type(even){animation-delay:.2s;}
 
     /* — Accent Strip — */
-    .card::before {
-      content:""; position:absolute; top:0; bottom:0; left:0; width:6px;
+    .card::before{
+      content:"";position:absolute;top:0;bottom:0;left:0;width:6px;
       background:var(--accent-not-updated);
     }
-    .card.updated::before { background:var(--accent-updated); }
+    .card.updated::before{background:var(--accent-updated);}
 
     /* — Header — */
-    .card-header {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:1rem; cursor:pointer; position:relative; z-index:1;
+    .card-header{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:1rem;cursor:pointer;position:relative;z-index:1;
     }
-    .card-left { display:flex; align-items:baseline; gap:.5rem; }
-    .card-left h2 { font-size:1.25rem; margin:0; }
-    .version {
-      background:var(--input-bg); color:var(--input-fg);
-      padding:.3rem .6rem; border-radius:.75rem; font-size:.9rem;
+    .card-left{display:flex;align-items:baseline;gap:.5rem;}
+    .card-left h2{font-size:1.25rem;margin:0;}
+    .version{
+      background:var(--input-bg);color:var(--input-fg);
+      padding:.3rem .6rem;border-radius:.75rem;font-size:.9rem;
     }
-    .badges { display:flex; gap:.4rem; }
-    .badge {
-      background:var(--input-bg); padding:.3rem .6rem; border-radius:.75rem;
-      font-size:.75rem; font-weight:600; text-transform:uppercase;
+    .badges{display:flex;gap:.4rem;}
+    .badge{
+      background:var(--input-bg);padding:.3rem .6rem;border-radius:.75rem;
+      font-size:.75rem;font-weight:600;text-transform:uppercase;
     }
     .badge.sunc{background:#333;color:#ddd;}
+    .badge.reco{background:#ff1cae;color:#fff;}
     .badge.free{background:#0f8;color:#000;}
     .badge.paid{background:#f90;color:#000;}
 
-    .card-right { display:flex; align-items:center; gap:.5rem; }
-    .price {
-      background:var(--btn-bg); color:var(--btn-fg);
-      padding:.3rem .7rem; border-radius:.75rem; font-size:.9rem;
+    .card-right{
+      display:flex;align-items:center;gap:1rem; /* larger gap */
     }
-    .status {
-      padding:.3rem .6rem; border-radius:.75rem;
-      font-size:.9rem; font-weight:600;
+    .status{
+      padding:.3rem .6rem;border-radius:.75rem;
+      font-size:.9rem;font-weight:600;
     }
     .status.updated{background:var(--accent-updated);color:#fff;}
     .status.undetected{background:var(--accent-not-updated);color:#fff;}
     .status.detected{background:var(--accent-updated);color:#fff;}
 
-    .expand-icon {
-      width:1rem; height:1rem; fill:var(--card-fg);
+    .expand-icon{
+      width:1rem;height:1rem;fill:var(--card-fg);
+      margin-right:.5rem; /* restore old spacing */
       transition:transform .3s;
     }
-    .card.expanded .expand-icon {
-      transform:rotate(90deg);
-    }
+    .card.expanded .expand-icon{transform:rotate(90deg);}
 
     /* — Content — */
-    .card-content {
-      max-height:0; overflow:hidden;
+    .card-content{
+      max-height:0;overflow:hidden;
       transition:max-height .4s ease,padding .4s ease;
       padding:0 1rem;
     }
-    .card.expanded .card-content {
-      max-height:500px; padding:1rem;
+    .card.expanded .card-content{
+      max-height:500px;padding:1rem;
     }
-    .card-content p { margin-bottom:1rem; }
+    .card-content p{margin-bottom:1rem;}
 
     /* — Last Updated & Separator — */
-    .card-footer {
-      font-size:.85rem; color:var(--fg); margin-bottom:.5rem;
+    .card-footer{
+      font-size:.85rem;color:var(--fg);margin-bottom:.5rem;
     }
-    .separator {
-      height:1px; background:var(--input-bg); margin: .5rem 0;
+    .separator{
+      height:1px;background:var(--input-bg);margin:.5rem 0;
     }
 
     /* — Buttons — */
-    .card-actions {
-      display:flex; gap:.5rem; margin-bottom:1rem;
+    .card-actions{
+      display:flex;gap:.5rem;margin-bottom:1rem;
     }
-    .btn {
-      display:inline-block; padding:.5rem 1rem;
-      border-radius:.5rem; background:var(--btn-bg);
-      color:var(--btn-fg); font-weight:600; white-space:nowrap;
+    .btn{
+      display:inline-block;padding:.5rem 1rem;
+      border-radius:.5rem;background:var(--btn-bg);
+      color:var(--btn-fg);font-weight:600;white-space:nowrap;
       transition:background .2s;
     }
-    .btn:hover { background:rgba(0,96,255,0.5); }
+    .btn:hover{background:rgba(0,96,255,0.5);}
 
     /* — Details Row — */
-    .details-row {
-      display:flex; flex-wrap:wrap; gap:2rem;
-      font-size:.9rem; margin-bottom:1rem;
+    .details-row{
+      display:flex;flex-wrap:wrap;gap:2rem;
+      font-size:.9rem;margin-bottom:1rem;
     }
-    .details-item {
-      display:flex; align-items:center; gap:.25rem;
-    }
-    .details-item svg {
-      width:1rem; height:1rem; fill:var(--check-green);
-    }
+    .details-item{display:flex;align-items:center;gap:.25rem;}
+    .details-item svg{width:1rem;height:1rem;fill:var(--check-green);}
 
-    @keyframes fadeInUp {
-      to { opacity:1; transform:translateY(0); }
+    @keyframes fadeInUp{
+      to{opacity:1;transform:translateY(0);}
     }
   </style>
 </head>
@@ -192,7 +186,7 @@
 
   <div class="header">
     <div class="logo-placeholder">LOGO</div>
-    <div class="title-placeholder">YOUR TITLE HERE</div>
+    <div class="title-placeholder">EXECUTOR DASHBOARD</div>
   </div>
 
   <div class="controls">
@@ -211,7 +205,7 @@
 
   <div class="cards">
 
-    <!-- Codex Android (example) -->
+    <!-- Codex Android -->
     <div class="card" data-name="codex android">
       <div class="card-header">
         <div class="card-left">
@@ -226,44 +220,142 @@
         </div>
         <div class="card-right">
           <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-          <span class="price">Free / Paid</span>
           <span class="status updated">Updated</span>
           <span class="status undetected">Undetected</span>
         </div>
       </div>
-
       <div class="card-content">
-        <!-- Last Updated -->
         <div class="card-footer" data-updated="2025-06-01T12:00:00Z">
           Last updated: <span class="updated-time"></span>
         </div>
         <div class="separator"></div>
-
-        <!-- Buttons -->
         <div class="card-actions">
           <a href="https://codex.lol/android" class="btn website">Website</a>
           <a href="https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/file" class="btn download">Download</a>
           <a href="https://discord.gg/codexlol" class="btn discord">Discord</a>
         </div>
-
-        <!-- Details Row -->
         <div class="details-row">
           <div class="details-item"><strong>Cost:</strong> $6.49 weekly</div>
-          <div class="details-item"><strong>UNC %:</strong> 99%</div>
-          <div class="details-item"><strong>sUNC %:</strong> 100%</div>
-          <div class="details-item">
-            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>
-            <span>Decompiler</span>
-          </div>
-          <div class="details-item">
-            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>
-            <span>Multi‑Inject</span>
-          </div>
+          <div class="details-item"><strong>UNC %:</strong> 99%</div>
+          <div class="details-item"><strong>sUNC %:</strong> 100%</div>
+          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Decompiler</div>
+          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Multi‑Inject</div>
         </div>
       </div>
     </div>
 
-    <!-- (Repeat same structure for Ronix Android, Delta Android, Codex iOS) -->
+    <!-- Ronix Android -->
+    <div class="card" data-name="ronix android">
+      <div class="card-header">
+        <div class="card-left">
+          <h2>Ronix Android</h2>
+          <div class="version">v671</div>
+          <div class="badges">
+            <div class="badge sunc">sUNC</div>
+            <div class="badge free">Free</div>
+            <div class="badge paid">Paid</div>
+          </div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+          <span class="status updated">Updated</span>
+          <span class="status undetected">Undetected</span>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="card-footer" data-updated="2025-05-24T13:15:00Z">
+          Last updated: <span class="updated-time"></span>
+        </div>
+        <div class="separator"></div>
+        <div class="card-actions">
+          <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file" class="btn download">Download</a>
+          <a href="https://discord.gg/ronix" class="btn discord">Discord</a>
+        </div>
+        <div class="details-row">
+          <div class="details-item"><strong>Cost:</strong> $6.49 weekly</div>
+          <div class="details-item"><strong>UNC %:</strong> 99%</div>
+          <div class="details-item"><strong>sUNC %:</strong> 100%</div>
+          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Decompiler</div>
+          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Multi‑Inject</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delta Android -->
+    <div class="card" data-name="delta android">
+      <div class="card-header">
+        <div class="card-left">
+          <h2>Delta Android</h2>
+          <div class="version">v673</div>
+          <div class="badges">
+            <div class="badge sunc">sUNC</div>
+            <div class="badge free">Free</div>
+            <div class="badge paid">Paid</div>
+          </div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+          <span class="status updated">Updated</span>
+          <span class="status undetected">Undetected</span>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="card-footer" data-updated="2025-05-27T00:00:00Z">
+          Last updated: <span class="updated-time"></span>
+        </div>
+        <div class="separator"></div>
+        <div class="card-actions">
+          <a href="https://deltaexploits.gg/delta-executor-mobile" class="btn website">Website</a>
+          <a href="https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file" class="btn download">Download</a>
+          <a href="https://discord.gg/deltax" class="btn discord">Discord</a>
+        </div>
+        <div class="details-row">
+          <div class="details-item"><strong>Cost:</strong> $6.49 weekly</div>
+          <div class="details-item"><strong>UNC %:</strong> 99%</div>
+          <div class="details-item"><strong>sUNC %:</strong> 100%</div>
+          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Decompiler</div>
+          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Multi‑Inject</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Codex iOS -->
+    <div class="card" data-name="codex ios">
+      <div class="card-header">
+        <div class="card-left">
+          <h2>Codex iOS</h2>
+          <div class="version">v1.0.0</div>
+          <div class="badges">
+            <div class="badge sunc">sUNC</div>
+            <div class="badge free">Free</div>
+            <div class="badge paid">Paid</div>
+          </div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+          <span class="status updated">Updated</span>
+          <span class="status detected">Detected</span>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="card-footer" data-updated="2025-06-01T12:00:00Z">
+          Last updated: <span class="updated-time"></span>
+        </div>
+        <div class="separator"></div>
+        <div class="card-actions">
+          <a href="https://codex.lol/ios" class="btn website">Website</a>
+          <a href="https://www.mediafire.com/file/7afzer5xxo1110n/Codex_2.674.782.ipa/file" class="btn download">Download</a>
+          <a href="https://discord.gg/codexlol" class="btn discord">Discord</a>
+        </div>
+        <div class="details-row">
+          <div class="details-item"><strong>Cost:</strong> $6.49 weekly</div>
+          <div class="details-item"><strong>UNC %:</strong> 99%</div>
+          <div class="details-item"><strong>sUNC %:</strong> 100%</div>
+          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Decompiler</div>
+          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Multi‑Inject</div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -271,16 +363,12 @@
     document.addEventListener("DOMContentLoaded", () => {
       // mark updated/not-updated
       document.querySelectorAll('.card').forEach(card => {
-        card.classList.add(
-          card.querySelector('.status.updated') ? 'updated' : 'not-updated'
-        );
+        card.classList.add(card.querySelector('.status.updated') ? 'updated' : 'not-updated');
       });
 
       // expand/collapse
       document.querySelectorAll('.card-header').forEach(h =>
-        h.addEventListener('click', () =>
-          h.parentElement.classList.toggle('expanded')
-        )
+        h.addEventListener('click', () => h.parentElement.classList.toggle('expanded'))
       );
 
       // fade-in on scroll
