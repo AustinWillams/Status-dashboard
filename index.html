@@ -70,7 +70,6 @@
       opacity: 0;
       transform: translateY(10px);
       animation: cardFadeIn 0.5s forwards ease-out;
-      /* Stagger each card slightly: */
     }
     .exploit-item:nth-child(1) {
       animation-delay: 0.05s;
@@ -156,11 +155,11 @@
       white-space: nowrap;
       font-weight: 500;
     }
-    .tag-version { background-color: #333; color: #bbb; }
-    .tag-sunc     { background-color: #444; color: #fff; }
-    .tag-recommended { background-color: #e74c3c; color: #fff; }
-    .tag-longest  { background-color: #2980b9; color: #fff; }
-    .tag-price    { background-color: #3498db; color: #fff; }
+    .tag-version      { background-color: #333;  color: #bbb; }
+    .tag-sunc         { background-color: #444;  color: #fff; }
+    .tag-recommended  { background-color: #e74c3c; color: #fff; }
+    .tag-longest      { background-color: #2980b9; color: #fff; }
+    .tag-price        { background-color: #3498db; color: #fff; }
 
     /* -------- STATUS PILL -------- */
     .status-label {
@@ -204,18 +203,19 @@
       padding: 0 20px 12px 20px;
     }
 
-    /* ---------------- CARD BODY (CSS‐ONLY ANIMATION) ---------------- */
+    /* ---------------- CARD BODY (scaleY + opacity) ---------------- */
     .item-body {
-      max-height: 0;
+      transform-origin: top;
+      transform: scaleY(0);
+      opacity: 0;
       overflow: hidden;
       border-top: 1px solid #333;
-      opacity: 0;
-      transition: max-height 0.4s ease, opacity 0.3s ease;
-      padding: 0 20px; /* padding top/bottom will be toggled in .show */
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      padding: 0 20px; /* top/bottom padding toggled in .show */
     }
     .item-body.show {
+      transform: scaleY(1);
       opacity: 1;
-      max-height: 800px; /* large enough to fit your content */
       padding-top: 20px;
       padding-bottom: 20px;
     }
@@ -266,7 +266,6 @@
   <div class="container">
     <!-- ======== HEADER ======== -->
     <header class="header">
-      <!-- Make sure “logo.jpeg” (your RENDEX logo) sits alongside this HTML file -->
       <img class="logo" src="logo.jpeg" alt="RENDEX Logo" />
       <span class="site-title">RENDEX</span>
     </header>
@@ -479,17 +478,16 @@
 
   <script>
     /**
-     * This function simply toggles the “show” class on .item-body,
-     * and switches the header’s “open”/“closed” classes so the chevron rotates.
-     * The CSS transitions (max-height + opacity) do all the work smoothly.
+     * Toggle the “show” class on .item-body, and switch header classes
+     * so the chevron rotates. The CSS transform/opacity transitions
+     * handle the smooth expand/collapse without stutter.
      */
     function toggleBody(headerEl) {
       const item = headerEl.closest(".exploit-item");
       const body = item.querySelector(".item-body");
-      const isCurrentlyOpen = body.classList.toggle("show");
+      const isOpen = body.classList.toggle("show");
 
-      // Update header classes so the chevron rotates and changes color:
-      if (isCurrentlyOpen) {
+      if (isOpen) {
         headerEl.classList.add("open");
         headerEl.classList.remove("closed");
       } else {
