@@ -1,422 +1,369 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>EXECUTOR DASHBOARD</title>
+  <meta charset="UTF-8">
+  <title>WhatExpsAre.Online – Executor Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    /* — CSS Variables — */
+    /* —— Base Colors & Variables —— */
     :root {
-      --bg: #121212; --fg: #e0e0e0;
-      --card-bg: rgba(255,255,255,0.05); --card-fg: #e0e0e0;
-      --input-bg: rgba(255,255,255,0.10); --input-fg: #e0e0e0;
-      --btn-bg: rgba(0,96,255,0.3); --btn-fg: #fff;
-      --shadow: rgba(0,0,0,0.5);
-      --accent-updated: #0c0; --accent-not-updated: #c00;
-      --check-green: #0c0;
+      --bg: #121212;
+      --fg: #e0e0e0;
+      --card-bg: #1f1f1f;
+      --accent: linear-gradient(90deg, #07f, #0ff);
+      --border-accent: #07f;
+      --banner-bg: #181818;
+      --banner-accent: #0c0;
+      --btn-bg: #07f;
+      --btn-hover: rgba(0, 112, 255, 0.8);
+      --shadow: rgba(0, 0, 0, 0.5);
     }
     [data-theme="light"] {
-      --bg: #f5f5f5; --fg: #222;
-      --card-bg: rgba(255,255,255,0.7); --card-fg: #222;
-      --input-bg: rgba(0,0,0,0.05); --input-fg: #222;
-      --btn-bg: rgba(0,96,255,0.3);
-      --shadow: rgba(0,0,0,0.2);
+      --bg: #f5f5f5;
+      --fg: #111;
+      --card-bg: #fff;
+      --banner-bg: #eee;
+      --shadow: rgba(0, 0, 0, 0.2);
     }
-
-    /* — Base — */
-    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: var(--bg); color: var(--fg);
+      background: var(--bg);
+      color: var(--fg);
       font-family: Inter, sans-serif;
-      display: flex; flex-direction: column; align-items: center;
-      padding: 2rem; transition: background .3s, color .3s;
+      line-height: 1.5;
     }
     a { color: inherit; text-decoration: none; }
 
-    /* — Header & Controls — */
-    .header {
-      width: 100%; max-width: 600px;
-      margin-bottom: 1rem;
-      display: flex; justify-content: space-between; align-items: center;
+    /* —— NAVBAR —— */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem;
     }
-    .logo-placeholder, .title-placeholder {
-      background: var(--input-bg); color: var(--input-fg);
-      padding: .5rem 1rem; border-radius: .5rem;
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
     }
-    .controls {
-      position: relative; z-index: 100;
-      width: 100%; max-width: 600px;
-      display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center;
+    .logo span:nth-child(1){ color: #fff; }
+    .logo span:nth-child(2){ color: #f42; }
+    .logo span:nth-child(3){ color: #0f0; }
+    .nav-links {
+      display: flex;
+      gap: 1rem;
     }
-    .controls input {
-      flex: 1; padding: .5rem 1rem; border: none; border-radius: .5rem;
-      background: var(--input-bg); color: var(--input-fg);
-    }
-
-    /* — Theme Dropdown — */
-    .theme-dropdown { position: relative; user-select: none; z-index: 101; }
-    .theme-toggle {
-      display: flex; align-items: center; gap: .5rem;
-      padding: .5rem 1rem; border-radius: .5rem;
-      background: var(--input-bg); color: var(--input-fg);
-      cursor: pointer;
-    }
-    .theme-toggle svg { width: .8rem; height: .8rem; transition: transform .2s; }
-    .theme-dropdown.open .theme-toggle svg { transform: rotate(180deg); }
-    .theme-menu {
-      position: absolute; top: 100%; right: 0;
-      background: var(--card-bg); border-radius: .5rem;
-      margin-top: .3rem; overflow: hidden;
-      box-shadow: 0 4px 12px var(--shadow);
-      opacity: 0; visibility: hidden; transform: translateY(-5px);
-      transition: opacity .2s, transform .2s, visibility .2s;
-    }
-    .theme-dropdown.open .theme-menu {
-      opacity: 1; visibility: visible; transform: translateY(0);
-    }
-    .theme-item { padding: .5rem 1rem; cursor: pointer; white-space: nowrap; }
-    .theme-item:hover { background: var(--input-bg); }
-
-    /* — Cards Container — */
-    .cards {
-      width: 100%; max-width: 600px;
-      display: flex; flex-direction: column; gap: 1rem;
-    }
-
-    /* — Card — */
-    .card {
-      width: 100%;
-      position: relative;
-      background: var(--card-bg); color: var(--card-fg);
-      border-radius: .75rem; overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      transition: box-shadow .3s;
-      opacity: 0; transform: translateY(20px);
-      animation: fadeInUp .6s forwards;
-    }
-    .card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
-    .card:nth-of-type(odd){animation-delay:.1s;}
-    .card:nth-of-type(even){animation-delay:.2s;}
-
-    /* — Accent Strip — */
-    .card::before {
-      content:""; position:absolute;top:0;bottom:0;left:0;width:6px;
-      background: var(--accent-not-updated);
-    }
-    .card.updated::before { background: var(--accent-updated); }
-
-    /* — Header — */
-    .card-header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1rem; cursor: pointer; z-index:1; position: relative;
-    }
-    .card-left { display: flex; align-items: baseline; gap: .5rem; }
-    .card-left h2 { font-size: 1.25rem; margin: 0; }
-    .version {
-      background: var(--input-bg); color: var(--input-fg);
-      padding: .3rem .6rem; border-radius: .75rem; font-size: .9rem;
-    }
-    .badges { display: flex; gap: .4rem; }
-    .badge {
-      background: var(--input-bg); padding: .3rem .6rem; border-radius: .75rem;
-      font-size: .75rem; font-weight: 600; text-transform: uppercase;
-    }
-    .badge.sunc{ background: #333; color: #ddd; }
-    .badge.reco{ background: #ff1cae; color: #fff; }
-
-    .card-right {
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .status {
-      padding: .3rem .6rem; border-radius: .75rem;
-      font-size: .9rem; font-weight: 600;
-    }
-    .status.updated   { background: var(--accent-updated); color: #fff; }
-    .status.undetected{ background: var(--accent-not-updated); color: #fff; }
-    .status.detected  { background: var(--accent-updated); color: #fff; }
-
-    .expand-icon {
-      width: 1rem; height: 1rem; fill: var(--card-fg);
-      margin-right: .5rem; transition: transform .3s;
-    }
-    .card.expanded .expand-icon { transform: rotate(90deg); }
-
-    /* — Last Updated (always visible) — */
-    .card-footer {
-      font-size: .85rem; color: var(--fg);
-      padding: 0 1rem 0.5rem;
-      background: rgba(0,0,0,0.02);
-    }
-
-    /* — Collapsible Content — */
-    .card-content {
-      max-height: 0; overflow: hidden;
-      transition: max-height .4s ease, padding .4s ease;
-      padding: 0 1rem;
-    }
-    .card.expanded .card-content {
-      max-height: 500px; padding: 1rem;
-    }
-
-    .separator {
-      height: 1px; background: var(--input-bg); margin: .5rem 0;
-    }
-
-    .card-actions {
-      display: flex; gap: .5rem; margin-bottom: 1rem;
-    }
-    .btn {
-      display: inline-block; padding: .5rem 1rem;
-      border-radius: .5rem; background: var(--btn-bg);
-      color: var(--btn-fg); font-weight: 600; white-space: nowrap;
+    .nav-links a {
+      padding: .5rem .8rem;
+      border-radius: .4rem;
       transition: background .2s;
     }
-    .btn:hover { background: rgba(0,96,255,0.5); }
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.1);
+    }
 
+    /* —— STATUS BANNER —— */
+    .banner {
+      background: var(--banner-bg);
+      border-top: 1px solid var(--shadow);
+      border-bottom: 1px solid var(--shadow);
+      text-align: center;
+      padding: .75rem;
+      font-size: .9rem;
+      color: var(--banner-accent);
+    }
+
+    /* —— MAIN CONTAINER —— */
+    .container {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* —— SECTION HEADER —— */
+    .section-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--border-accent);
+      padding-left: .75rem;
+    }
+
+    /* —— CARD LAYOUT —— */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: var(--card-bg);
+      border-radius: .75rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px var(--shadow);
+      border-left: 4px solid transparent;
+      transition: border-color .3s, transform .2s;
+    }
+    .card.updated { border-color: var(--banner-accent); }
+    .card:hover { transform: translateY(-2px); }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      cursor: pointer;
+    }
+    .card-left {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .card-left h3 {
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    .badges {
+      display: flex;
+      gap: .4rem;
+    }
+    .badge {
+      font-size: .75rem;
+      text-transform: uppercase;
+      padding: .25rem .5rem;
+      border-radius: .5rem;
+      background: rgba(255,255,255,0.1);
+    }
+    .badge.recommended { background: #f42; color: #fff; }
+    .badge.sunc { background: #9b29b6; color: #fff; }
+    .badge.unc  { background: #fff; color: #000; }
+
+    .card-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .status {
+      font-size: .75rem;
+      font-weight: bold;
+      padding: .25rem .6rem;
+      border-radius: .5rem;
+      color: #fff;
+    }
+    .status.updated { background: var(--banner-accent); }
+    .status.undetected { background: var(--border-accent); }
+
+    .arrow {
+      width: 1rem;
+      height: 1rem;
+      transition: transform .3s;
+    }
+    .card.expanded .arrow {
+      transform: rotate(90deg);
+    }
+
+    /* —— COLLAPSIBLE CONTENT —— */
+    .card-footer {
+      font-size: .85rem;
+      background: rgba(255,255,255,0.03);
+      padding: 0 .75rem .75rem;
+    }
+    .card-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s ease, padding .4s ease;
+      padding: 0 .75rem;
+    }
+    .card.expanded .card-content {
+      max-height: 500px;
+      padding: 1rem .75rem;
+    }
+    .separator {
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: .5rem 0;
+    }
+    .card-actions {
+      display: flex;
+      gap: .5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background: var(--btn-bg);
+      color: #fff;
+      padding: .5rem 1rem;
+      border-radius: .5rem;
+      transition: background .2s;
+      font-size: .9rem;
+    }
+    .btn:hover { background: var(--btn-hover); }
     .details-row {
-      display: flex; flex-wrap: wrap; gap: 2rem;
-      font-size: .9rem; margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: .9rem;
     }
     .details-item {
-      display: flex; align-items: center; gap: .25rem;
+      display: flex;
+      align-items: center;
+      gap: .3rem;
     }
     .details-item svg {
-      width: 1rem; height: 1rem; fill: var(--check-green);
+      width: 1rem;
+      height: 1rem;
+      fill: var(--banner-accent);
     }
 
     @keyframes fadeInUp {
-      to { opacity:1; transform: translateY(0); }
+      to { opacity: 1; transform: translateY(0); }
     }
+    .card { opacity: 0; transform: translateY(20px); animation: fadeInUp .6s forwards; }
+    .card:nth-of-type(odd){ animation-delay: .1s; }
+    .card:nth-of-type(even){ animation-delay: .2s; }
   </style>
 </head>
 <body data-theme="dark">
 
-  <div class="header">
-    <div class="logo-placeholder">LOGO</div>
-    <div class="title-placeholder">EXECUTOR DASHBOARD</div>
-  </div>
-
-  <div class="controls">
-    <input id="search" placeholder="Search executors…" />
-    <div class="theme-dropdown" id="theme-dropdown">
-      <div class="theme-toggle">
-        <span id="theme-label">Dark Mode</span>
-        <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6" stroke="currentColor" fill="none" stroke-width="2"/></svg>
-      </div>
-      <div class="theme-menu">
-        <div class="theme-item" data-theme="dark">Dark Mode</div>
-        <div class="theme-item" data-theme="light">Light Mode</div>
-      </div>
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="logo">
+      <span>What</span><span>Exps</span><span>Are.Online</span>
     </div>
+    <nav class="nav-links">
+      <a href="#">API Docs</a>
+      <a href="#">Discord</a>
+      <a href="#">RDD</a>
+      <div class="theme-dropdown" id="theme-dropdown">
+        <div class="theme-toggle">
+          Theme ▾
+        </div>
+        <div class="theme-menu">
+          <div class="theme-item" data-theme="dark">Dark Mode</div>
+          <div class="theme-item" data-theme="light">Light Mode</div>
+        </div>
+      </div>
+    </nav>
   </div>
 
-  <div class="cards">
+  <!-- STATUS BANNER -->
+  <div class="banner">
+    All Roblox executors are <strong>DETECTED</strong>! Exploiting will cause your account to be <em>warned</em> or <em>banned</em>.
+  </div>
 
-    <!-- Codex Android -->
-    <div class="card" data-name="codex android">
-      <div class="card-header">
-        <div class="card-left">
-          <h2>Codex Android</h2>
-          <div class="version">v673</div>
-          <div class="badges">
-            <div class="badge sunc">sUNC</div>
-            <div class="badge reco">Recommended</div>
+  <!-- MAIN CONTENT -->
+  <div class="container">
+
+    <!-- LINK PROMO -->
+    <div class="section-link" style="margin:1rem 0; padding:1rem; background:var(--card-bg); border-radius:.5rem; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <strong>BloxProducts</strong><br>
+        Wish to purchase any of these exploits? Head over to BloxProducts!
+      </div>
+      <a href="#" class="btn">Visit BloxProducts ↗</a>
+    </div>
+
+    <!-- DISCORD PROMO -->
+    <div class="section-link" style="margin-bottom:2rem; padding:1rem; background:var(--card-bg); border-radius:.5rem; display:flex; justify-content:space-between; align-items:center;">
+      <div>Join the WEAO Discord Community! Get live status updates, support, and update pings from the bot.</div>
+      <a href="#" class="btn">Join Discord →</a>
+    </div>
+
+    <!-- SECTION TITLE -->
+    <div class="section-title">Windows Script Executor Exploits</div>
+
+    <!-- CARDS LIST -->
+    <div class="cards">
+
+      <!-- Example Card -->
+      <div class="card updated" data-name="zenith">
+        <div class="card-header">
+          <div class="card-left">
+            <h3>Zenith</h3>
+            <div class="version">v1.9.3</div>
+            <div class="badges">
+              <div class="badge sunc">sUNC</div>
+              <div class="badge reco">Recommended</div>
+            </div>
+          </div>
+          <div class="card-right">
+            <span class="status updated">Updated</span>
+            <span class="status undetected">Undetected</span>
+            <svg class="arrow" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
           </div>
         </div>
-        <div class="card-right">
-          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-          <span class="status updated">Updated</span>
-          <span class="status undetected">Undetected</span>
+        <div class="card-footer" data-updated="2025-05-22T20:09:00+08:00">
+          Last updated: <span class="updated-time"></span>
+        </div>
+        <div class="card-content">
+          <div class="separator"></div>
+          <div class="card-actions">
+            <a href="#" class="btn website">Website</a>
+            <a href="#" class="btn discord">Discord</a>
+            <a href="#" class="btn download">Purchase</a>
+          </div>
+          <div class="details-row">
+            <div class="details-item"><strong>Cost:</strong> $6.49 / wk</div>
+            <div class="details-item"><strong>UNC %:</strong> 99%</div>
+            <div class="details-item"><strong>sUNC %:</strong> 100%</div>
+            <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--banner-accent)" stroke-width="2" fill="none"/></svg>Decompiler</div>
+            <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--banner-accent)" stroke-width="2" fill="none"/></svg>Multi‑Inject</div>
+          </div>
         </div>
       </div>
-      <div class="card-footer" data-updated="2025-06-01T12:00:00+08:00">
-        Last updated: <span class="updated-time"></span>
-      </div>
-      <div class="card-content">
-        <div class="separator"></div>
-        <div class="card-actions">
-          <a href="https://codex.lol/android" class="btn website">Website</a>
-          <a href="https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/file" class="btn download">Download</a>
-          <a href="https://discord.gg/codexlol" class="btn discord">Discord</a>
-        </div>
-        <div class="details-row">
-          <div class="details-item"><strong>Cost:</strong> $6.49 weekly</div>
-          <div class="details-item"><strong>UNC %:</strong> 99%</div>
-          <div class="details-item"><strong>sUNC %:</strong> 100%</div>
-          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Decompiler</div>
-          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Multi‑Inject</div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Ronix Android -->
-    <div class="card" data-name="ronix android">
-      <div class="card-header">
-        <div class="card-left">
-          <h2>Ronix Android</h2>
-          <div class="version">v671</div>
-          <div class="badges"><div class="badge sunc">sUNC</div></div>
-        </div>
-        <div class="card-right">
-          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-          <span class="status updated">Updated</span>
-          <span class="status undetected">Undetected</span>
-        </div>
-      </div>
-      <div class="card-footer" data-updated="2025-05-24T13:15:00+08:00">
-        Last updated: <span class="updated-time"></span>
-      </div>
-      <div class="card-content">
-        <div class="separator"></div>
-        <div class="card-actions">
-          <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file" class="btn download">Download</a>
-          <a href="https://discord.gg/ronix" class="btn discord">Discord</a>
-        </div>
-        <div class="details-row">
-          <div class="details-item"><strong>Cost:</strong> $6.49 weekly</div>
-          <div class="details-item"><strong>UNC %:</strong> 99%</div>
-          <div class="details-item"><strong>sUNC %:</strong> 100%</div>
-          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Decompiler</div>
-          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Multi‑Inject</div>
-        </div>
-      </div>
-    </div>
+      <!-- Add additional .card blocks here for Ronix Android, Delta Android, Codex iOS, etc. -->
 
-    <!-- Delta Android -->
-    <div class="card" data-name="delta android">
-      <div class="card-header">
-        <div class="card-left">
-          <h2>Delta Android</h2>
-          <div class="version">v673</div>
-          <div class="badges"><div class="badge sunc">sUNC</div></div>
-        </div>
-        <div class="card-right">
-          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-          <span class="status updated">Updated</span>
-          <span class="status undetected">Undetected</span>
-        </div>
-      </div>
-      <div class="card-footer" data-updated="2025-05-27T00:00:00+08:00">
-        Last updated: <span class="updated-time"></span>
-      </div>
-      <div class="card-content">
-        <div class="separator"></div>
-        <div class="card-actions">
-          <a href="https://deltaexploits.gg/delta-executor-mobile" class="btn website">Website</a>
-          <a href="https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file" class="btn download">Download</a>
-          <a href="https://discord.gg/deltax" class="btn discord">Discord</a>
-        </div>
-        <div class="details-row">
-          <div class="details-item"><strong>Cost:</strong> $6.49 weekly</div>
-          <div class="details-item"><strong>UNC %:</strong> 99%</div>
-          <div class="details-item"><strong>sUNC %:</strong> 100%</div>
-          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Decompiler</div>
-          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Multi‑Inject</div>
-        </div>
-      </div>
     </div>
-
-    <!-- Codex iOS -->
-    <div class="card" data-name="codex ios">
-      <div class="card-header">
-        <div class="card-left">
-          <h2>Codex iOS</h2>
-          <div class="version">v1.0.0</div>
-          <div class="badges"><div class="badge sunc">sUNC</div></div>
-        </div>
-        <div class="card-right">
-          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-          <span class="status updated">Updated</span>
-          <span class="status detected">Detected</span>
-        </div>
-      </div>
-      <div class="card-footer" data-updated="2025-06-01T12:00:00+08:00">
-        Last updated: <span class="updated-time"></span>
-      </div>
-      <div class="card-content">
-        <div class="separator"></div>
-        <div class="card-actions">
-          <a href="https://codex.lol/ios" class="btn website">Website</a>
-          <a href="https://www.mediafire.com/file/7afzer5xxo1110n/Codex_2.674.782.ipa/file" class="btn download">Download</a>
-          <a href="https://discord.gg/codexlol" class="btn discord">Discord</a>
-        </div>
-        <div class="details-row">
-          <div class="details-item"><strong>Cost:</strong> $6.49 weekly</div>
-          <div class="details-item"><strong>UNC %:</strong> 99%</div>
-          <div class="details-item"><strong>sUNC %:</strong> 100%</div>
-          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Decompiler</div>
-          <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Multi‑Inject</div>
-        </div>
-      </div>
-    </div>
-
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // mark updated/not-updated
-      document.querySelectorAll('.card').forEach(card => {
-        card.classList.add(
-          card.querySelector('.status.updated') ? 'updated' : 'not-updated'
-        );
+    // EXPAND / COLLAPSE
+    document.querySelectorAll('.card-header').forEach(h =>
+      h.addEventListener('click', () =>
+        h.closest('.card').classList.toggle('expanded')
+      )
+    );
+
+    // LAZY FADE-IN ON SCROLL
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.animationPlayState = 'running';
+          io.unobserve(e.target);
+        }
       });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.card').forEach(c => {
+      c.style.animationPlayState = 'paused';
+      io.observe(c);
+    });
 
-      // expand/collapse
-      document.querySelectorAll('.card-header').forEach(h =>
-        h.addEventListener('click', () =>
-          h.parentElement.classList.toggle('expanded')
-        )
-      );
-
-      // fade-in on scroll
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.style.animationPlayState = 'running';
-            io.unobserve(e.target);
-          }
+    // DYNAMIC LAST UPDATED CONVERSION
+    document.querySelectorAll('.card-footer').forEach(f => {
+      const iso = f.dataset.updated;
+      const dt = iso && new Date(iso);
+      if (!dt) return;
+      f.querySelector('.updated-time').textContent =
+        dt.toLocaleString(navigator.language, {
+          day: '2-digit', month: '2-digit', year: 'numeric',
+          hour: 'numeric', minute: '2-digit', hour12: true
         });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.card').forEach(c => {
-        c.style.animationPlayState = 'paused';
-        io.observe(c);
-      });
+    });
 
-      // dynamic “Last updated” conversion
-      document.querySelectorAll('.card-footer').forEach(f => {
-        const iso = f.getAttribute('data-updated');
-        if (!iso) return;
-        const dt = new Date(iso);
-        f.querySelector('.updated-time').textContent =
-          dt.toLocaleString(navigator.language, {
-            day: '2-digit', month: '2-digit', year: 'numeric',
-            hour: 'numeric', minute: '2-digit', hour12: true
-          });
-      });
-
-      // theme dropdown
-      const dd = document.getElementById('theme-dropdown'),
-            lbl = document.getElementById('theme-label');
-      dd.querySelectorAll('.theme-item').forEach(i =>
-        i.addEventListener('click', () => {
-          document.body.dataset.theme = i.dataset.theme;
-          lbl.textContent = i.textContent;
-          dd.classList.remove('open');
-        })
-      );
-      dd.querySelector('.theme-toggle').addEventListener('click', () =>
-        dd.classList.toggle('open')
-      );
-      document.addEventListener('click', e => {
-        if (!dd.contains(e.target)) dd.classList.remove('open');
-      });
-
-      // search filter
-      document.getElementById('search').addEventListener('input', e => {
-        const q = e.target.value.toLowerCase();
-        document.querySelectorAll('.card').forEach(card =>
-          card.style.display = card.dataset.name.includes(q) ? '' : 'none'
-        );
-      });
+    // THEME TOGGLE
+    const dd = document.getElementById('theme-dropdown'),
+          lbl = dd.querySelector('.theme-toggle');
+    dd.querySelectorAll('.theme-item').forEach(i =>
+      i.addEventListener('click', () => {
+        document.body.dataset.theme = i.dataset.theme;
+        dd.classList.remove('open');
+      })
+    );
+    lbl.addEventListener('click', () => dd.classList.toggle('open'));
+    document.addEventListener('click', e => {
+      if (!dd.contains(e.target)) dd.classList.remove('open');
     });
   </script>
 </body>
