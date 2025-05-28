@@ -22,18 +22,17 @@
       --dropdown-text:        #ffffff;
 
       /* Accent colors (WEAO.xyz–inspired) */
-      --color-purple-solid:   #B23CFD;  /* for “s” in sUNC */
-      --gradient-cyan-light:  #00FFFF;  /* for $ tag */
+      --color-purple-solid:   #B23CFD;
+      --gradient-cyan-light:  #00FFFF;
       --gradient-cyan-dark:   #00CFFF;
-      --gradient-pink-light:  #FF0080;  /* for “Recommended” */
+      --gradient-pink-light:  #FF0080;
       --gradient-pink-dark:   #FF66A3;
-      --gradient-green-light: #00FF00;  /* for “Free” & “Updated” */
+      --gradient-green-light: #00FF00;
       --gradient-green-dark:  #00CC00;
-      --gradient-red-light:   #FF0000;  /* for “Not Updated” */
+      --gradient-red-light:   #FF0000;
       --gradient-red-dark:    #CC0000;
     }
     body.light-theme {
-      /* LIGHT THEME overrides */
       --bg:                   #ffffff;
       --text:                 #000000;
       --card-bg:              #f9f9f9;
@@ -64,7 +63,10 @@
       transition: background-color 0.5s ease, color 0.5s ease;
     }
     .navbar, .item-header, .item-body, .exploit-item {
-      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+      transition: background-color 0.5s ease,
+                  color 0.5s ease,
+                  border-color 0.5s ease,
+                  box-shadow 0.5s ease;
     }
 
     /* ==================== RESET & BASE ==================== */
@@ -119,7 +121,9 @@
       background-color: var(--input-bg);
       color: var(--input-text);
       font-size: 0.9rem;
-      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+      transition: background-color 0.5s ease,
+                  color 0.5s ease,
+                  border-color 0.5s ease;
     }
     .navbar .search-container input[type="search"]::placeholder {
       color: var(--input-text);
@@ -142,7 +146,9 @@
       justify-content: space-between;
       gap: 6px;
       cursor: pointer;
-      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+      transition: background-color 0.5s ease,
+                  color 0.5s ease,
+                  border-color 0.5s ease;
     }
     .navbar .dropdown-selected svg.icon {
       width: 16px;
@@ -162,6 +168,7 @@
     .navbar .custom-dropdown.open .dropdown-selected::after {
       transform: rotate(180deg);
     }
+    /* Dropdown animation */
     .navbar .dropdown-options {
       position: absolute;
       top: calc(100% + 4px);
@@ -171,11 +178,15 @@
       border-radius: 4px;
       overflow: hidden;
       box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      display: none;
+      opacity: 0;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: opacity 0.3s ease, transform 0.3s ease;
       z-index: 100;
-      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
     }
     .navbar .custom-dropdown.open .dropdown-options {
+      opacity: 1;
+      transform: scaleY(1);
       display: block;
     }
     .navbar .dropdown-options div {
@@ -186,7 +197,8 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: background-color 0.2s ease, color 0.5s ease;
+      transition: background-color 0.2s ease,
+                  color 0.5s ease;
     }
     .navbar .dropdown-options div:hover {
       background-color: var(--dropdown-hover);
@@ -243,7 +255,10 @@
       border-left-width: 6px;
       border-radius: 8px;
       overflow: hidden;
-      transition: transform 0.1s, box-shadow 0.2s, background-color 0.5s ease, border-color 0.5s ease;
+      transition: transform 0.1s,
+                  box-shadow 0.2s,
+                  background-color 0.5s ease,
+                  border-color 0.5s ease;
     }
     .exploit-item:hover {
       transform: translateY(-2px);
@@ -400,7 +415,7 @@
       font-weight: 400;
     }
 
-    /* ==================== sUNC MODAL (LARGER) ==================== */
+    /* ==================== sUNC MODAL (WITH FADE) ==================== */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -408,10 +423,17 @@
       width: 100%;
       height: 100%;
       background-color: rgba(0,0,0,0.6);
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
       z-index: 200;
+    }
+    .modal-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
     }
     .modal-content {
       background-color: var(--card-bg);
@@ -422,6 +444,11 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.show .modal-content {
+      transform: scale(1);
     }
     .modal-header {
       display: flex;
@@ -524,9 +551,7 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -580,9 +605,7 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -636,9 +659,7 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -670,7 +691,7 @@
             <div class="detail-item">
               <span class="detail-key">Multi‑Inject:</span>
               <span class="detail-value">&#10003;</span>
-            </div>  
+            </div>
             <div class="detail-item">
               <span class="detail-key">Detected:</span>
               <span class="detail-value">&#10007;</span>
@@ -692,9 +713,7 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -737,7 +756,7 @@
     </section>
   </div>
 
-  <!-- ==================== sUNC MODAL (LARGER) ==================== -->
+  <!-- ==================== sUNC MODAL (WITH FADE) ==================== -->
   <div class="modal-overlay" id="suncModal">
     <div class="modal-content">
       <div class="modal-header">
@@ -817,18 +836,18 @@
 
     suncTags.forEach(tag => {
       tag.addEventListener("click", () => {
-        modalOverlay.style.display = "flex";
+        modalOverlay.classList.add("show");
       });
     });
 
     closeModalButton.addEventListener("click", () => {
-      modalOverlay.style.display = "none";
+      modalOverlay.classList.remove("show");
     });
 
     // Close modal when clicking outside content
     modalOverlay.addEventListener("click", (e) => {
       if (e.target === modalOverlay) {
-        modalOverlay.style.display = "none";
+        modalOverlay.classList.remove("show");
       }
     });
   </script>
