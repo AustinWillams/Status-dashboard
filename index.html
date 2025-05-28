@@ -203,19 +203,24 @@
       padding: 0 20px 12px 20px;
     }
 
-    /* ---------------- CARD BODY (display + opacity) ---------------- */
+    /* ---------------- CARD BODY (max-height + padding + opacity) ---------------- */
     .item-body {
-      display: none;
+      max-height: 0;
       opacity: 0;
       border-top: 1px solid #333;
-      transition: opacity 0.3s ease;
-      padding: 0 20px;
+      padding: 0 20px;                 /* only left/right when closed */
+      overflow: hidden;
+      transition:
+        max-height 0.4s ease,
+        opacity 0.3s ease,
+        padding-top 0.4s ease,
+        padding-bottom 0.4s ease;
     }
     .item-body.show {
-      display: block;
-      padding-top: 20px;
-      padding-bottom: 20px;
+      max-height: 500px;               /* large enough for content */
       opacity: 1;
+      padding-top: 20px;               /* animate top/bottom padding */
+      padding-bottom: 20px;
     }
 
     /* ---------------- BUTTONS ---------------- */
@@ -476,10 +481,10 @@
 
   <script>
     /**
-     * Toggle the “show” class on .item-body and switch
-     * header classes so the chevron rotates. Since .item-body
-     * goes between display: none ↔ display: block, there’s no
-     * leftover space when it’s closed.
+     * Toggle the “show” class on .item-body and update the
+     * header’s open/closed classes so the chevron rotates.
+     * Because .item-body transitions max-height + opacity + padding,
+     * it expands and collapses smoothly without leaving a gap.
      */
     function toggleBody(headerEl) {
       const item = headerEl.closest(".exploit-item");
