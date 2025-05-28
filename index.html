@@ -22,7 +22,7 @@
     }
 
     /* — Base — */
-    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
     body {
       background: var(--bg); color: var(--fg);
       font-family: Inter, sans-serif;
@@ -32,9 +32,7 @@
     a { color: inherit; text-decoration: none; }
 
     /* — Header & Controls — */
-    .header, .controls { width:100%; max-width:800px; }
-    .header {
-      margin-bottom:1rem;
+    .header { width:100%; max-width:800px; margin-bottom:1rem;
       display:flex; justify-content:space-between; align-items:center;
     }
     .logo-placeholder, .title-placeholder {
@@ -42,6 +40,9 @@
       padding:.5rem 1rem; border-radius:.5rem;
     }
     .controls {
+      position: relative; /* bring above cards */
+      z-index: 100;
+      width:100%; max-width:800px;
       display:flex; gap:1rem; margin-bottom:1rem; align-items:center;
     }
     .controls input {
@@ -50,7 +51,7 @@
     }
 
     /* — Theme Dropdown — */
-    .theme-dropdown { position:relative; user-select:none; }
+    .theme-dropdown { position:relative; user-select:none; z-index:101; }
     .theme-toggle {
       display:flex; align-items:center; gap:.5rem;
       padding:.5rem 1rem; border-radius:.5rem;
@@ -85,18 +86,23 @@
       background:var(--card-bg); color:var(--card-fg);
       border-radius:.75rem; overflow:hidden;
       box-shadow:0 8px 20px var(--shadow);
+      opacity:0; transform:translateY(20px);
+      animation:fadeInUp .6s forwards;
     }
-    .card.updated::before,
-    .card.not-updated::before {
+    .card:nth-of-type(odd) { animation-delay:.1s; }
+    .card:nth-of-type(even){ animation-delay:.2s; }
+
+    /* — Accent Strip — */
+    .card::before {
       content:""; position:absolute; top:0; bottom:0; left:0; width:6px;
+      background: var(--accent-not-updated);
     }
     .card.updated::before { background: var(--accent-updated); }
-    .card.not-updated::before { background: var(--accent-not-updated); }
 
     /* — Header — */
     .card-header {
       display:flex; justify-content:space-between; align-items:center;
-      padding:1rem; cursor:pointer; position:relative; z-index:1;
+      padding:1rem; cursor:pointer; z-index:1; position:relative;
     }
     .card-left { display:flex; align-items:baseline; gap:.5rem; }
     .card-left h2 { font-size:1.25rem; margin:0; }
@@ -130,13 +136,22 @@
       width:1rem; height:1rem; fill:var(--card-fg);
       transition: transform .3s;
     }
-    .card.expanded .expand-icon { transform:rotate(90deg); }
+    .card.expanded .expand-icon {
+      transform:rotate(90deg);
+    }
 
     /* — Content — */
-    .card-content { display:none; padding:0 1rem; }
-    .card.expanded .card-content { display:block; padding:1rem; }
+    .card-content {
+      max-height:0; overflow:hidden;
+      transition: max-height .4s ease, padding .4s ease;
+      padding:0 1rem;
+    }
+    .card.expanded .card-content {
+      max-height:400px; padding:1rem;
+    }
     .card-content p { margin-bottom:1rem; }
 
+    /* — Actions — */
     .card-actions {
       display:flex; gap:.5rem; margin-bottom:1rem;
     }
@@ -158,7 +173,9 @@
     }
     .details div:first-child { font-weight:600; }
 
-    @keyframes fadeInUp { to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeInUp {
+      to { opacity:1; transform:translateY(0); }
+    }
   </style>
 </head>
 <body data-theme="dark">
@@ -197,7 +214,7 @@
           </div>
         </div>
         <div class="card-right">
-          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
           <span class="price">Free / Paid</span>
           <span class="status updated">Updated</span>
           <span class="status undetected">Undetected</span>
@@ -206,16 +223,16 @@
       <div class="card-content">
         <p>Android‑specific build—lightweight but may still have bugs.</p>
         <div class="card-actions">
-          <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file" class="btn download">Download</a>
-          <a href="https://discord.gg/ronix" class="btn discord">Discord</a>
+          <a href="#" class="btn download">Download</a>
+          <a href="#" class="btn discord">Discord</a>
         </div>
         <div class="card-footer" data-updated="2025-05-24T13:15:00Z">
           Last updated: <span class="updated-time"></span>
         </div>
         <div class="details">
           <div>Cost:</div><div>$6.49 weekly</div>
-          <div>UNC %:</div><div>99%</div>
-          <div>sUNC %:</div><div>100%</div>
+          <div>UNC %:</div><div>99%</div>
+          <div>sUNC %:</div><div>100%</div>
           <div>Decompiler:</div><div>✔ (custom)</div>
           <div>Multi‑Inject:</div><div>✔ (custom)</div>
         </div>
@@ -235,7 +252,7 @@
           </div>
         </div>
         <div class="card-right">
-          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
           <span class="price">Free / Paid</span>
           <span class="status updated">Updated</span>
           <span class="status undetected">Undetected</span>
@@ -244,17 +261,17 @@
       <div class="card-content">
         <p>Placeholder description—update with real details.</p>
         <div class="card-actions">
-          <a href="https://deltaexploits.gg/delta-executor-mobile" class="btn website">Website</a>
-          <a href="https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file" class="btn download">Download</a>
-          <a href="https://discord.gg/deltax" class="btn discord">Discord</a>
+          <a href="#" class="btn website">Website</a>
+          <a href="#" class="btn download">Download</a>
+          <a href="#" class="btn discord">Discord</a>
         </div>
         <div class="card-footer" data-updated="2025-05-27T00:00:00Z">
           Last updated: <span class="updated-time"></span>
         </div>
         <div class="details">
           <div>Cost:</div><div>$6.49 weekly</div>
-          <div>UNC %:</div><div>99%</div>
-          <div>sUNC %:</div><div>100%</div>
+          <div>UNC %:</div><div>99%</div>
+          <div>sUNC %:</div><div>100%</div>
           <div>Decompiler:</div><div>✔ (custom)</div>
           <div>Multi‑Inject:</div><div>✔ (custom)</div>
         </div>
@@ -274,7 +291,7 @@
           </div>
         </div>
         <div class="card-right">
-          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
           <span class="price">Free / Paid</span>
           <span class="status updated">Updated</span>
           <span class="status undetected">Undetected</span>
@@ -283,17 +300,17 @@
       <div class="card-content">
         <p>Placeholder for Codex Android—details coming soon.</p>
         <div class="card-actions">
-          <a href="https://codex.lol/android" class="btn website">Website</a>
-          <a href="https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/file" class="btn download">Download</a>
-          <a href="https://discord.gg/codexlol" class="btn discord">Discord</a>
+          <a href="#" class="btn website">Website</a>
+          <a href="#" class="btn download">Download</a>
+          <a href="#" class="btn discord">Discord</a>
         </div>
         <div class="card-footer" data-updated="2025-06-01T12:00:00Z">
           Last updated: <span class="updated-time"></span>
         </div>
         <div class="details">
           <div>Cost:</div><div>$6.49 weekly</div>
-          <div>UNC %:</div><div>99%</div>
-          <div>sUNC %:</div><div>100%</div>
+          <div>UNC %:</div><div>99%</div>
+          <div>sUNC %:</div><div>100%</div>
           <div>Decompiler:</div><div>✔ (custom)</div>
           <div>Multi‑Inject:</div><div>✔ (custom)</div>
         </div>
@@ -313,7 +330,7 @@
           </div>
         </div>
         <div class="card-right">
-          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
           <span class="price">Free / Paid</span>
           <span class="status updated">Updated</span>
           <span class="status detected">Detected</span>
@@ -322,17 +339,17 @@
       <div class="card-content">
         <p>iOS‑optimized build—replace with actual details when ready.</p>
         <div class="card-actions">
-          <a href="https://codex.lol/ios" class="btn website">Website</a>
-          <a href="https://www.mediafire.com/file/7afzer5xxo1110n/Codex_2.674.782.ipa/file" class="btn download">Download</a>
-          <a href="https://discord.gg/codexlol" class="btn discord">Discord</a>
+          <a href="#" class="btn website">Website</a>
+          <a href="#" class="btn download">Download</a>
+          <a href="#" class="btn discord">Discord</a>
         </div>
         <div class="card-footer" data-updated="2025-06-01T12:00:00Z">
           Last updated: <span class="updated-time"></span>
         </div>
         <div class="details">
           <div>Cost:</div><div>$6.49 weekly</div>
-          <div>UNC %:</div><div>99%</div>
-          <div>sUNC %:</div><div>100%</div>
+          <div>UNC %:</div><div>99%</div>
+          <div>sUNC %:</div><div>100%</div>
           <div>Decompiler:</div><div>✔ (custom)</div>
           <div>Multi‑Inject:</div><div>✔ (custom)</div>
         </div>
@@ -343,21 +360,31 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Mark cards updated vs not
+      // mark updated/not-updated
       document.querySelectorAll('.card').forEach(card => {
-        card.classList.add(
-          card.querySelector('.status.updated') ? 'updated' : 'not-updated'
-        );
+        card.classList.add(card.querySelector('.status.updated') ? 'updated' : 'not-updated');
       });
 
-      // Expand/collapse
+      // expand/collapse
       document.querySelectorAll('.card-header').forEach(h =>
-        h.addEventListener('click', () =>
-          h.parentElement.classList.toggle('expanded')
-        )
+        h.addEventListener('click', () => h.parentElement.classList.toggle('expanded'))
       );
 
-      // Timestamp formatting
+      // fade-in on scroll
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.style.animationPlayState = 'running';
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.card').forEach(c => {
+        c.style.animationPlayState = 'paused';
+        io.observe(c);
+      });
+
+      // timestamp formatting
       const fmt = new Intl.DateTimeFormat('en-GB', {
         timeZone: 'Asia/Kuala_Lumpur',
         day: '2-digit', month: '2-digit', year: 'numeric',
@@ -369,7 +396,7 @@
         f.querySelector('.updated-time').textContent = fmt.format(new Date(iso));
       });
 
-      // Theme dropdown
+      // theme dropdown
       const dd = document.getElementById('theme-dropdown'),
             lbl = document.getElementById('theme-label');
       dd.querySelectorAll('.theme-item').forEach(i =>
@@ -386,12 +413,12 @@
         if (!dd.contains(e.target)) dd.classList.remove('open');
       });
 
-      // Search filter
+      // search filter
       document.getElementById('search').addEventListener('input', e => {
         const q = e.target.value.toLowerCase();
-        document.querySelectorAll('.card').forEach(card => {
-          card.style.display = card.dataset.name.includes(q) ? '' : 'none';
-        });
+        document.querySelectorAll('.card').forEach(card =>
+          card.style.display = card.dataset.name.includes(q) ? '' : 'none'
+        );
       });
     });
   </script>
