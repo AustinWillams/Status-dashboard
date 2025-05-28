@@ -20,6 +20,8 @@
       --dropdown-bg:       #2e2e2e;
       --dropdown-hover:    #333;
       --dropdown-text:     #e0e0e0;
+      --updated-color:     #27ae60;
+      --notupdated-color:  #e74c3c;
     }
     body.light-theme {
       /* LIGHT THEME overrides */
@@ -34,6 +36,21 @@
       --dropdown-bg:       #ffffff;
       --dropdown-hover:    #eee;
       --dropdown-text:     #1a1a1a;
+      --updated-color:     #27ae60;
+      --notupdated-color:  #e74c3c;
+    }
+
+    /* ==================== GLOBAL TRANSITIONS ==================== */
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    .navbar,
+    .item-header,
+    .item-body,
+    .exploit-item {
+      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
     }
 
     /* ==================== RESET & BASE ==================== */
@@ -44,8 +61,6 @@
     }
     html, body {
       height: 100%;
-      background-color: var(--bg);
-      color: var(--text);
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
     a {
@@ -69,7 +84,7 @@
       justify-content: space-between;
       gap: 16px;
     }
-    /* Left: title */
+    /* Left: Title */
     .navbar .site-title {
       font-size: 1.5rem;
       letter-spacing: 2px;
@@ -77,7 +92,7 @@
       font-weight: bold;
       white-space: nowrap;
     }
-    /* Center: search bar */
+    /* Center: Search bar */
     .navbar .search-container {
       flex: 1;
       display: flex;
@@ -92,12 +107,13 @@
       background-color: var(--input-bg);
       color: var(--input-text);
       font-size: 0.9rem;
+      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
     }
     .navbar .search-container input[type="search"]::placeholder {
       color: var(--input-text);
       opacity: 0.7;
     }
-    /* Right: custom dropdown */
+    /* Right: Custom dropdown */
     .navbar .custom-dropdown {
       position: relative;
       user-select: none;
@@ -115,9 +131,10 @@
       justify-content: space-between;
       gap: 6px;
       cursor: pointer;
+      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
     }
     .navbar .dropdown-selected::after {
-      content: "▾";
+      content: "▾"; /* down arrow */
       font-size: 0.7rem;
       transition: transform 0.2s ease;
     }
@@ -135,6 +152,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.3);
       display: none;
       z-index: 100;
+      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
     }
     .navbar .custom-dropdown.open .dropdown-options {
       display: block;
@@ -144,7 +162,7 @@
       font-size: 0.9rem;
       color: var(--dropdown-text);
       cursor: pointer;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.2s ease, color 0.5s ease;
     }
     .navbar .dropdown-options div:hover {
       background-color: var(--dropdown-hover);
@@ -168,7 +186,6 @@
         transform: translateY(0);
       }
     }
-
     .exploit-item {
       opacity: 0;
       transform: translateY(10px);
@@ -185,7 +202,6 @@
       flex-direction: column;
       gap: 20px;
     }
-
     .exploit-item {
       position: relative;
       background-color: var(--card-bg);
@@ -193,15 +209,15 @@
       border-left-width: 6px;
       border-radius: 8px;
       overflow: hidden;
-      transition: transform 0.1s, box-shadow 0.2s;
+      transition: transform 0.1s, box-shadow 0.2s, background-color 0.5s ease, border-color 0.5s ease;
     }
     .exploit-item:hover {
       transform: translateY(-2px);
     }
 
     /* Left stripe colors by status */
-    .status-updated   { border-left-color: #27ae60; }
-    .status-notupdated{ border-left-color: #e74c3c; }
+    .status-updated   { border-left-color: var(--updated-color); }
+    .status-notupdated{ border-left-color: var(--notupdated-color); }
 
     /* Glow for “Recommended” and “Longest Running” */
     .exploit-item.recommended {
@@ -224,6 +240,7 @@
       );
       cursor: pointer;
       user-select: none;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
     .item-title {
       display: flex;
@@ -240,11 +257,23 @@
 
     /* -------- TAG STYLES -------- */
     .tag {
+      position: relative;
       font-size: 0.8rem;
       padding: 4px 10px;
       border-radius: 12px;
       white-space: nowrap;
       font-weight: 500;
+    }
+    /* Add a small circle before “Recommended” */
+    .tag-recommended::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: #e74c3c;
+      border-radius: 50%;
+      margin-right: 4px;
+      vertical-align: middle;
     }
     .tag-version      { background-color: #333;  color: #bbb; }
     .tag-sunc         { background-color: #444;  color: #fff; }
@@ -252,18 +281,17 @@
     .tag-longest      { background-color: #2980b9; color: #fff; }
     .tag-price        { background-color: #3498db; color: #fff; }
 
-    /* -------- STATUS PILL -------- */
+    /* -------- STATUS LABEL (text color only) -------- */
     .status-label {
       font-size: 0.88rem;
       font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 12px;
-      color: #fff;
-      margin-left: 12px;
+      background: none;
+      color: var(--updated-color);
       white-space: nowrap;
     }
-    .status-updated > .item-header > .status-label   { background-color: #27ae60; }
-    .status-notupdated > .item-header > .status-label{ background-color: #e74c3c; }
+    .status-notupdated > .item-header > .status-label {
+      color: var(--notupdated-color);
+    }
 
     /* -------- CHEVRON ICON (SVG) -------- */
     .chevron {
@@ -304,7 +332,7 @@
         padding-bottom 0.4s ease;
     }
     .item-body.show {
-      max-height: 500px;
+      max-height: 500px;       /* should exceed content height */
       opacity: 1;
       padding-top: 20px;
       padding-bottom: 20px;
@@ -322,7 +350,7 @@
       padding: 10px 16px;
       border-radius: 6px;
       font-size: 0.88rem;
-      transition: background-color 0.1s;
+      transition: background-color 0.1s, color 0.5s;
     }
     .button-group button:hover {
       background-color: var(--input-border);
@@ -361,6 +389,7 @@
     <!-- Center: Search bar -->
     <div class="search-container">
       <input
+        id="searchInput"
         type="search"
         placeholder="Search..."
         aria-label="Search"
@@ -564,6 +593,20 @@
         headerEl.classList.add("closed");
       }
     }
+
+    // ==================== SEARCH FUNCTIONALITY ====================
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase().trim();
+      document.querySelectorAll(".exploit-item").forEach(card => {
+        const title = card.querySelector(".item-title h2").textContent.toLowerCase();
+        if (title.includes(query)) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
   </script>
 </body>
 </html>
