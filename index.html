@@ -61,17 +61,10 @@
     body {
       background-color: var(--bg);
       color: var(--text);
-      transition: background-color 0.5s ease,
-                  color 0.5s ease;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
-    .navbar,
-    .item-header,
-    .item-body,
-    .exploit-item {
-      transition: background-color 0.5s ease,
-                  color 0.5s ease,
-                  border-color 0.5s ease,
-                  box-shadow 0.5s ease;
+    .navbar, .item-header, .item-body, .exploit-item {
+      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
     }
 
     /* ==================== RESET & BASE ==================== */
@@ -126,9 +119,7 @@
       background-color: var(--input-bg);
       color: var(--input-text);
       font-size: 0.9rem;
-      transition: background-color 0.5s ease,
-                  color 0.5s ease,
-                  border-color 0.5s ease;
+      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
     }
     .navbar .search-container input[type="search"]::placeholder {
       color: var(--input-text);
@@ -151,9 +142,7 @@
       justify-content: space-between;
       gap: 6px;
       cursor: pointer;
-      transition: background-color 0.5s ease,
-                  color 0.5s ease,
-                  border-color 0.5s ease;
+      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
     }
     .navbar .dropdown-selected svg.icon {
       width: 16px;
@@ -184,9 +173,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.3);
       display: none;
       z-index: 100;
-      transition: background-color 0.5s ease,
-                  color 0.5s ease,
-                  border-color 0.5s ease;
+      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
     }
     .navbar .custom-dropdown.open .dropdown-options {
       display: block;
@@ -199,8 +186,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: background-color 0.2s ease,
-                  color 0.5s ease;
+      transition: background-color 0.2s ease, color 0.5s ease;
     }
     .navbar .dropdown-options div:hover {
       background-color: var(--dropdown-hover);
@@ -257,18 +243,13 @@
       border-left-width: 6px;
       border-radius: 8px;
       overflow: hidden;
-      transition: transform 0.1s,
-                  box-shadow 0.2s,
-                  background-color 0.5s ease,
-                  border-color 0.5s ease;
+      transition: transform 0.1s, box-shadow 0.2s, background-color 0.5s ease, border-color 0.5s ease;
     }
     .exploit-item:hover {
       transform: translateY(-2px);
     }
-
     .status-updated   { border-left-color: var(--gradient-green-dark); }
     .status-notupdated{ border-left-color: var(--gradient-red-dark); }
-
     .exploit-item.recommended {
       box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
     }
@@ -279,15 +260,10 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px 20px;
-      background: linear-gradient(
-        90deg,
-        rgba(50, 50, 50, 0) 0%,
-        rgba(50, 50, 50, 0.2) 100%
-      );
+      background: linear-gradient(90deg, rgba(50,50,50,0) 0%, rgba(50,50,50,0.2) 100%);
       cursor: pointer;
       user-select: none;
-      transition: background-color 0.5s ease,
-                  color 0.5s ease;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
     .item-title {
       display: flex;
@@ -314,30 +290,16 @@
       transition: background 0.5s ease;
     }
     .tag-version      { background-color: #333; }
-    .tag-sunc         { background-color: #333; }
-    .tag-sunc .s-letter {
-      color: var(--color-purple-solid);
-    }
+    .tag-sunc         { background-color: #333; cursor: pointer; }
+    .tag-sunc .s-letter { color: var(--color-purple-solid); }
     .tag-recommended  {
-      background: linear-gradient(
-        90deg,
-        var(--gradient-pink-light),
-        var(--gradient-pink-dark)
-      );
+      background: linear-gradient(90deg, var(--gradient-pink-light), var(--gradient-pink-dark));
     }
     .tag-price        {
-      background: linear-gradient(
-        90deg,
-        var(--gradient-cyan-light),
-        var(--gradient-cyan-dark)
-      );
+      background: linear-gradient(90deg, var(--gradient-cyan-light), var(--gradient-cyan-dark));
     }
     .tag-free         {
-      background: linear-gradient(
-        90deg,
-        var(--gradient-green-light),
-        var(--gradient-green-dark)
-      );
+      background: linear-gradient(90deg, var(--gradient-green-light), var(--gradient-green-dark));
     }
 
     /* -------- STATUS LABEL (pill) -------- */
@@ -347,20 +309,12 @@
       padding: 6px 14px;
       border-radius: 12px;
       color: #fff;
-      background: linear-gradient(
-        90deg,
-        var(--gradient-green-light),
-        var(--gradient-green-dark)
-      );
+      background: linear-gradient(90deg, var(--gradient-green-light), var(--gradient-green-dark));
       white-space: nowrap;
       transition: background 0.5s ease;
     }
     .status-notupdated .status-label {
-      background: linear-gradient(
-        90deg,
-        var(--gradient-red-light),
-        var(--gradient-red-dark)
-      );
+      background: linear-gradient(90deg, var(--gradient-red-light), var(--gradient-red-dark));
     }
 
     /* -------- CHEVRON ICON (SVG) -------- */
@@ -372,8 +326,7 @@
       stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
-      transition: transform 0.3s ease,
-                  stroke 0.2s ease;
+      transition: transform 0.3s ease, stroke 0.2s ease;
     }
     .item-header.open .chevron {
       transform: rotate(90deg);
@@ -398,11 +351,7 @@
       border-top: 1px solid var(--card-border);
       padding: 0 20px;
       overflow: hidden;
-      transition:
-        max-height 0.4s ease,
-        opacity 0.3s ease,
-        padding-top 0.4s ease,
-        padding-bottom 0.4s ease;
+      transition: max-height 0.4s ease, opacity 0.3s ease, padding-top 0.4s ease, padding-bottom 0.4s ease;
     }
     .item-body.show {
       max-height: 500px;
@@ -423,8 +372,7 @@
       padding: 10px 16px;
       border-radius: 6px;
       font-size: 0.88rem;
-      transition: background-color 0.1s,
-                  color 0.5s;
+      transition: background-color 0.1s, color 0.5s;
     }
     .button-group button:hover {
       background-color: var(--input-border);
@@ -450,6 +398,60 @@
     .detail-value {
       color: var(--text);
       font-weight: 400;
+    }
+
+    /* ==================== sUNC MODAL ==================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+    .modal-content {
+      background-color: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 8px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--header-bg);
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .modal-header h3 {
+      margin: 0;
+      color: var(--text);
+      font-size: 1rem;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .modal-body {
+      flex: 1;
+      background-color: #fff;
+    }
+    .modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
@@ -515,7 +517,7 @@
           <div class="item-title">
             <h2>Codex IOS</h2>
             <span class="tag tag-version">v1.9.3</span>
-            <span class="tag tag-sunc">
+            <span class="tag tag-sunc"> 
               <span class="s-letter">s</span>UNC
             </span>
             <span class="tag tag-recommended">Recommended</span>
@@ -736,6 +738,22 @@
     </section>
   </div>
 
+  <!-- ==================== sUNC MODAL ==================== -->
+  <div class="modal-overlay" id="suncModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>sUNC Test Results</h3>
+        <button class="modal-close" id="closeModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <iframe 
+          src="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU"
+          title="sUNC Test Results"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ==================== CUSTOM DROPDOWN & THEME SWITCHER ====================
     const themeDropdown = document.getElementById("themeDropdown");
@@ -791,6 +809,28 @@
         const title = card.querySelector(".item-title h2").textContent.toLowerCase();
         card.style.display = title.includes(query) ? "" : "none";
       });
+    });
+
+    // ==================== sUNC MODAL FUNCTIONALITY ====================
+    const suncTags = document.querySelectorAll(".tag-sunc");
+    const modalOverlay = document.getElementById("suncModal");
+    const closeModalButton = document.getElementById("closeModal");
+
+    suncTags.forEach(tag => {
+      tag.addEventListener("click", () => {
+        modalOverlay.style.display = "flex";
+      });
+    });
+
+    closeModalButton.addEventListener("click", () => {
+      modalOverlay.style.display = "none";
+    });
+
+    // Close modal when clicking outside content
+    modalOverlay.addEventListener("click", (e) => {
+      if (e.target === modalOverlay) {
+        modalOverlay.style.display = "none";
+      }
     });
   </script>
 </body>
