@@ -9,49 +9,47 @@
     /* ==================== CSS VARIABLES & THEMES ==================== */
     :root {
       /* DARK THEME (default) */
-      --bg:                #121212;
-      --text:              #e0e0e0;
-      --card-bg:           #1e1e1e;
-      --card-border:       #2e2e2e;
-      --header-bg:         #121212;
-      --input-bg:          #2e2e2e;
-      --input-text:        #e0e0e0;
-      --input-border:      #444;
-      --dropdown-bg:       #2e2e2e;
-      --dropdown-hover:    #333;
-      --dropdown-text:     #e0e0e0;
+      --bg:                  #121212;
+      --text:                #ffffff;       /* all text white in dark mode */
+      --card-bg:             #1e1e1e;
+      --card-border:         #2e2e2e;
+      --header-bg:           #121212;
+      --input-bg:            #2e2e2e;
+      --input-text:          #ffffff;       /* input text white in dark mode */
+      --input-border:        #444;
+      --dropdown-bg:         #2e2e2e;
+      --dropdown-hover:      #333;
+      --dropdown-text:       #ffffff;
 
       /* Pill backgrounds */
-      --pill-updated-bg:   linear-gradient(90deg, #6abf69, #27ae60);
-      --pill-notupdated-bg:linear-gradient(90deg, #e74c3c, #c0392b);
+      --pill-updated-bg:     linear-gradient(90deg, #6abf69, #27ae60);
+      --pill-notupdated-bg:  linear-gradient(90deg, #e74c3c, #c0392b);
 
       /* Tag backgrounds */
-      --tag-recommended-bg: linear-gradient(90deg, #ff9ccf, #ff69b4);
-      --tag-sunc-bg:        linear-gradient(90deg, #b19cd9, #800080);
-      --tag-price-bg:       linear-gradient(90deg, #87cefa, #3498db);
-      --tag-free-bg:        linear-gradient(90deg, #8fe28f, #2ecc71);
+      --tag-recommended-bg:  linear-gradient(90deg, #ff9ccf, #ff69b4);
+      --tag-price-bg:        linear-gradient(90deg, #87cefa, #3498db);
+      --tag-free-bg:         linear-gradient(90deg, #8fe28f, #2ecc71);
     }
     body.light-theme {
       /* LIGHT THEME overrides */
-      --bg:                #ffffff;
-      --text:              #1a1a1a;
-      --card-bg:           #f9f9f9;
-      --card-border:       #cccccc;
-      --header-bg:         #f2f2f2;
-      --input-bg:          #ffffff;
-      --input-text:        #1a1a1a;
-      --input-border:      #bbb;
-      --dropdown-bg:       #ffffff;
-      --dropdown-hover:    #eee;
-      --dropdown-text:     #1a1a1a;
+      --bg:                  #ffffff;
+      --text:                #000000;       /* all text black in light mode */
+      --card-bg:             #f9f9f9;
+      --card-border:         #cccccc;
+      --header-bg:           #f2f2f2;
+      --input-bg:            #ffffff;
+      --input-text:          #000000;       /* input text black in light mode */
+      --input-border:        #bbb;
+      --dropdown-bg:         #ffffff;
+      --dropdown-hover:      #eee;
+      --dropdown-text:       #000000;
 
-      --pill-updated-bg:   linear-gradient(90deg, #a8e6a1, #6abf69);
-      --pill-notupdated-bg:linear-gradient(90deg, #f28b82, #e74c3c);
+      --pill-updated-bg:     linear-gradient(90deg, #a8e6a1, #6abf69);
+      --pill-notupdated-bg:  linear-gradient(90deg, #f28b82, #e74c3c);
 
-      --tag-recommended-bg: linear-gradient(90deg, #ffb3d9, #ff9ccf);
-      --tag-sunc-bg:        linear-gradient(90deg, #d8b7ff, #b19cd9);
-      --tag-price-bg:       linear-gradient(90deg, #b3e1ff, #87cefa);
-      --tag-free-bg:        linear-gradient(90deg, #b4f8b4, #8fe28f);
+      --tag-recommended-bg:  linear-gradient(90deg, #ffb3d9, #ff9ccf);
+      --tag-price-bg:        linear-gradient(90deg, #b3e1ff, #87cefa);
+      --tag-free-bg:         linear-gradient(90deg, #b4f8b4, #8fe28f);
     }
 
     /* ==================== GLOBAL TRANSITIONS ==================== */
@@ -102,7 +100,7 @@
     .navbar .site-title {
       font-size: 1.5rem;
       letter-spacing: 2px;
-      color: #7b7bff; /* keep purple for branding */
+      color: #7b7bff;
       font-weight: bold;
       white-space: nowrap;
     }
@@ -151,7 +149,7 @@
       font-size: 1rem;
     }
     .navbar .dropdown-selected::after {
-      content: "▾"; /* down arrow */
+      content: "▾";
       font-size: 0.7rem;
       transition: transform 0.2s ease;
     }
@@ -236,15 +234,12 @@
     }
 
     /* Left stripe colors by status */
-    .status-updated   { border-left-color: var(--pill-updated-bg); }
-    .status-notupdated{ border-left-color: var(--pill-notupdated-bg); }
+    .status-updated   { border-left-color: #27ae60; }
+    .status-notupdated{ border-left-color: #e74c3c; }
 
-    /* Glow for “Recommended” and “Longest Running” */
+    /* Glow for “Recommended” only */
     .exploit-item.recommended {
       box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
-    }
-    .exploit-item.longest {
-      box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
     }
 
     /* ==================== CARD HEADER (CLICKABLE) ==================== */
@@ -287,23 +282,14 @@
       transition: background 0.5s ease;
     }
     .tag-version      { background-color: #333; }
-    .tag-sunc         { background: var(--tag-sunc-bg); }
+    .tag-sunc         {
+      background-color: #333;
+    }
     .tag-recommended  {
       background: var(--tag-recommended-bg);
     }
-    .tag-recommended::before {
-      content: "";
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      background-color: #fff;
-      border-radius: 50%;
-      margin-right: 4px;
-      vertical-align: middle;
-    }
-    .tag-longest      { background-color: #2980b9; }
     .tag-price        { background: var(--tag-price-bg); }
-    .tag-free         { background: var(--tag-free-bg); color: #fff; }
+    .tag-free         { background: var(--tag-free-bg); }
 
     /* -------- STATUS LABEL (pill) -------- */
     .status-label {
@@ -359,7 +345,7 @@
         padding-bottom 0.4s ease;
     }
     .item-body.show {
-      max-height: 500px;       /* should exceed content height */
+      max-height: 500px;
       opacity: 1;
       padding-top: 20px;
       padding-bottom: 20px;
@@ -445,7 +431,7 @@
           <div class="item-title">
             <h2>Zenith</h2>
             <span class="tag tag-version">v1.9.3</span>
-            <span class="tag tag-sunc">sUNC</span>
+            <span class="tag tag-sunc"><span style="color:#800080;">s</span>UNC</span>
             <span class="tag tag-recommended">Recommended</span>
             <span class="tag tag-price">$6.49 weekly</span>
           </div>
@@ -474,13 +460,12 @@
       </div>
 
       <!-- ----- 2) WAVE ----- -->
-      <div class="exploit-item status-updated longest">
+      <div class="exploit-item status-updated">
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Wave</h2>
             <span class="tag tag-version">v2.9.2a</span>
-            <span class="tag tag-sunc">sUNC</span>
-            <span class="tag tag-longest">Longest Running</span>
+            <span class="tag tag-sunc"><span style="color:#800080;">s</span>UNC</span>
             <span class="tag tag-price">$7.49 weekly</span>
           </div>
           <div style="display: flex; align-items: center;">
@@ -513,7 +498,7 @@
           <div class="item-title">
             <h2>AWP.GG</h2>
             <span class="tag tag-version">v1.0.0.74</span>
-            <span class="tag tag-sunc">sUNC</span>
+            <span class="tag tag-sunc"><span style="color:#800080;">s</span>UNC</span>
             <span class="tag tag-price">$6.99 weekly</span>
           </div>
           <div style="display: flex; align-items: center;">
@@ -546,7 +531,7 @@
           <div class="item-title">
             <h2>Volcano</h2>
             <span class="tag tag-version">v3.1.5 UD?</span>
-            <span class="tag tag-sunc">sUNC</span>
+            <span class="tag tag-sunc"><span style="color:#800080;">s</span>UNC</span>
             <span class="tag tag-free">Free</span>
           </div>
           <div style="display: flex; align-items: center;">
@@ -580,7 +565,6 @@
     const themeDropdown = document.getElementById("themeDropdown");
     const dropdownSelected = themeDropdown.querySelector(".dropdown-selected");
     const dropdownOptions = themeDropdown.querySelector(".dropdown-options");
-    const selectedIcon = dropdownSelected.querySelector(".icon");
 
     // Toggle open/close when clicking the selected area:
     dropdownSelected.addEventListener("click", () => {
@@ -598,16 +582,14 @@
     dropdownOptions.querySelectorAll("div").forEach(option => {
       option.addEventListener("click", () => {
         const chosenValue = option.getAttribute("data-value"); // “dark” or “light”
-        const chosenText = option.textContent.trim();          // option text (“Dark” or “Light”)
+        const chosenIcon = option.querySelector(".icon").textContent; // icon
 
-        // Update visible text and icon
-        dropdownSelected.innerHTML = `${chosenText} <span class="icon">${
-          chosenValue === "light" ? "☀️" : "🌙"
-        }</span>`;
+        // Update visible text and icon: “🌙 Theme” or “☀️ Theme”
+        dropdownSelected.innerHTML = `<span>Theme</span> <span class="icon">${chosenIcon}</span>`;
 
         themeDropdown.classList.remove("open");
 
-        // Apply theme to <body>:
+        // Apply theme to <body>
         if (chosenValue === "light") {
           document.body.classList.add("light-theme");
         } else {
