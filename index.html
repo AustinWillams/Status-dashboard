@@ -27,7 +27,7 @@
     }
 
     /* — Base & Reset — */
-    *, *::before, *::after { box‑sizing: border‑box; margin:0; padding:0; }
+    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
     body {
       font-family: "Inter", sans-serif;
       background: var(--bg);
@@ -99,7 +99,7 @@
     .card:nth-of-type(odd)  { animation-delay: .1s; }
     .card:nth-of-type(even) { animation-delay: .2s; }
 
-    /* — Gradient Borders — */
+    /* — Gradient Borders (all cards) — */
     .card[data-color="pink"]   { border-image: linear-gradient(135deg,#ff1cae,#ff5d4a) 1; }
     .card[data-color="blue"]   { border-image: linear-gradient(135deg,#1fa2ff,#12d8fa) 1; }
     .card[data-color="green"]  { border-image: linear-gradient(135deg,#00b09b,#96c93d) 1; }
@@ -186,7 +186,7 @@
       margin-top: .75rem;
     }
 
-    /* — Download/Discord/Website Buttons — */
+    /* — Actions (buttons) — */
     .card-actions {
       margin: .75rem 0;
     }
@@ -295,7 +295,7 @@
       </div>
     </div>
 
-    <!-- Codex Android (Red) with Website + Download -->
+    <!-- Codex Android (Red) -->
     <div class="card" data-color="red" data-name="codex android">
       <div class="card-header">
         <div class="card-left">
@@ -320,11 +320,10 @@
       <div class="card-content">
         <p>Placeholder for Codex Android—details coming soon.</p>
         <div class="card-actions">
-          <a href="https://codex.lol/android"
-             class="btn website" target="_blank">Website</a>
+          <a href="https://codex.lol/android" class="btn website" target="_blank">Website</a>
           <a href="https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/file"
              class="btn download" target="_blank">Download</a>
-          <a href="#" class="btn discord" target="_blank">Discord</a>
+          <a href="#" class="btn discord"  target="_blank">Discord</a>
         </div>
         <div class="card-footer" data-updated="2025-06-01T12:00:00Z">
           Last updated: <span class="updated-time"></span>
