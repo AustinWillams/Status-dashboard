@@ -17,6 +17,9 @@
       --input-bg:          #2e2e2e;
       --input-text:        #e0e0e0;
       --input-border:      #444;
+      --dropdown-bg:       #2e2e2e;
+      --dropdown-hover:    #333;
+      --dropdown-text:     #e0e0e0;
     }
     body.light-theme {
       /* LIGHT THEME overrides */
@@ -28,6 +31,9 @@
       --input-bg:          #ffffff;
       --input-text:        #1a1a1a;
       --input-border:      #bbb;
+      --dropdown-bg:       #ffffff;
+      --dropdown-hover:    #eee;
+      --dropdown-text:     #1a1a1a;
     }
 
     /* ==================== RESET & BASE ==================== */
@@ -63,19 +69,13 @@
       justify-content: space-between;
       gap: 16px;
     }
-    /* Left: theme selector */
-    .navbar .theme-selector {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .navbar .theme-selector select {
-      background-color: var(--input-bg);
-      color: var(--input-text);
-      border: 1px solid var(--input-border);
-      padding: 6px 8px;
-      border-radius: 4px;
-      font-size: 0.9rem;
+    /* Left: title */
+    .navbar .site-title {
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      color: #7b7bff; /* keep purple for branding */
+      font-weight: bold;
+      white-space: nowrap;
     }
     /* Center: search bar */
     .navbar .search-container {
@@ -93,13 +93,61 @@
       color: var(--input-text);
       font-size: 0.9rem;
     }
-    /* Right: title */
-    .navbar .site-title {
-      font-size: 1.5rem;
-      letter-spacing: 2px;
-      color: #7b7bff; /* Keep the purple for the title */
-      font-weight: bold;
-      white-space: nowrap;
+    .navbar .search-container input[type="search"]::placeholder {
+      color: var(--input-text);
+      opacity: 0.7;
+    }
+    /* Right: custom dropdown */
+    .navbar .custom-dropdown {
+      position: relative;
+      user-select: none;
+    }
+    .navbar .dropdown-selected {
+      background-color: var(--dropdown-bg);
+      color: var(--dropdown-text);
+      border: 1px solid var(--input-border);
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      min-width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .navbar .dropdown-selected::after {
+      content: "▾";
+      font-size: 0.7rem;
+      transition: transform 0.2s ease;
+    }
+    .navbar .custom-dropdown.open .dropdown-selected::after {
+      transform: rotate(180deg);
+    }
+    .navbar .dropdown-options {
+      position: absolute;
+      top: calc(100% + 4px);
+      right: 0;
+      background-color: var(--dropdown-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 100;
+    }
+    .navbar .custom-dropdown.open .dropdown-options {
+      display: block;
+    }
+    .navbar .dropdown-options div {
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      color: var(--dropdown-text);
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .navbar .dropdown-options div:hover {
+      background-color: var(--dropdown-hover);
     }
 
     /* ==================== CONTAINER ==================== */
@@ -247,7 +295,7 @@
       max-height: 0;
       opacity: 0;
       border-top: 1px solid var(--card-border);
-      padding: 0 20px;                 /* left/right only when closed */
+      padding: 0 20px;
       overflow: hidden;
       transition:
         max-height 0.4s ease,
@@ -256,9 +304,9 @@
         padding-bottom 0.4s ease;
     }
     .item-body.show {
-      max-height: 500px;               /* should exceed content height */
+      max-height: 500px;
       opacity: 1;
-      padding-top: 20px;               /* animate top/bottom padding */
+      padding-top: 20px;
       padding-bottom: 20px;
     }
 
@@ -307,14 +355,8 @@
 <body>
   <!-- ==================== NAVBAR ==================== -->
   <nav class="navbar">
-    <!-- Far left: Theme selector -->
-    <div class="theme-selector">
-      <label for="theme-select" style="font-size:0.9rem; color:var(--text);">Theme:</label>
-      <select id="theme-select">
-        <option value="dark" selected>Dark</option>
-        <option value="light">Light</option>
-      </select>
-    </div>
+    <!-- Left: Title -->
+    <div class="site-title">RENDEX</div>
 
     <!-- Center: Search bar -->
     <div class="search-container">
@@ -325,14 +367,18 @@
       />
     </div>
 
-    <!-- Far right: Title -->
-    <div class="site-title">RENDEX</div>
+    <!-- Right: Custom theme dropdown -->
+    <div class="custom-dropdown" id="themeDropdown">
+      <div class="dropdown-selected">Dark</div>
+      <div class="dropdown-options">
+        <div data-value="dark">Dark</div>
+        <div data-value="light">Light</div>
+      </div>
+    </div>
   </nav>
 
   <!-- ==================== MAIN CONTENT ==================== -->
   <div class="container">
-
-    <!-- ==================== EXPLOIT CARDS ==================== -->
     <section class="exploit-list">
       <!-- ----- 1) ZENITH ----- -->
       <div class="exploit-item status-updated recommended">
@@ -346,9 +392,7 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -361,26 +405,11 @@
             <button>Purchase</button>
           </div>
           <div class="details-row">
-            <div class="detail-item">
-              <span class="detail-key">Cost:</span>
-              <span class="detail-value">$6.49 weekly</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">UNC Percentage:</span>
-              <span class="detail-value">95%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">sUNC Percentage:</span>
-              <span class="detail-value">100%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Decompiler:</span>
-              <span class="detail-value">&times;</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Multi‑Inject:</span>
-              <span class="detail-value">&#10003;</span>
-            </div>
+            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">$6.49 weekly</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">95%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
+            <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&times;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&#10003;</span></div>
           </div>
         </div>
       </div>
@@ -397,9 +426,7 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -412,26 +439,11 @@
             <button>Purchase</button>
           </div>
           <div class="details-row">
-            <div class="detail-item">
-              <span class="detail-key">Cost:</span>
-              <span class="detail-value">$7.49 weekly</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">UNC Percentage:</span>
-              <span class="detail-value">99%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">sUNC Percentage:</span>
-              <span class="detail-value">100%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Decompiler:</span>
-              <span class="detail-value">&times;</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Multi‑Inject:</span>
-              <span class="detail-value">&#10003;</span>
-            </div>
+            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">$7.49 weekly</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">99%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
+            <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&times;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&#10003;</span></div>
           </div>
         </div>
       </div>
@@ -447,9 +459,7 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -462,26 +472,11 @@
             <button>Purchase</button>
           </div>
           <div class="details-row">
-            <div class="detail-item">
-              <span class="detail-key">Cost:</span>
-              <span class="detail-value">$6.99 weekly</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">UNC Percentage:</span>
-              <span class="detail-value">96%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">sUNC Percentage:</span>
-              <span class="detail-value">100%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Decompiler:</span>
-              <span class="detail-value">&times;</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Multi‑Inject:</span>
-              <span class="detail-value">&#10003;</span>
-            </div>
+            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">$6.99 weekly</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">96%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
+            <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&times;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&#10003;</span></div>
           </div>
         </div>
       </div>
@@ -497,9 +492,7 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -512,26 +505,11 @@
             <button>Purchase</button>
           </div>
           <div class="details-row">
-            <div class="detail-item">
-              <span class="detail-key">Cost:</span>
-              <span class="detail-value">Free</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">UNC Percentage:</span>
-              <span class="detail-value">93%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">sUNC Percentage:</span>
-              <span class="detail-value">100%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Decompiler:</span>
-              <span class="detail-value">&times;</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Multi‑Inject:</span>
-              <span class="detail-value">&#10003;</span>
-            </div>
+            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">Free</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">93%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
+            <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&times;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&#10003;</span></div>
           </div>
         </div>
       </div>
@@ -539,14 +517,37 @@
   </div>
 
   <script>
-    // ==================== THEME SWITCHER ====================
-    const themeSelect = document.getElementById("theme-select");
-    themeSelect.addEventListener("change", (e) => {
-      if (e.target.value === "light") {
-        document.body.classList.add("light-theme");
-      } else {
-        document.body.classList.remove("light-theme");
+    // ==================== CUSTOM DROPDOWN & THEME SWITCHER ====================
+    const themeDropdown = document.getElementById("themeDropdown");
+    const dropdownSelected = themeDropdown.querySelector(".dropdown-selected");
+    const dropdownOptions = themeDropdown.querySelector(".dropdown-options");
+
+    // Toggle open/close when clicking the selected area:
+    dropdownSelected.addEventListener("click", () => {
+      themeDropdown.classList.toggle("open");
+    });
+
+    // Close dropdown if clicking outside:
+    document.addEventListener("click", (e) => {
+      if (!themeDropdown.contains(e.target)) {
+        themeDropdown.classList.remove("open");
       }
+    });
+
+    // Listen for clicks on each option:
+    dropdownOptions.querySelectorAll("div").forEach(option => {
+      option.addEventListener("click", () => {
+        const chosenValue = option.getAttribute("data-value"); // “dark” or “light”
+        dropdownSelected.textContent = option.textContent;      // update visible text
+        themeDropdown.classList.remove("open");
+
+        // Apply theme to <body>:
+        if (chosenValue === "light") {
+          document.body.classList.add("light-theme");
+        } else {
+          document.body.classList.remove("light-theme");
+        }
+      });
     });
 
     // ==================== CARD TOGGLE ====================
