@@ -3,27 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RENDex Dashboard</title>
+  <title>RENDEX Dashboard</title>
   <style>
-    /* ---------- RESET & BASE ---------- */
+    /* ========== RESET & BASE ========== */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
     html, body {
       height: 100%;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background-color: #121212;
       color: #e0e0e0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
-
     a {
       text-decoration: none;
       color: inherit;
     }
-
     button {
       cursor: pointer;
       border: none;
@@ -31,151 +28,183 @@
       font: inherit;
     }
 
-    /* ---------- LAYOUT & CONTAINER ---------- */
+    /* ========== CONTAINER ========== */
     .container {
       max-width: 960px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 24px 16px;
     }
 
-    /* ---------- HEADER ---------- */
+    /* ========== HEADER (LOGO + TITLE) ========== */
     .header {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px 0;
+      margin-bottom: 32px;
     }
-
     .header img.logo {
       height: 50px;
       margin-right: 12px;
     }
-
-    .header h1 {
+    .header .site-title {
       font-size: 2rem;
       letter-spacing: 2px;
       color: #7b7bff;
+      font-weight: bold;
     }
 
-    /* ---------- LIST OF EXPLOITS ---------- */
+    /* ========== EXPLOIT CARDS ========== */
     .exploit-list {
-      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .exploit-item {
-      display: flex;
-      flex-direction: column;
+      position: relative;
+      background-color: #1e1e1e;
       border: 2px solid #2e2e2e;
       border-left-width: 6px;
       border-radius: 8px;
-      margin-bottom: 20px;
       overflow: hidden;
-      background-color: #1e1e1e;
-      transition: transform 0.1s;
+      transition: transform 0.1s, box-shadow 0.2s;
     }
-
     .exploit-item:hover {
       transform: translateY(-2px);
     }
 
-    /* Border colors for status */
-    .status-updated   { border-left-color: #27ae60; } /* Green */
-    .status-longest   { border-left-color: #3498db; } /* Blue */
-    .status-notupdated { border-left-color: #e74c3c; } /* Red */
+    /* Left stripe colors by status */
+    .status-updated {
+      border-left-color: #27ae60; /* green */
+    }
+    .status-notupdated {
+      border-left-color: #e74c3c; /* red */
+    }
 
-    /* ---------- ITEM HEADER (TITLE ROW) ---------- */
+    /* Glow for “Recommended” and “Longest Running” */
+    .exploit-item.recommended {
+      box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
+    }
+    .exploit-item.longest {
+      box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
+    }
+
+    /* ========== CARD HEADER (CLICKABLE) ========== */
     .item-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 20px;
-      background: linear-gradient(90deg, rgba(50,50,50,0) 0%, rgba(50,50,50,0.2) 100%);
+      padding: 16px 20px;
+      background: linear-gradient(
+        90deg,
+        rgba(50, 50, 50, 0) 0%,
+        rgba(50, 50, 50, 0.2) 100%
+      );
+      cursor: pointer;
+      user-select: none;
     }
-
     .item-title {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
+      gap: 8px;
     }
-
     .item-title h2 {
-      font-size: 1.25rem;
-      margin-right: 10px;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #ffffff;
+      margin-right: 8px;
     }
 
+    /* ===== TAG STYLES ===== */
     .tag {
       font-size: 0.8rem;
-      padding: 4px 8px;
+      padding: 4px 10px;
       border-radius: 12px;
-      margin-right: 8px;
       white-space: nowrap;
+      font-weight: 500;
     }
-
     .tag-version {
       background-color: #333;
       color: #bbb;
     }
-
     .tag-sunc {
-      background-color: #555;
+      background-color: #444;
       color: #fff;
     }
-
     .tag-recommended {
       background-color: #e74c3c;
       color: #fff;
     }
-
     .tag-longest {
+      background-color: #2980b9;
+      color: #fff;
+    }
+    .tag-price {
       background-color: #3498db;
       color: #fff;
     }
 
-    .tag-price {
-      background-color: #2980b9;
-      color: #fff;
-    }
-
+    /* ===== STATUS PILL ===== */
     .status-label {
-      font-size: 0.9rem;
-      font-weight: bold;
+      font-size: 0.88rem;
+      font-weight: 600;
       padding: 6px 14px;
       border-radius: 12px;
       color: #fff;
+      margin-left: 12px;
+      white-space: nowrap;
+    }
+    .status-updated > .item-header > .status-label {
+      background-color: #27ae60;
+    }
+    .status-notupdated > .item-header > .status-label {
+      background-color: #e74c3c;
     }
 
-    .status-updated .status-label {
-      background-color: #27ae60; /* Green */
+    /* ===== CHEVRON ICON ===== */
+    .chevron {
+      font-size: 1.1rem;
+      color: #bbb;
+      margin-left: 8px;
+      transition: transform 0.2s ease;
+    }
+    .item-header.open .chevron {
+      transform: rotate(90deg);
+    }
+    .item-header.closed .chevron {
+      transform: rotate(0deg);
     }
 
-    .status-notupdated .status-label {
-      background-color: #e74c3c; /* Red */
-    }
-
-    /* ---------- ITEM SUBHEADER ---------- */
+    /* ========== CARD SUBHEADER (Last Updated) ========== */
     .item-subheader {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: #aaa;
       padding: 0 20px 12px 20px;
     }
 
-    /* ---------- ITEM BODY (EXPANDABLE) ---------- */
+    /* ========== CARD BODY (EXPANDABLE) ========== */
     .item-body {
+      display: none;
       border-top: 1px solid #333;
       padding: 20px;
-      display: none;
+      animation: fadeIn 0.2s ease;
     }
-
     .item-body.show {
       display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
 
     .warning {
       background-color: #634d00;
       color: #f5e79e;
-      padding: 12px;
+      padding: 12px 14px;
       border-radius: 6px;
       margin-bottom: 16px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     .button-group {
@@ -183,16 +212,14 @@
       gap: 12px;
       margin-bottom: 16px;
     }
-
     .button-group button {
       background-color: #333;
       color: #e0e0e0;
       padding: 10px 16px;
       border-radius: 6px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       transition: background-color 0.1s;
     }
-
     .button-group button:hover {
       background-color: #444;
     }
@@ -200,53 +227,34 @@
     .details-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px 20px;
-      font-size: 0.9rem;
+      gap: 12px 24px;
+      font-size: 0.88rem;
     }
-
     .details-grid .detail-key {
       color: #bbb;
       text-align: right;
-      padding-right: 8px;
+      padding-right: 6px;
     }
-
     .details-grid .detail-value {
       color: #e0e0e0;
       text-align: left;
     }
-
-    /* ---------- ICON + ROTATION INDICATOR ---------- */
-    .chevron {
-      transition: transform 0.2s ease;
-      font-size: 1rem;
-      margin-left: 8px;
-    }
-
-    .item-header.open .chevron {
-      transform: rotate(90deg);
-    }
-
-    .item-header.closed .chevron {
-      transform: rotate(0deg);
-    }
-
   </style>
 </head>
 
 <body>
   <div class="container">
-    <!-- Header with logo + title -->
+    <!-- ======== HEADER ======== -->
     <header class="header">
-      <!-- Replace the src with your actual logo path if needed -->
-      <img class="logo" src="https://dummyimage.com/200x50/7b7bff/ffffff&text=R" alt="R Logo" />
-      <h1>RENDEX</h1>
+      <!-- Replace “logo.jpeg” with your actual filename if different -->
+      <img class="logo" src="logo.jpeg" alt="RENDEX Logo" />
+      <span class="site-title">RENDEX</span>
     </header>
 
-    <!-- Exploit list -->
+    <!-- ======== EXPLOIT LIST ======== -->
     <section class="exploit-list">
-
-      <!-- ======== Zenith ======== -->
-      <div class="exploit-item status-updated">
+      <!-- ----- 1) ZENITH ----- -->
+      <div class="exploit-item status-updated recommended">
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Zenith</h2>
@@ -255,15 +263,17 @@
             <span class="tag tag-recommended">Recommended</span>
             <span class="tag tag-price">$6.49 weekly</span>
           </div>
-          <span class="status-label">Updated</span>
-          <span class="chevron">&#9654;</span>
+          <div style="display: flex; align-items: center;">
+            <span class="status-label">Updated</span>
+            <span class="chevron">&#9654;</span>
+          </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/22/2025 at 8:09 PM UTC
+          Last updated: 05/22/2025 at 8:09 PM UTC
         </div>
         <div class="item-body">
           <div class="warning">
-            <!-- No specific warning for Zenith, so leave this area blank or remove if you want -->
+            <!-- (Zenith has no warning text in your screenshot.) -->
           </div>
           <div class="button-group">
             <button>Website</button>
@@ -271,17 +281,22 @@
             <button>Purchase</button>
           </div>
           <div class="details-grid">
-            <div class="detail-key">Cost:</div>          <div class="detail-value">$6.49 weekly</div>
-            <div class="detail-key">UNC Percentage:</div> <div class="detail-value">95%</div>
-            <div class="detail-key">sUNC Percentage:</div><div class="detail-value">100%</div>
-            <div class="detail-key">Decompiler:</div>    <div class="detail-value">&times;</div>
-            <div class="detail-key">Multi-Inject:</div>  <div class="detail-value">&#10003;</div>
+            <div class="detail-key">Cost:</div>
+            <div class="detail-value">$6.49 weekly</div>
+            <div class="detail-key">UNC Percentage:</div>
+            <div class="detail-value">95%</div>
+            <div class="detail-key">sUNC Percentage:</div>
+            <div class="detail-value">100%</div>
+            <div class="detail-key">Decompiler:</div>
+            <div class="detail-value">&times;</div>
+            <div class="detail-key">Multi-Inject:</div>
+            <div class="detail-value">&#10003;</div>
           </div>
         </div>
       </div>
 
-      <!-- ======== Wave ======== -->
-      <div class="exploit-item status-longest">
+      <!-- ----- 2) WAVE ----- -->
+      <div class="exploit-item status-updated longest">
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Wave</h2>
@@ -290,11 +305,13 @@
             <span class="tag tag-longest">Longest Running</span>
             <span class="tag tag-price">$7.49 weekly</span>
           </div>
-          <span class="status-label">Updated</span>
-          <span class="chevron">&#9654;</span>
+          <div style="display: flex; align-items: center;">
+            <span class="status-label">Updated</span>
+            <span class="chevron">&#9654;</span>
+          </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/23/2025 at 3:50 AM UTC
+          Last updated: 05/23/2025 at 3:50 AM UTC
         </div>
         <div class="item-body">
           <div class="warning">
@@ -306,16 +323,21 @@
             <button>Purchase</button>
           </div>
           <div class="details-grid">
-            <div class="detail-key">Cost:</div>          <div class="detail-value">$7.49 weekly</div>
-            <div class="detail-key">UNC Percentage:</div> <div class="detail-value">99%</div>
-            <div class="detail-key">sUNC Percentage:</div><div class="detail-value">100%</div>
-            <div class="detail-key">Decompiler:</div>    <div class="detail-value">&times;</div>
-            <div class="detail-key">Multi-Inject:</div>  <div class="detail-value">&#10003;</div>
+            <div class="detail-key">Cost:</div>
+            <div class="detail-value">$7.49 weekly</div>
+            <div class="detail-key">UNC Percentage:</div>
+            <div class="detail-value">99%</div>
+            <div class="detail-key">sUNC Percentage:</div>
+            <div class="detail-value">100%</div>
+            <div class="detail-key">Decompiler:</div>
+            <div class="detail-value">&times;</div>
+            <div class="detail-key">Multi-Inject:</div>
+            <div class="detail-value">&#10003;</div>
           </div>
         </div>
       </div>
 
-      <!-- ======== AWP.GG ======== -->
+      <!-- ----- 3) AWP.GG ----- -->
       <div class="exploit-item status-notupdated">
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
@@ -324,30 +346,39 @@
             <span class="tag tag-sunc">sUNC</span>
             <span class="tag tag-price">$6.99 weekly</span>
           </div>
-          <span class="status-label">Not Updated</span>
-          <span class="chevron">&#9654;</span>
+          <div style="display: flex; align-items: center;">
+            <span class="status-label">Not Updated</span>
+            <span class="chevron">&#9654;</span>
+          </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/23/2025 at 3:46 AM UTC
+          Last updated: 05/23/2025 at 3:46 AM UTC
         </div>
         <div class="item-body">
-          <div class="warning"></div>
+          <div class="warning">
+            <!-- No warning text for AWP.GG -->
+          </div>
           <div class="button-group">
             <button>Website</button>
             <button>Discord</button>
             <button>Purchase</button>
           </div>
           <div class="details-grid">
-            <div class="detail-key">Cost:</div>          <div class="detail-value">$6.99 weekly</div>
-            <div class="detail-key">UNC Percentage:</div> <div class="detail-value">96%</div>
-            <div class="detail-key">sUNC Percentage:</div><div class="detail-value">100%</div>
-            <div class="detail-key">Decompiler:</div>    <div class="detail-value">&times;</div>
-            <div class="detail-key">Multi-Inject:</div>  <div class="detail-value">&#10003;</div>
+            <div class="detail-key">Cost:</div>
+            <div class="detail-value">$6.99 weekly</div>
+            <div class="detail-key">UNC Percentage:</div>
+            <div class="detail-value">96%</div>
+            <div class="detail-key">sUNC Percentage:</div>
+            <div class="detail-value">100%</div>
+            <div class="detail-key">Decompiler:</div>
+            <div class="detail-value">&times;</div>
+            <div class="detail-key">Multi-Inject:</div>
+            <div class="detail-value">&#10003;</div>
           </div>
         </div>
       </div>
 
-      <!-- ======== Volcano ======== -->
+      <!-- ----- 4) VOLCANO ----- -->
       <div class="exploit-item status-updated">
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
@@ -356,36 +387,43 @@
             <span class="tag tag-sunc">sUNC</span>
             <span class="tag tag-price">Free</span>
           </div>
-          <span class="status-label">Updated</span>
-          <span class="chevron">&#9654;</span>
+          <div style="display: flex; align-items: center;">
+            <span class="status-label">Updated</span>
+            <span class="chevron">&#9654;</span>
+          </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/22/2025 at 11:20 AM UTC
+          Last updated: 05/22/2025 at 11:20 AM UTC
         </div>
         <div class="item-body">
-          <div class="warning"></div>
+          <div class="warning">
+            <!-- No warning for Volcano -->
+          </div>
           <div class="button-group">
             <button>Website</button>
             <button>Discord</button>
             <button>Purchase</button>
           </div>
           <div class="details-grid">
-            <div class="detail-key">Cost:</div>          <div class="detail-value">Free</div>
-            <div class="detail-key">UNC Percentage:</div> <div class="detail-value">93%</div>
-            <div class="detail-key">sUNC Percentage:</div><div class="detail-value">100%</div>
-            <div class="detail-key">Decompiler:</div>    <div class="detail-value">&times;</div>
-            <div class="detail-key">Multi-Inject:</div>  <div class="detail-value">&#10003;</div>
+            <div class="detail-key">Cost:</div>
+            <div class="detail-value">Free</div>
+            <div class="detail-key">UNC Percentage:</div>
+            <div class="detail-value">93%</div>
+            <div class="detail-key">sUNC Percentage:</div>
+            <div class="detail-value">100%</div>
+            <div class="detail-key">Decompiler:</div>
+            <div class="detail-value">&times;</div>
+            <div class="detail-key">Multi-Inject:</div>
+            <div class="detail-value">&#10003;</div>
           </div>
         </div>
       </div>
-
     </section>
   </div>
 
   <script>
     /**
-     * Toggles the visibility of the `.item-body` inside each exploit-item.
-     * Also rotates the chevron accordingly.
+     * Toggles the .item-body section and rotates the chevron icon.
      */
     function toggleBody(headerEl) {
       const item = headerEl.closest(".exploit-item");
