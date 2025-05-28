@@ -6,7 +6,31 @@
   <title>RENDEX Dashboard</title>
 
   <style>
-    /* ---------------- RESET & BASE ---------------- */
+    /* ==================== CSS VARIABLES & THEMES ==================== */
+    :root {
+      /* DARK THEME (default) */
+      --bg:                #121212;
+      --text:              #e0e0e0;
+      --card-bg:           #1e1e1e;
+      --card-border:       #2e2e2e;
+      --header-bg:         #121212;
+      --input-bg:          #2e2e2e;
+      --input-text:        #e0e0e0;
+      --input-border:      #444;
+    }
+    body.light-theme {
+      /* LIGHT THEME overrides */
+      --bg:                #ffffff;
+      --text:              #1a1a1a;
+      --card-bg:           #f9f9f9;
+      --card-border:       #cccccc;
+      --header-bg:         #f2f2f2;
+      --input-bg:          #ffffff;
+      --input-text:        #1a1a1a;
+      --input-border:      #bbb;
+    }
+
+    /* ==================== RESET & BASE ==================== */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -14,8 +38,8 @@
     }
     html, body {
       height: 100%;
-      background-color: #121212;
-      color: #e0e0e0;
+      background-color: var(--bg);
+      color: var(--text);
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
     a {
@@ -29,32 +53,63 @@
       font: inherit;
     }
 
-    /* ---------------- CONTAINER ---------------- */
+    /* ==================== NAVBAR ==================== */
+    .navbar {
+      background-color: var(--header-bg);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    /* Left: theme selector */
+    .navbar .theme-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .navbar .theme-selector select {
+      background-color: var(--input-bg);
+      color: var(--input-text);
+      border: 1px solid var(--input-border);
+      padding: 6px 8px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    /* Center: search bar */
+    .navbar .search-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .navbar .search-container input[type="search"] {
+      width: 100%;
+      max-width: 400px;
+      padding: 6px 12px;
+      border: 1px solid var(--input-border);
+      border-radius: 4px;
+      background-color: var(--input-bg);
+      color: var(--input-text);
+      font-size: 0.9rem;
+    }
+    /* Right: title */
+    .navbar .site-title {
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      color: #7b7bff; /* Keep the purple for the title */
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    /* ==================== CONTAINER ==================== */
     .container {
       max-width: 960px;
       margin: 0 auto;
       padding: 24px 16px;
     }
 
-    /* ---------------- HEADER (LOGO + TITLE) ---------------- */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 32px;
-    }
-    .header img.logo {
-      height: 50px;
-      margin-right: 12px;
-    }
-    .header .site-title {
-      font-size: 2rem;
-      letter-spacing: 2px;
-      color: #7b7bff;
-      font-weight: bold;
-    }
-
-    /* ---------------- CARDS POP‑IN ANIMATION ---------------- */
+    /* ==================== CARDS POP‑IN ANIMATION ==================== */
     @keyframes cardFadeIn {
       from {
         opacity: 0;
@@ -71,20 +126,12 @@
       transform: translateY(10px);
       animation: cardFadeIn 0.5s forwards ease-out;
     }
-    .exploit-item:nth-child(1) {
-      animation-delay: 0.05s;
-    }
-    .exploit-item:nth-child(2) {
-      animation-delay: 0.10s;
-    }
-    .exploit-item:nth-child(3) {
-      animation-delay: 0.15s;
-    }
-    .exploit-item:nth-child(4) {
-      animation-delay: 0.20s;
-    }
+    .exploit-item:nth-child(1) { animation-delay: 0.05s; }
+    .exploit-item:nth-child(2) { animation-delay: 0.10s; }
+    .exploit-item:nth-child(3) { animation-delay: 0.15s; }
+    .exploit-item:nth-child(4) { animation-delay: 0.20s; }
 
-    /* ---------------- EXPLOIT CARDS ---------------- */
+    /* ==================== EXPLOIT CARDS ==================== */
     .exploit-list {
       display: flex;
       flex-direction: column;
@@ -93,8 +140,8 @@
 
     .exploit-item {
       position: relative;
-      background-color: #1e1e1e;
-      border: 2px solid #2e2e2e;
+      background-color: var(--card-bg);
+      border: 2px solid var(--card-border);
       border-left-width: 6px;
       border-radius: 8px;
       overflow: hidden;
@@ -105,12 +152,8 @@
     }
 
     /* Left stripe colors by status */
-    .status-updated {
-      border-left-color: #27ae60; /* green */
-    }
-    .status-notupdated {
-      border-left-color: #e74c3c; /* red */
-    }
+    .status-updated   { border-left-color: #27ae60; }
+    .status-notupdated{ border-left-color: #e74c3c; }
 
     /* Glow for “Recommended” and “Longest Running” */
     .exploit-item.recommended {
@@ -120,7 +163,7 @@
       box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
     }
 
-    /* ---------------- CARD HEADER (CLICKABLE) ---------------- */
+    /* ==================== CARD HEADER (CLICKABLE) ==================== */
     .item-header {
       display: flex;
       align-items: center;
@@ -143,7 +186,7 @@
     .item-title h2 {
       font-size: 1.3rem;
       font-weight: 500;
-      color: #ffffff;
+      color: var(--text);
       margin-right: 8px;
     }
 
@@ -171,12 +214,8 @@
       margin-left: 12px;
       white-space: nowrap;
     }
-    .status-updated > .item-header > .status-label {
-      background-color: #27ae60;
-    }
-    .status-notupdated > .item-header > .status-label {
-      background-color: #e74c3c;
-    }
+    .status-updated > .item-header > .status-label   { background-color: #27ae60; }
+    .status-notupdated > .item-header > .status-label{ background-color: #e74c3c; }
 
     /* -------- CHEVRON ICON (SVG) -------- */
     .chevron {
@@ -196,19 +235,19 @@
       stroke: #bbb;
     }
 
-    /* ---------------- CARD SUBHEADER (Last Updated) ---------------- */
+    /* ==================== CARD SUBHEADER (Last Updated) ==================== */
     .item-subheader {
       font-size: 0.88rem;
       color: #aaa;
       padding: 0 20px 12px 20px;
     }
 
-    /* ---------------- CARD BODY (max-height + padding + opacity) ---------------- */
+    /* ==================== CARD BODY (max-height + padding + opacity) ==================== */
     .item-body {
       max-height: 0;
       opacity: 0;
-      border-top: 1px solid #333;
-      padding: 0 20px;                 /* only left/right when closed */
+      border-top: 1px solid var(--card-border);
+      padding: 0 20px;                 /* left/right only when closed */
       overflow: hidden;
       transition:
         max-height 0.4s ease,
@@ -217,31 +256,31 @@
         padding-bottom 0.4s ease;
     }
     .item-body.show {
-      max-height: 500px;               /* large enough for content */
+      max-height: 500px;               /* should exceed content height */
       opacity: 1;
       padding-top: 20px;               /* animate top/bottom padding */
       padding-bottom: 20px;
     }
 
-    /* ---------------- BUTTONS ---------------- */
+    /* ==================== BUTTONS ==================== */
     .button-group {
       display: flex;
       gap: 12px;
       margin-bottom: 16px;
     }
     .button-group button {
-      background-color: #333;
-      color: #e0e0e0;
+      background-color: var(--card-border);
+      color: var(--text);
       padding: 10px 16px;
       border-radius: 6px;
       font-size: 0.88rem;
       transition: background-color 0.1s;
     }
     .button-group button:hover {
-      background-color: #444;
+      background-color: var(--input-border);
     }
 
-    /* ---------------- DETAILS SIDE‑BY‑SIDE ---------------- */
+    /* ==================== DETAILS SIDE‑BY‑SIDE ==================== */
     .details-row {
       display: flex;
       flex-wrap: wrap;
@@ -259,21 +298,41 @@
       white-space: nowrap;
     }
     .detail-value {
-      color: #e0e0e0;
+      color: var(--text);
       font-weight: 400;
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <!-- ======== HEADER ======== -->
-    <header class="header">
-      <img class="logo" src="logo.jpeg" alt="RENDEX Logo" />
-      <span class="site-title">RENDEX</span>
-    </header>
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar">
+    <!-- Far left: Theme selector -->
+    <div class="theme-selector">
+      <label for="theme-select" style="font-size:0.9rem; color:var(--text);">Theme:</label>
+      <select id="theme-select">
+        <option value="dark" selected>Dark</option>
+        <option value="light">Light</option>
+      </select>
+    </div>
 
-    <!-- ======== EXPLOIT LIST ======== -->
+    <!-- Center: Search bar -->
+    <div class="search-container">
+      <input
+        type="search"
+        placeholder="Search..."
+        aria-label="Search"
+      />
+    </div>
+
+    <!-- Far right: Title -->
+    <div class="site-title">RENDEX</div>
+  </nav>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <div class="container">
+
+    <!-- ==================== EXPLOIT CARDS ==================== -->
     <section class="exploit-list">
       <!-- ----- 1) ZENITH ----- -->
       <div class="exploit-item status-updated recommended">
@@ -480,12 +539,17 @@
   </div>
 
   <script>
-    /**
-     * Toggle the “show” class on .item-body and update the
-     * header’s open/closed classes so the chevron rotates.
-     * Because .item-body transitions max-height + opacity + padding,
-     * it expands and collapses smoothly without leaving a gap.
-     */
+    // ==================== THEME SWITCHER ====================
+    const themeSelect = document.getElementById("theme-select");
+    themeSelect.addEventListener("change", (e) => {
+      if (e.target.value === "light") {
+        document.body.classList.add("light-theme");
+      } else {
+        document.body.classList.remove("light-theme");
+      }
+    });
+
+    // ==================== CARD TOGGLE ====================
     function toggleBody(headerEl) {
       const item = headerEl.closest(".exploit-item");
       const body = item.querySelector(".item-body");
