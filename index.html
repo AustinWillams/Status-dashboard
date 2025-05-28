@@ -9,47 +9,52 @@
     /* ==================== CSS VARIABLES & THEMES ==================== */
     :root {
       /* DARK THEME (default) */
-      --bg:                  #121212;
-      --text:                #ffffff;       /* all text white in dark mode */
-      --card-bg:             #1e1e1e;
-      --card-border:         #2e2e2e;
-      --header-bg:           #121212;
-      --input-bg:            #2e2e2e;
-      --input-text:          #ffffff;       /* input text white in dark mode */
-      --input-border:        #444;
-      --dropdown-bg:         #2e2e2e;
-      --dropdown-hover:      #333;
-      --dropdown-text:       #ffffff;
+      --bg:                   #121212;
+      --text:                 #ffffff;       /* all text white in dark mode */
+      --card-bg:              #1e1e1e;
+      --card-border:          #2e2e2e;
+      --header-bg:            #121212;
+      --input-bg:             #2e2e2e;
+      --input-text:           #ffffff;       /* input text white in dark mode */
+      --input-border:         #444;
+      --dropdown-bg:          #2e2e2e;
+      --dropdown-hover:       #333;
+      --dropdown-text:        #ffffff;
 
-      /* Pill backgrounds */
-      --pill-updated-bg:     linear-gradient(90deg, #6abf69, #27ae60);
-      --pill-notupdated-bg:  linear-gradient(90deg, #e74c3c, #c0392b);
-
-      /* Tag backgrounds */
-      --tag-recommended-bg:  linear-gradient(90deg, #ff9ccf, #ff69b4);
-      --tag-price-bg:        linear-gradient(90deg, #87cefa, #3498db);
-      --tag-free-bg:         linear-gradient(90deg, #8fe28f, #2ecc71);
+      /* Accent colors inspired by WEAO.xyz */
+      --color-purple:         #9c27b0;  /* for “s” in sUNC */
+      --color-cyan-light:     #00bcd4;  /* for $ tag gradient */
+      --color-cyan-dark:      #2196f3;
+      --color-pink-light:     #e91e63;  /* for “Recommended” tag gradient */
+      --color-pink-dark:      #f06292;
+      --color-green-light:    #81c784;  /* for “Free” tag & “Updated” pill */
+      --color-green-dark:     #4caf50;
+      --color-red-light:      #f28b82;  /* for “Not Updated” pill */
+      --color-red-dark:       #e57373;
     }
     body.light-theme {
       /* LIGHT THEME overrides */
-      --bg:                  #ffffff;
-      --text:                #000000;       /* all text black in light mode */
-      --card-bg:             #f9f9f9;
-      --card-border:         #cccccc;
-      --header-bg:           #f2f2f2;
-      --input-bg:            #ffffff;
-      --input-text:          #000000;       /* input text black in light mode */
-      --input-border:        #bbb;
-      --dropdown-bg:         #ffffff;
-      --dropdown-hover:      #eee;
-      --dropdown-text:       #000000;
+      --bg:                   #ffffff;
+      --text:                 #000000;       /* all text black in light mode */
+      --card-bg:              #f9f9f9;
+      --card-border:          #cccccc;
+      --header-bg:            #f2f2f2;
+      --input-bg:             #ffffff;
+      --input-text:           #000000;       /* input text black in light mode */
+      --input-border:         #bbb;
+      --dropdown-bg:          #ffffff;
+      --dropdown-hover:       #eee;
+      --dropdown-text:        #000000;
 
-      --pill-updated-bg:     linear-gradient(90deg, #a8e6a1, #6abf69);
-      --pill-notupdated-bg:  linear-gradient(90deg, #f28b82, #e74c3c);
-
-      --tag-recommended-bg:  linear-gradient(90deg, #ffb3d9, #ff9ccf);
-      --tag-price-bg:        linear-gradient(90deg, #b3e1ff, #87cefa);
-      --tag-free-bg:         linear-gradient(90deg, #b4f8b4, #8fe28f);
+      /* Lighter variants for gradient in light mode */
+      --color-cyan-light:     #b3e5fc;
+      --color-cyan-dark:      #81d4fa;
+      --color-pink-light:     #f8bbd0;
+      --color-pink-dark:      #f48fb1;
+      --color-green-light:    #c8e6c9;
+      --color-green-dark:     #a5d6a7;
+      --color-red-light:      #ffcdd2;
+      --color-red-dark:       #ef9a9a;
     }
 
     /* ==================== GLOBAL TRANSITIONS ==================== */
@@ -234,8 +239,8 @@
     }
 
     /* Left stripe colors by status */
-    .status-updated   { border-left-color: #27ae60; }
-    .status-notupdated{ border-left-color: #e74c3c; }
+    .status-updated   { border-left-color: var(--color-green-dark); }
+    .status-notupdated{ border-left-color: var(--color-red-dark); }
 
     /* Glow for “Recommended” only */
     .exploit-item.recommended {
@@ -285,11 +290,18 @@
     .tag-sunc         {
       background-color: #333;
     }
-    .tag-recommended  {
-      background: var(--tag-recommended-bg);
+    .tag-sunc .s-letter {
+      color: var(--color-purple);
     }
-    .tag-price        { background: var(--tag-price-bg); }
-    .tag-free         { background: var(--tag-free-bg); }
+    .tag-recommended  {
+      background: linear-gradient(90deg, var(--color-pink-light), var(--color-pink-dark));
+    }
+    .tag-price        {
+      background: linear-gradient(90deg, var(--color-cyan-light), var(--color-cyan-dark));
+    }
+    .tag-free         {
+      background: linear-gradient(90deg, var(--color-green-light), var(--color-green-dark));
+    }
 
     /* -------- STATUS LABEL (pill) -------- */
     .status-label {
@@ -298,12 +310,12 @@
       padding: 6px 14px;
       border-radius: 12px;
       color: #fff;
-      background: var(--pill-updated-bg);
+      background: linear-gradient(90deg, var(--color-green-light), var(--color-green-dark));
       white-space: nowrap;
       transition: background 0.5s ease;
     }
     .status-notupdated > .item-header > .status-label {
-      background: var(--pill-notupdated-bg);
+      background: linear-gradient(90deg, var(--color-red-light), var(--color-red-dark));
     }
 
     /* -------- CHEVRON ICON (SVG) -------- */
@@ -431,7 +443,7 @@
           <div class="item-title">
             <h2>Zenith</h2>
             <span class="tag tag-version">v1.9.3</span>
-            <span class="tag tag-sunc"><span style="color:#800080;">s</span>UNC</span>
+            <span class="tag tag-sunc"><span class="s-letter">s</span>UNC</span>
             <span class="tag tag-recommended">Recommended</span>
             <span class="tag tag-price">$6.49 weekly</span>
           </div>
@@ -465,7 +477,7 @@
           <div class="item-title">
             <h2>Wave</h2>
             <span class="tag tag-version">v2.9.2a</span>
-            <span class="tag tag-sunc"><span style="color:#800080;">s</span>UNC</span>
+            <span class="tag tag-sunc"><span class="s-letter">s</span>UNC</span>
             <span class="tag tag-price">$7.49 weekly</span>
           </div>
           <div style="display: flex; align-items: center;">
@@ -498,7 +510,7 @@
           <div class="item-title">
             <h2>AWP.GG</h2>
             <span class="tag tag-version">v1.0.0.74</span>
-            <span class="tag tag-sunc"><span style="color:#800080;">s</span>UNC</span>
+            <span class="tag tag-sunc"><span class="s-letter">s</span>UNC</span>
             <span class="tag tag-price">$6.99 weekly</span>
           </div>
           <div style="display: flex; align-items: center;">
@@ -531,7 +543,7 @@
           <div class="item-title">
             <h2>Volcano</h2>
             <span class="tag tag-version">v3.1.5 UD?</span>
-            <span class="tag tag-sunc"><span style="color:#800080;">s</span>UNC</span>
+            <span class="tag tag-sunc"><span class="s-letter">s</span>UNC</span>
             <span class="tag tag-free">Free</span>
           </div>
           <div style="display: flex; align-items: center;">
@@ -584,8 +596,9 @@
         const chosenValue = option.getAttribute("data-value"); // “dark” or “light”
         const chosenIcon = option.querySelector(".icon").textContent; // icon
 
-        // Update visible text and icon: “🌙 Theme” or “☀️ Theme”
-        dropdownSelected.innerHTML = `<span>Theme</span> <span class="icon">${chosenIcon}</span>`;
+        // Update visible text and icon: “🌙 Theme” or “☀️ Theme”
+        dropdownSelected.innerHTML =
+          `<span>Theme</span> <span class="icon">${chosenIcon}</span>`;
 
         themeDropdown.classList.remove("open");
 
