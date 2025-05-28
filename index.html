@@ -10,12 +10,12 @@
     :root {
       /* DARK THEME (default) */
       --bg:                   #121212;
-      --text:                 #ffffff;       /* all text white in dark mode */
+      --text:                 #ffffff;
       --card-bg:              #1e1e1e;
       --card-border:          #2e2e2e;
       --header-bg:            #121212;
       --input-bg:             #2e2e2e;
-      --input-text:           #ffffff;       /* input text white in dark mode */
+      --input-text:           #ffffff;
       --input-border:         #444;
       --dropdown-bg:          #2e2e2e;
       --dropdown-hover:       #333;
@@ -35,33 +35,34 @@
     body.light-theme {
       /* LIGHT THEME overrides */
       --bg:                   #ffffff;
-      --text:                 #000000;       /* all text black in light mode */
+      --text:                 #000000;
       --card-bg:              #f9f9f9;
       --card-border:          #cccccc;
       --header-bg:            #f2f2f2;
       --input-bg:             #ffffff;
-      --input-text:           #000000;       /* input text black in light mode */
+      --input-text:           #000000;
       --input-border:         #bbb;
       --dropdown-bg:          #ffffff;
       --dropdown-hover:       #eee;
       --dropdown-text:        #000000;
 
-      /* Lighter variations for gradients in light mode */
-      --gradient-cyan-light:  #B3F9FF;
-      --gradient-cyan-dark:   #A3E5FF;
-      --gradient-pink-light:  #FFB3D9;
-      --gradient-pink-dark:   #F48FB1;
-      --gradient-green-light: #C8E6C9;
-      --gradient-green-dark:  #A5D6A7;
-      --gradient-red-light:   #FFCDD2;
-      --gradient-red-dark:    #EF9A9A;
+      /* More saturated gradients for visibility */
+      --gradient-cyan-light:  #00E5FF;
+      --gradient-cyan-dark:   #00BCD4;
+      --gradient-pink-light:  #FF3366;
+      --gradient-pink-dark:   #FF6699;
+      --gradient-green-light: #66BB6A;
+      --gradient-green-dark:  #43A047;
+      --gradient-red-light:   #E57373;
+      --gradient-red-dark:    #F44336;
     }
 
     /* ==================== GLOBAL TRANSITIONS ==================== */
     body {
       background-color: var(--bg);
       color: var(--text);
-      transition: background-color 0.5s ease, color 0.5s ease;
+      transition: background-color 0.5s ease,
+                  color 0.5s ease;
     }
     .navbar,
     .item-header,
@@ -104,7 +105,6 @@
       justify-content: space-between;
       gap: 16px;
     }
-    /* Left: Title */
     .navbar .site-title {
       font-size: 1.5rem;
       letter-spacing: 2px;
@@ -112,7 +112,6 @@
       font-weight: bold;
       white-space: nowrap;
     }
-    /* Center: Search bar */
     .navbar .search-container {
       flex: 1;
       display: flex;
@@ -135,7 +134,6 @@
       color: var(--input-text);
       opacity: 0.7;
     }
-    /* Right: Custom dropdown */
     .navbar .custom-dropdown {
       position: relative;
       user-select: none;
@@ -268,11 +266,9 @@
       transform: translateY(-2px);
     }
 
-    /* Left stripe colors by status */
     .status-updated   { border-left-color: var(--gradient-green-dark); }
     .status-notupdated{ border-left-color: var(--gradient-red-dark); }
 
-    /* Glow for “Recommended” only */
     .exploit-item.recommended {
       box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
     }
@@ -359,7 +355,7 @@
       white-space: nowrap;
       transition: background 0.5s ease;
     }
-    .status-notupdated > .item-header > .status-label {
+    .status-notupdated .status-label {
       background: linear-gradient(
         90deg,
         var(--gradient-red-light),
@@ -730,32 +726,25 @@
     const dropdownSelected = themeDropdown.querySelector(".dropdown-selected");
     const dropdownOptions = themeDropdown.querySelector(".dropdown-options");
 
-    // Toggle open/close when clicking the selected area:
     dropdownSelected.addEventListener("click", () => {
       themeDropdown.classList.toggle("open");
     });
 
-    // Close dropdown if clicking outside:
     document.addEventListener("click", (e) => {
       if (!themeDropdown.contains(e.target)) {
         themeDropdown.classList.remove("open");
       }
     });
 
-    // Listen for clicks on each option:
     dropdownOptions.querySelectorAll("div").forEach(option => {
       option.addEventListener("click", () => {
         const chosenValue = option.getAttribute("data-value");
-        // Clone that option’s <svg>
         const svgIcon = option.querySelector("svg.icon").cloneNode(true);
 
-        // Update “Theme <svg>”
         dropdownSelected.innerHTML = `<span>Theme</span>`;
         dropdownSelected.appendChild(svgIcon);
-
         themeDropdown.classList.remove("open");
 
-        // Toggle body class
         if (chosenValue === "light") {
           document.body.classList.add("light-theme");
         } else {
