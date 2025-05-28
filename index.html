@@ -20,8 +20,16 @@
       --dropdown-bg:       #2e2e2e;
       --dropdown-hover:    #333;
       --dropdown-text:     #e0e0e0;
-      --updated-color:     #27ae60;
-      --notupdated-color:  #e74c3c;
+
+      /* Pill backgrounds */
+      --pill-updated-bg:   linear-gradient(90deg, #6abf69, #27ae60);
+      --pill-notupdated-bg:linear-gradient(90deg, #e74c3c, #c0392b);
+
+      /* Tag backgrounds */
+      --tag-recommended-bg: linear-gradient(90deg, #ff9ccf, #ff69b4);
+      --tag-sunc-bg:        linear-gradient(90deg, #b19cd9, #800080);
+      --tag-price-bg:       linear-gradient(90deg, #87cefa, #3498db);
+      --tag-free-bg:        linear-gradient(90deg, #8fe28f, #2ecc71);
     }
     body.light-theme {
       /* LIGHT THEME overrides */
@@ -36,8 +44,14 @@
       --dropdown-bg:       #ffffff;
       --dropdown-hover:    #eee;
       --dropdown-text:     #1a1a1a;
-      --updated-color:     #27ae60;
-      --notupdated-color:  #e74c3c;
+
+      --pill-updated-bg:   linear-gradient(90deg, #a8e6a1, #6abf69);
+      --pill-notupdated-bg:linear-gradient(90deg, #f28b82, #e74c3c);
+
+      --tag-recommended-bg: linear-gradient(90deg, #ffb3d9, #ff9ccf);
+      --tag-sunc-bg:        linear-gradient(90deg, #d8b7ff, #b19cd9);
+      --tag-price-bg:       linear-gradient(90deg, #b3e1ff, #87cefa);
+      --tag-free-bg:        linear-gradient(90deg, #b4f8b4, #8fe28f);
     }
 
     /* ==================== GLOBAL TRANSITIONS ==================== */
@@ -125,13 +139,16 @@
       padding: 6px 10px;
       border-radius: 4px;
       font-size: 0.9rem;
-      min-width: 80px;
+      min-width: 100px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 6px;
       cursor: pointer;
       transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+    }
+    .navbar .dropdown-selected span.icon {
+      font-size: 1rem;
     }
     .navbar .dropdown-selected::after {
       content: "▾"; /* down arrow */
@@ -162,6 +179,9 @@
       font-size: 0.9rem;
       color: var(--dropdown-text);
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       transition: background-color 0.2s ease, color 0.5s ease;
     }
     .navbar .dropdown-options div:hover {
@@ -216,8 +236,8 @@
     }
 
     /* Left stripe colors by status */
-    .status-updated   { border-left-color: var(--updated-color); }
-    .status-notupdated{ border-left-color: var(--notupdated-color); }
+    .status-updated   { border-left-color: var(--pill-updated-bg); }
+    .status-notupdated{ border-left-color: var(--pill-notupdated-bg); }
 
     /* Glow for “Recommended” and “Longest Running” */
     .exploit-item.recommended {
@@ -263,34 +283,41 @@
       border-radius: 12px;
       white-space: nowrap;
       font-weight: 500;
+      color: #fff;
+      transition: background 0.5s ease;
     }
-    /* Add a small circle before “Recommended” */
+    .tag-version      { background-color: #333; }
+    .tag-sunc         { background: var(--tag-sunc-bg); }
+    .tag-recommended  {
+      background: var(--tag-recommended-bg);
+    }
     .tag-recommended::before {
       content: "";
       display: inline-block;
       width: 8px;
       height: 8px;
-      background-color: #e74c3c;
+      background-color: #fff;
       border-radius: 50%;
       margin-right: 4px;
       vertical-align: middle;
     }
-    .tag-version      { background-color: #333;  color: #bbb; }
-    .tag-sunc         { background-color: #444;  color: #fff; }
-    .tag-recommended  { background-color: #e74c3c; color: #fff; }
-    .tag-longest      { background-color: #2980b9; color: #fff; }
-    .tag-price        { background-color: #3498db; color: #fff; }
+    .tag-longest      { background-color: #2980b9; }
+    .tag-price        { background: var(--tag-price-bg); }
+    .tag-free         { background: var(--tag-free-bg); color: #fff; }
 
-    /* -------- STATUS LABEL (text color only) -------- */
+    /* -------- STATUS LABEL (pill) -------- */
     .status-label {
       font-size: 0.88rem;
       font-weight: 600;
-      background: none;
-      color: var(--updated-color);
+      padding: 6px 14px;
+      border-radius: 12px;
+      color: #fff;
+      background: var(--pill-updated-bg);
       white-space: nowrap;
+      transition: background 0.5s ease;
     }
     .status-notupdated > .item-header > .status-label {
-      color: var(--notupdated-color);
+      background: var(--pill-notupdated-bg);
     }
 
     /* -------- CHEVRON ICON (SVG) -------- */
@@ -398,10 +425,13 @@
 
     <!-- Right: Custom theme dropdown -->
     <div class="custom-dropdown" id="themeDropdown">
-      <div class="dropdown-selected">Dark</div>
+      <div class="dropdown-selected">
+        <span>Theme</span>
+        <span class="icon">🌙</span>
+      </div>
       <div class="dropdown-options">
-        <div data-value="dark">Dark</div>
-        <div data-value="light">Light</div>
+        <div data-value="dark"><span class="icon">🌙</span>Dark</div>
+        <div data-value="light"><span class="icon">☀️</span>Light</div>
       </div>
     </div>
   </nav>
@@ -517,7 +547,7 @@
             <h2>Volcano</h2>
             <span class="tag tag-version">v3.1.5 UD?</span>
             <span class="tag tag-sunc">sUNC</span>
-            <span class="tag tag-price">Free</span>
+            <span class="tag tag-free">Free</span>
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
@@ -550,6 +580,7 @@
     const themeDropdown = document.getElementById("themeDropdown");
     const dropdownSelected = themeDropdown.querySelector(".dropdown-selected");
     const dropdownOptions = themeDropdown.querySelector(".dropdown-options");
+    const selectedIcon = dropdownSelected.querySelector(".icon");
 
     // Toggle open/close when clicking the selected area:
     dropdownSelected.addEventListener("click", () => {
@@ -567,7 +598,13 @@
     dropdownOptions.querySelectorAll("div").forEach(option => {
       option.addEventListener("click", () => {
         const chosenValue = option.getAttribute("data-value"); // “dark” or “light”
-        dropdownSelected.textContent = option.textContent;      // update visible text
+        const chosenText = option.textContent.trim();          // option text (“Dark” or “Light”)
+
+        // Update visible text and icon
+        dropdownSelected.innerHTML = `${chosenText} <span class="icon">${
+          chosenValue === "light" ? "☀️" : "🌙"
+        }</span>`;
+
         themeDropdown.classList.remove("open");
 
         // Apply theme to <body>:
