@@ -103,7 +103,6 @@
       display:flex; flex-direction:column; gap:1rem;
     }
     .card {
-      position:relative;
       background: var(--card-bg);
       color: var(--card-fg);
       border-radius:.75rem;
@@ -114,9 +113,7 @@
       transition:box-shadow .3s;
       animation:fadeInUp .6s forwards;
     }
-    .card:hover {
-      box-shadow:0 12px 30px var(--shadow);
-    }
+    .card:hover { box-shadow:0 12px 30px var(--shadow); }
     .card:nth-of-type(odd){animation-delay:.1s;}
     .card:nth-of-type(even){animation-delay:.2s;}
 
@@ -138,9 +135,9 @@
       padding:.3rem .6rem; border-radius:.75rem;
       font-size:.75rem; font-weight:600; text-transform:uppercase;
     }
-    .badge.sunc { background:#333; color:#ddd; }
-    .badge.free{ background:#0f8; color:#000; }
-    .badge.paid{ background:#f90; color:#000; }
+    .badge.sunc{background:#333;color:#ddd;}
+    .badge.free{background:#0f8;color:#000;}
+    .badge.paid{background:#f90;color:#000;}
 
     .card-right {
       display:flex; align-items:center; gap:.5rem;
@@ -148,12 +145,12 @@
     .price {
       background: var(--btn-bg);
       color: var(--btn-fg);
-      padding:.3rem .7rem; border-radius:.75rem;
+      padding:.3rem .7rem;border-radius:.75rem;
       font-size:.9rem;
     }
     .status {
-      padding:.3rem .6rem; border-radius:.75rem;
-      font-size:.9rem; font-weight:600;
+      padding:.3rem .6rem;border-radius:.75rem;
+      font-size:.9rem;font-weight:600;
     }
     .status.updated{background:#0c0;color:#fff;}
     .status.undetected{background:#c00;color:#fff;}
@@ -177,8 +174,7 @@
       display:inline-block;text-decoration:none;
       font-size:.9rem;font-weight:600;
       padding:.4rem .8rem;border-radius:.75rem;
-      margin-right:.5rem;
-      background:var(--btn-bg);color:var(--btn-fg);
+      margin-right:.5rem;background:var(--btn-bg);color:var(--btn-fg);
       transition:background .2s;
     }
     .btn.download:hover{background:#07856b;}
@@ -196,7 +192,7 @@
   </div>
 
   <div class="controls">
-    <input type="text" id="search" placeholder="Search executors…">
+    <input id="search" placeholder="Search executors…">
     <div class="theme-dropdown" id="theme-dropdown">
       <div class="theme-toggle">
         <span id="theme-label">Dark Mode</span>
@@ -209,27 +205,141 @@
     </div>
   </div>
 
-  <div class="cards" id="cards">
-    <!-- Ronix Android -->
-    <!-- ... (your 4+ cards here, same markup as before) ... -->
+  <div class="cards">
+
+    <!-- Ronix Android (Purple) -->
+    <div class="card" data-color="purple" data-name="ronix android">
+      <div class="card-header">
+        <div class="card-left">
+          <h2>Ronix Android</h2>
+          <div class="version">v671</div>
+          <div class="badges"><div class="badge sunc">sUNC</div><div class="badge free">Free</div><div class="badge paid">Paid</div></div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span class="price">Free / Paid</span><span class="status updated">Updated</span><span class="status undetected">Undetected</span>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>Android‑specific build—lightweight but may still have bugs.</p>
+        <div class="card-actions">
+          <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file" class="btn download" target="_blank">Download</a>
+          <a href="https://discord.gg/ronix" class="btn discord" target="_blank">Discord</a>
+        </div>
+        <div class="card-footer" data-updated="2025-05-24T13:15:00Z">Last updated: <span class="updated-time"></span></div>
+      </div>
+    </div>
+
+    <!-- Delta Android (Black) -->
+    <div class="card" data-color="black" data-name="delta android">
+      <div class="card-header">
+        <div class="card-left">
+          <h2>Delta Android</h2>
+          <div class="version">v673</div>
+          <div class="badges"><div class="badge sunc">sUNC</div><div class="badge free">Free</div><div class="badge paid">Paid</div></div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span class="price">Free / Paid</span><span class="status updated">Updated</span><span class="status undetected">Undetected</span>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>Placeholder description—update with real details.</p>
+        <div class="card-actions">
+          <a href="https://deltaexploits.gg/delta-executor-mobile" class="btn website" target="_blank">Website</a>
+          <a href="https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file" class="btn download" target="_blank">Download</a>
+          <a href="https://discord.gg/deltax" class="btn discord" target="_blank">Discord</a>
+        </div>
+        <div class="card-footer" data-updated="2025-05-27T00:00:00Z">Last updated: <span class="updated-time"></span></div>
+      </div>
+    </div>
+
+    <!-- Codex Android (Red) -->
+    <div class="card" data-color="red" data-name="codex android">
+      <div class="card-header">
+        <div class="card-left">
+          <h2>Codex Android</h2>
+          <div class="version">v673</div>
+          <div class="badges"><div class="badge sunc">sUNC</div><div class="badge free">Free</div><div class="badge paid">Paid</div></div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span class="price">Free / Paid</span><span class="status updated">Updated</span><span class="status undetected">Undetected</span>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>Placeholder for Codex Android—details coming soon.</p>
+        <div class="card-actions">
+          <a href="https://codex.lol/android" class="btn website" target="_blank">Website</a>
+          <a href="https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/file" class="btn download" target="_blank">Download</a>
+          <a href="https://discord.gg/codexlol" class="btn discord" target="_blank">Discord</a>
+        </div>
+        <div class="card-footer" data-updated="2025-06-01T12:00:00Z">Last updated: <span class="updated-time"></span></div>
+      </div>
+    </div>
+
+    <!-- Codex iOS (Red) -->
+    <div class="card" data-color="red" data-name="codex ios">
+      <div class="card-header">
+        <div class="card-left">
+          <h2>Codex iOS</h2>
+          <div class="version">v1.0.0</div>
+          <div class="badges"><div class="badge sunc">sUNC</div><div class="badge free">Free</div><div class="badge paid">Paid</div></div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span class="price">Free / Paid</span><span class="status updated">Updated</span><span class="status detected">Detected</span>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>iOS‑optimized build—replace with actual details when ready.</p>
+        <div class="card-actions">
+          <a href="https://codex.lol/ios" class="btn website" target="_blank">Website</a>
+          <a href="https://www.mediafire.com/file/7afzer5xxo1110n/Codex_2.674.782.ipa/file" class="btn download" target="_blank">Download</a>
+          <a href="https://discord.gg/codexlol" class="btn discord" target="_blank">Discord</a>
+        </div>
+        <div class="card-footer" data-updated="2025-06-01T12:00:00Z">Last updated: <span class="updated-time"></span></div>
+      </div>
+    </div>
+
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded",()=>{
-      // Theme dropdown
-      const dd=document.getElementById('theme-dropdown');
-      const lbl=document.getElementById('theme-label');
-      dd.querySelectorAll('.theme-item').forEach(i=>{
-        i.addEventListener('click',()=>{
-          document.body.dataset.theme=i.dataset.theme;
-          lbl.textContent=i.textContent;
-          dd.classList.remove('open');
-        });
+      // Expand/collapse
+      document.querySelectorAll('.card-header').forEach(h=>
+        h.addEventListener('click',()=>h.parentElement.classList.toggle('expanded'))
+      );
+      // Fade‑in on scroll
+      const io=new IntersectionObserver(entries=>entries.forEach(e=>{
+        if(e.isIntersecting){e.target.style.animationPlayState='running';io.unobserve(e.target);}
+      }),{threshold:0.1});
+      document.querySelectorAll('.card').forEach(c=>{
+        c.style.animationPlayState='paused';
+        io.observe(c);
       });
+      // Timestamp formatting
+      const fmt=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kuala_Lumpur',
+        day:'2-digit',month:'2-digit',year:'numeric',
+        hour:'numeric',minute:'2-digit',hour12:true});
+      document.querySelectorAll('.card-footer').forEach(f=>{
+        const iso=f.dataset.updated; if(!iso) return;
+        f.querySelector('.updated-time').textContent=fmt.format(new Date(iso));
+      });
+      // Theme dropdown
+      const dd=document.getElementById('theme-dropdown'), lbl=document.getElementById('theme-label');
+      dd.querySelectorAll('.theme-item').forEach(i=>i.addEventListener('click',()=>{
+        document.body.dataset.theme=i.dataset.theme;
+        lbl.textContent=i.textContent;
+        dd.classList.remove('open');
+      }));
       dd.querySelector('.theme-toggle').addEventListener('click',()=>dd.classList.toggle('open'));
       document.addEventListener('click',e=>{ if(!dd.contains(e.target)) dd.classList.remove('open'); });
-
-      // Expand/collapse & fade-in & timestamp & search (reuse your existing JS here)
+      // Search filter
+      document.getElementById('search').addEventListener('input',e=>{
+        const q=e.target.value.toLowerCase();
+        document.querySelectorAll('.card').forEach(card=>card.style.display=card.dataset.name.includes(q)?'':'none');
+      });
     });
   </script>
 </body>
