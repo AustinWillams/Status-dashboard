@@ -33,156 +33,155 @@
     a { color: inherit; text-decoration: none; }
 
     /* — Header & Controls — */
-    .header { width:100%; max-width:800px; margin-bottom:1rem;
-      display:flex; justify-content:space-between; align-items:center;
+    .header {
+      width: 100%; max-width: 800px;
+      margin-bottom: 1rem;
+      display: flex; justify-content: space-between; align-items: center;
     }
     .logo-placeholder, .title-placeholder {
-      background:var(--input-bg); color:var(--input-fg);
-      padding:.5rem 1rem; border-radius:.5rem;
+      background: var(--input-bg); color: var(--input-fg);
+      padding: .5rem 1rem; border-radius: .5rem;
     }
     .controls {
-      position: relative; z-index:100;
-      width:100%; max-width:800px;
-      display:flex; gap:1rem; margin-bottom:1rem; align-items:center;
+      position: relative; z-index: 100;
+      width: 100%; max-width: 800px;
+      display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center;
     }
     .controls input {
-      flex:1; padding:.5rem 1rem; border:none; border-radius:.5rem;
-      background:var(--input-bg); color:var(--input-fg);
+      flex: 1; padding: .5rem 1rem; border: none; border-radius: .5rem;
+      background: var(--input-bg); color: var(--input-fg);
     }
 
     /* — Theme Dropdown — */
-    .theme-dropdown { position:relative; user-select:none; z-index:101; }
+    .theme-dropdown { position: relative; user-select: none; z-index: 101; }
     .theme-toggle {
-      display:flex; align-items:center; gap:.5rem;
-      padding:.5rem 1rem; border-radius:.5rem;
-      background:var(--input-bg); color:var(--input-fg);
-      cursor:pointer;
+      display: flex; align-items: center; gap: .5rem;
+      padding: .5rem 1rem; border-radius: .5rem;
+      background: var(--input-bg); color: var(--input-fg);
+      cursor: pointer;
     }
-    .theme-toggle svg { width:.8rem; height:.8rem; transition: transform .2s; }
+    .theme-toggle svg { width: .8rem; height: .8rem; transition: transform .2s; }
     .theme-dropdown.open .theme-toggle svg { transform: rotate(180deg); }
     .theme-menu {
-      position:absolute; top:100%; right:0;
-      background:var(--card-bg); border-radius:.5rem;
-      margin-top:.3rem; overflow:hidden;
-      box-shadow:0 4px 12px var(--shadow);
-      opacity:0; visibility:hidden; transform:translateY(-5px);
-      transition:opacity .2s, transform .2s, visibility .2s;
+      position: absolute; top: 100%; right: 0;
+      background: var(--card-bg); border-radius: .5rem;
+      margin-top: .3rem; overflow: hidden;
+      box-shadow: 0 4px 12px var(--shadow);
+      opacity: 0; visibility: hidden; transform: translateY(-5px);
+      transition: opacity .2s, transform .2s, visibility .2s;
     }
     .theme-dropdown.open .theme-menu {
-      opacity:1; visibility:visible; transform:translateY(0);
+      opacity: 1; visibility: visible; transform: translateY(0);
     }
-    .theme-item { padding:.5rem 1rem; cursor:pointer; white-space:nowrap; }
-    .theme-item:hover { background:var(--input-bg); }
+    .theme-item { padding: .5rem 1rem; cursor: pointer; white-space: nowrap; }
+    .theme-item:hover { background: var(--input-bg); }
 
     /* — Cards Container — */
     .cards {
-      width:100%; max-width:800px;
-      display:flex; flex-direction:column; gap:1rem;
+      width: 100%; max-width: 800px;
+      display: flex; flex-direction: column; gap: 1rem;
     }
 
     /* — Card — */
     .card {
-      position:relative;
-      background:var(--card-bg); color:var(--card-fg);
-      border-radius:.75rem; overflow:hidden;
-      box-shadow:0 8px 20px var(--shadow);
-      opacity:0; transform:translateY(20px);
-      animation:fadeInUp .6s forwards;
+      position: relative;
+      background: var(--card-bg); color: var(--card-fg);
+      border-radius: .75rem; overflow: hidden;
+      box-shadow: 0 8px 20px var(--shadow);
+      opacity: 0; transform: translateY(20px);
+      animation: fadeInUp .6s forwards;
     }
-    .card:nth-of-type(odd){animation-delay:.1s;}
-    .card:nth-of-type(even){animation-delay:.2s;}
+    .card:nth-of-type(odd) { animation-delay: .1s; }
+    .card:nth-of-type(even){ animation-delay: .2s; }
 
     /* — Accent Strip — */
     .card::before {
-      content:""; position:absolute; top:0; bottom:0; left:0; width:6px;
-      background:var(--accent-not-updated);
+      content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 6px;
+      background: var(--accent-not-updated);
     }
-    .card.updated::before { background:var(--accent-updated); }
+    .card.updated::before { background: var(--accent-updated); }
 
     /* — Header — */
     .card-header {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:1rem; cursor:pointer; position:relative; z-index:1;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem; cursor: pointer; position: relative; z-index: 1;
     }
-    .card-left { display:flex; align-items:baseline; gap:.5rem; }
-    .card-left h2 { font-size:1.25rem; margin:0; }
+    .card-left { display: flex; align-items: baseline; gap: .5rem; }
+    .card-left h2 { font-size: 1.25rem; margin: 0; }
     .version {
-      background:var(--input-bg); color:var(--input-fg);
-      padding:.3rem .6rem; border-radius:.75rem; font-size:.9rem;
+      background: var(--input-bg); color: var(--input-fg);
+      padding: .3rem .6rem; border-radius: .75rem; font-size: .9rem;
     }
-    .badges { display:flex; gap:.4rem; }
+    .badges { display: flex; gap: .4rem; }
     .badge {
-      background:var(--input-bg); padding:.3rem .6rem; border-radius:.75rem;
-      font-size:.75rem; font-weight:600; text-transform:uppercase;
+      background: var(--input-bg); padding: .3rem .6rem; border-radius: .75rem;
+      font-size: .75rem; font-weight: 600; text-transform: uppercase;
     }
-    .badge.sunc{background:#333;color:#ddd;}
-    .badge.reco{background:#ff1cae;color:#fff;}
-    .badge.free{background:#0f8;color:#000;}
-    .badge.paid{background:#f90;color:#000;}
+    .badge.sunc{ background: #333; color: #ddd; }
+    .badge.reco{ background: #ff1cae; color: #fff; }
 
     .card-right {
-      display:flex; align-items:center; gap:1rem;
+      display: flex; align-items: center; gap: 1rem;
     }
     .status {
-      padding:.3rem .6rem; border-radius:.75rem;
-      font-size:.9rem; font-weight:600;
+      padding: .3rem .6rem; border-radius: .75rem;
+      font-size: .9rem; font-weight: 600;
     }
-    .status.updated{background:var(--accent-updated);color:#fff;}
-    .status.undetected{background:var(--accent-not-updated);color:#fff;}
-    .status.detected{background:var(--accent-updated);color:#fff;}
+    .status.updated   { background: var(--accent-updated); color: #fff; }
+    .status.undetected{ background: var(--accent-not-updated); color: #fff; }
+    .status.detected  { background: var(--accent-updated); color: #fff; }
 
     .expand-icon {
-      width:1rem; height:1rem; fill:var(--card-fg);
-      margin-right:.5rem;
-      transition:transform .3s;
+      width: 1rem; height: 1rem; fill: var(--card-fg);
+      margin-right: .5rem; transition: transform .3s;
     }
-    .card.expanded .expand-icon{transform:rotate(90deg);}
+    .card.expanded .expand-icon { transform: rotate(90deg); }
 
     /* — Content — */
     .card-content {
-      max-height:0; overflow:hidden;
-      transition:max-height .4s ease,padding .4s ease;
-      padding:0 1rem;
+      max-height: 0; overflow: hidden;
+      transition: max-height .4s ease, padding .4s ease;
+      padding: 0 1rem;
     }
     .card.expanded .card-content {
-      max-height:500px; padding:1rem;
+      max-height: 500px; padding: 1rem;
     }
-    .card-content p { margin-bottom:1rem; }
+    .card-content p { margin-bottom: 1rem; }
 
     /* — Last Updated & Separator — */
     .card-footer {
-      font-size:.85rem; color:var(--fg); margin-bottom:.5rem;
+      font-size: .85rem; color: var(--fg); margin-bottom: .5rem;
     }
     .separator {
-      height:1px; background:var(--input-bg); margin:.5rem 0;
+      height: 1px; background: var(--input-bg); margin: .5rem 0;
     }
 
     /* — Buttons — */
     .card-actions {
-      display:flex; gap:.5rem; margin-bottom:1rem;
+      display: flex; gap: .5rem; margin-bottom: 1rem;
     }
     .btn {
-      display:inline-block; padding:.5rem 1rem;
-      border-radius:.5rem; background:var(--btn-bg);
-      color:var(--btn-fg); font-weight:600; white-space:nowrap;
-      transition:background .2s;
+      display: inline-block; padding: .5rem 1rem;
+      border-radius: .5rem; background: var(--btn-bg);
+      color: var(--btn-fg); font-weight: 600; white-space: nowrap;
+      transition: background .2s;
     }
-    .btn:hover { background:rgba(0,96,255,0.5); }
+    .btn:hover { background: rgba(0,96,255,0.5); }
 
     /* — Details Row — */
     .details-row {
-      display:flex; flex-wrap:wrap; gap:2rem;
-      font-size:.9rem; margin-bottom:1rem;
+      display: flex; flex-wrap: wrap; gap: 2rem;
+      font-size: .9rem; margin-bottom: 1rem;
     }
     .details-item {
-      display:flex; align-items:center; gap:.25rem;
+      display: flex; align-items: center; gap: .25rem;
     }
     .details-item svg {
-      width:1rem; height:1rem; fill:var(--check-green);
+      width: 1rem; height: 1rem; fill: var(--check-green);
     }
 
     @keyframes fadeInUp {
-      to { opacity:1; transform:translateY(0); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -241,10 +240,12 @@
           <div class="details-item"><strong>UNC %:</strong> 99%</div>
           <div class="details-item"><strong>sUNC %:</strong> 100%</div>
           <div class="details-item">
-            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Decompiler
+            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>
+            Decompiler
           </div>
           <div class="details-item">
-            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Multi‑Inject
+            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>
+            Multi‑Inject
           </div>
         </div>
       </div>
@@ -280,10 +281,12 @@
           <div class="details-item"><strong>UNC %:</strong> 99%</div>
           <div class="details-item"><strong>sUNC %:</strong> 100%</div>
           <div class="details-item">
-            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Decompiler
+            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>
+            Decompiler
           </div>
           <div class="details-item">
-            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Multi‑Inject
+            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>
+            Multi‑Inject
           </div>
         </div>
       </div>
@@ -320,10 +323,12 @@
           <div class="details-item"><strong>UNC %:</strong> 99%</div>
           <div class="details-item"><strong>sUNC %:</strong> 100%</div>
           <div class="details-item">
-            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Decompiler
+            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>
+            Decompiler
           </div>
           <div class="details-item">
-            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Multi‑Inject
+            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>
+            Multi‑Inject
           </div>
         </div>
       </div>
@@ -360,10 +365,12 @@
           <div class="details-item"><strong>UNC %:</strong> 99%</div>
           <div class="details-item"><strong>sUNC %:</strong> 100%</div>
           <div class="details-item">
-            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Decompiler
+            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>
+            Decompiler
           </div>
           <div class="details-item">
-            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>Multi‑Inject
+            <svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--check-green)" stroke-width="2" fill="none"/></svg>
+            Multi‑Inject
           </div>
         </div>
       </div>
@@ -373,7 +380,7 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // mark updated/not-updated
+      // mark cards updated/not
       document.querySelectorAll('.card').forEach(card => {
         card.classList.add(
           card.querySelector('.status.updated') ? 'updated' : 'not-updated'
@@ -401,17 +408,16 @@
         io.observe(c);
       });
 
-      // dynamic “Last updated” in user’s locale/time zone
+      // dynamic “Last updated” conversion
       document.querySelectorAll('.card-footer').forEach(f => {
-        const iso = f.dataset.updated;
+        const iso = f.getAttribute('data-updated');
         if (!iso) return;
         const dt = new Date(iso);
         f.querySelector('.updated-time').textContent =
-          new Intl.DateTimeFormat(navigator.language, {
+          dt.toLocaleString(navigator.language, {
             day: '2-digit', month: '2-digit', year: 'numeric',
-            hour: 'numeric', minute: '2-digit',
-            hour12: true
-          }).format(dt);
+            hour: 'numeric', minute: '2-digit', hour12: true
+          });
       });
 
       // theme dropdown
