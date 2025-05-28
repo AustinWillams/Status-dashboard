@@ -4,334 +4,404 @@
   <meta charset="UTF-8">
   <title>Executor Dashboard</title>
   <style>
+    /* — CSS Variables for Theming — */
+    :root {
+      --bg: #121212;
+      --fg: #e0e0e0;
+      --card-bg: #1e1e1e;
+      --card-fg: #e0e0e0;
+      --input-bg: #2a2a2a;
+      --input-fg: #e0e0e0;
+      --btn-bg: #0066ff;
+      --btn-fg: #fff;
+    }
+    [data-theme="light"] {
+      --bg: #f5f5f5;
+      --fg: #222;
+      --card-bg: #fff;
+      --card-fg: #222;
+      --input-bg: #eee;
+      --input-fg: #222;
+      --btn-bg: #0066ff;
+      --btn-fg: #fff;
+    }
+
     /* — Base & Reset — */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    html, body {
-      height: 100%;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
     body {
-      background-color: #121212;
-      color: #e0e0e0;
       font-family: "Inter", sans-serif;
-      line-height: 1.6;
-      padding: 2rem;
-    }
-    a {
-      color: #1fa2ff;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* — Announcement Banner — */
-    .announcement {
-      background-color: #1e1e1e;
-      border-radius: 4px;
-      padding: 1rem;
-      margin-bottom: 2rem;
-      font-size: 0.95rem;
-    }
-
-    /* — Headings — */
-    h1, h2 {
-      color: #e0e0e0;
-      margin-bottom: 1rem;
-    }
-    h1 {
-      font-size: 1.75rem;
-      margin-bottom: 1.5rem;
-    }
-    h2 {
-      font-size: 1.25rem;
-      margin-top: 2rem;
-      margin-bottom: 0.75rem;
-    }
-
-    /* — Divider — */
-    .divider {
-      height: 1px;
-      background-color: #333;
-      margin: 2rem 0;
-    }
-
-    /* — “Card” Reset to Plain Blocks — */
-    .cards {
+      background: var(--bg);
+      color: var(--fg);
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      align-items: center;
+      padding: 2rem;
+      transition: background .3s, color .3s;
     }
-    .card {
-      /* Remove background, border, animation—just simple spacing */
-      background: none;
+    a { color: inherit; text-decoration: none; }
+
+    /* — Header Placeholder — */
+    .header {
+      width: 100%; max-width: 800px;
+      margin-bottom: 1rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo-placeholder, .title-placeholder {
+      background: var(--input-bg);
+      color: var(--input-fg);
+      padding: .5rem 1rem;
+      border-radius: .5rem;
+    }
+
+    /* — Controls — */
+    .controls {
+      width: 100%; max-width: 800px;
+      display: flex; gap: 1rem; margin-bottom: 1rem;
+      align-items: center;
+    }
+    .controls input {
+      flex: 1;
+      padding: .5rem 1rem;
       border: none;
-      padding: 0;
+      border-radius: .5rem;
+      background: var(--input-bg);
+      color: var(--input-fg);
     }
-    .card-header {
+
+    /* — Theme Dropdown — */
+    .theme-dropdown {
+      position: relative;
+      user-select: none;
+    }
+    .theme-toggle {
+      padding: .5rem 1rem;
+      border-radius: .5rem;
+      background: var(--input-bg);
+      color: var(--input-fg);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
       cursor: pointer;
     }
-    .card-header h2 {
-      display: inline-block;
-      font-size: 1.1rem;
+    .theme-toggle svg {
+      width: .8rem;
+      height: .8rem;
+      transition: transform .2s;
     }
-    .card-header .version {
-      font-size: 0.9rem;
-      color: #888;
-      margin-left: 0.5rem;
+    .theme-dropdown.open .theme-toggle svg {
+      transform: rotate(180deg);
     }
-    .card-header .badges {
-      display: inline-flex;
-      gap: 0.3rem;
-      margin-left: 0.75rem;
+    .theme-menu {
+      position: absolute;
+      top: 100%; right: 0;
+      background: var(--card-bg);
+      border: 1px solid var(--input-bg);
+      border-radius: .5rem;
+      margin-top: .3rem;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,.4);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-5px);
+      transition: opacity .2s, transform .2s, visibility .2s;
+      z-index: 10;
     }
+    .theme-dropdown.open .theme-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .theme-item {
+      padding: .5rem 1rem;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .theme-item:hover {
+      background: var(--input-bg);
+    }
+
+    /* — Cards — */
+    .cards {
+      width: 100%; max-width: 800px;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .card {
+      background: var(--card-bg);
+      color: var(--card-fg);
+      border: 2px solid transparent;
+      border-radius: .75rem;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeInUp .6s forwards;
+    }
+    .card:nth-of-type(odd)  { animation-delay: .1s; }
+    .card:nth-of-type(even) { animation-delay: .2s; }
+
+    /* Gradient borders */
+    .card[data-color="purple"] { border-image: linear-gradient(135deg,#9b29b6,#d864f5) 1; }
+    .card[data-color="black"]  { border-image: linear-gradient(135deg,#444,#222) 1; }
+    .card[data-color="red"]    { border-image: linear-gradient(135deg,#ff4e50,#f9d423) 1; }
+
+    .card-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem; cursor: pointer;
+    }
+    .card-left { display: flex; align-items: baseline; gap: .5rem; }
+    .card-left h2 { font-size: 1.25rem; margin: 0; }
+    .version {
+      background: var(--input-bg);
+      padding: .3rem .6rem;
+      border-radius: .75rem;
+      font-size: .9rem;
+      color: var(--input-fg);
+    }
+    .badges { display: flex; gap: .4rem; }
     .badge {
-      background: #333;
-      color: #ddd;
-      padding: 0.2rem 0.5rem;
-      border-radius: 3px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
+      background: var(--input-bg);
+      padding: .3rem .6rem;
+      border-radius: .75rem;
+      font-size: .75rem;
       font-weight: 600;
+      text-transform: uppercase;
     }
-    .badge.reco     { background: #ff1cae; color: #fff; }
-    .badge.longest  { background: #1fa2ff; color: #fff; }
+    .badge.sunc     { background: #333;    color: #ddd; }
     .badge.free     { background: #0f8;    color: #000; }
     .badge.paid     { background: #f90;    color: #000; }
-    .badge.beta     { background: #ffa500; color: #000; }
 
-    /* — Hide the small “expand” arrow—since we’re flattening everything — */
+    .card-right {
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .price {
+      background: var(--btn-bg);
+      color: var(--btn-fg);
+      padding: .3rem .7rem;
+      border-radius: .75rem;
+      font-size: .9rem;
+    }
+    .status {
+      padding: .3rem .6rem;
+      border-radius: .75rem;
+      font-size: .9rem;
+      font-weight: 600;
+    }
+    .status.updated     { background: #0c0; color:#fff; }
+    .status.undetected  { background: #c00; color:#fff; }
+    .status.detected    { background: #0c0; color:#fff; }
+
     .expand-icon {
-      display: none;
+      width: 1rem; height: 1rem;
+      fill: var(--card-fg);
+      transition: transform .3s ease;
+    }
+    .card.expanded .expand-icon {
+      transform: rotate(90deg);
     }
 
-    /* — Card Content is always visible (no collapsing) — */
     .card-content {
-      margin-top: 0.5rem;
-      padding-left: 1rem;
+      max-height: 0; overflow: hidden;
+      transition: max-height .4s ease, padding .4s ease;
+      padding: 0 1rem; background: var(--input-bg);
     }
-    .card-content p {
-      margin-bottom: 0.5rem;
-    }
-    .card-actions {
-      margin: 0.5rem 0;
-    }
-    .card-actions .btn {
-      font-size: 0.9rem;
-      padding: 0.2rem 0.5rem;
-      background: #1fa2ff;
-      color: #fff;
-      border-radius: 3px;
-      margin-right: 0.5rem;
-    }
-    .card-actions .btn:hover {
-      background: #148adb;
+    .card.expanded .card-content {
+      max-height: 300px; padding: 1rem;
     }
     .card-footer {
-      font-size: 0.85rem;
-      color: #888;
+      font-size: .85rem; color: var(--fg); margin-top: .75rem;
     }
+    .card-actions { margin: .75rem 0; }
+    .btn {
+      display: inline-block; text-decoration: none;
+      font-size: .9rem; font-weight: 600;
+      padding: .4rem .8rem; border-radius: .75rem;
+      margin-right: .5rem; background: var(--btn-bg); color: var(--btn-fg);
+      transition: background .2s;
+    }
+    .btn.download:hover { background: #07856b; }
+    .btn.discord:hover  { background: #4752C4; }
+    .btn.website:hover  { background: #0051a8; }
 
-    /* — Simple List Styling for Uniform Sections — */
-    ul {
-      list-style-type: disc;
-      padding-left: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-    li {
-      margin-bottom: 0.5rem;
-    }
-
-    /* — Footer — */
-    .footer {
-      margin-top: 3rem;
-      font-size: 0.85rem;
-      color: #888;
-      border-top: 1px solid #333;
-      padding-top: 1rem;
+    @keyframes fadeInUp {
+      to { opacity:1; transform:translateY(0); }
     }
   </style>
 </head>
-<body>
+<body data-theme="dark">
 
-  <!-- Announcement Banner -->
-  <div class="announcement">
-    All Roblox executors are <span style="font-weight:700; color:#ff5555;">DETECTED</span>! Exploiting will cause your account to be warned or banned. Please use precaution and exploit on alts or stick to externals.
+  <div class="header">
+    <div class="logo-placeholder">LOGO</div>
+    <div class="title-placeholder">YOUR TITLE HERE</div>
   </div>
 
-  <!-- Page Title -->
-  <h1>Executor Dashboard</h1>
+  <div class="controls">
+    <input type="text" id="search" placeholder="Search executors…">
+    <div class="theme-dropdown" id="theme-dropdown">
+      <div class="theme-toggle">
+        <span id="theme-label">Dark Mode</span>
+        <svg viewBox="0 0 10 6"><path d="M0 0l5 6 5-6" stroke="currentColor" fill="none" stroke-width="2"/></svg>
+      </div>
+      <div class="theme-menu">
+        <div class="theme-item" data-theme="dark">Dark Mode</div>
+        <div class="theme-item" data-theme="light">Light Mode</div>
+      </div>
+    </div>
+  </div>
 
-  <!-- BloxProducts Section -->
-  <h2>BloxProducts</h2>
-  <p>Wish to purchase any of these exploits? Head over to <a href="https://bloxproducts.com" target="_blank">BloxProducts!</a></p>
-
-  <!-- Divider -->
-  <div class="divider"></div>
-
-  <!-- Cards Container (flattened to simple blocks) -->
   <div class="cards" id="cards">
-
     <!-- Ronix Android -->
-    <div class="card" data-name="ronix android">
+    <div class="card" data-color="purple" data-name="ronix android">
       <div class="card-header">
-        <h2>Ronix Android</h2>
-        <span class="version">v671</span>
-        <div class="badges">
-          <span class="badge sunc">sUNC</span>
-          <span class="badge free">Free</span>
-          <span class="badge paid">Paid</span>
+        <div class="card-left">
+          <h2>Ronix Android</h2><div class="version">v671</div>
+          <div class="badges"><div class="badge sunc">sUNC</div><div class="badge free">Free</div><div class="badge paid">Paid</div></div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span class="price">Free / Paid</span><span class="status updated">Updated</span><span class="status undetected">Undetected</span>
         </div>
       </div>
       <div class="card-content">
         <p>Android‑specific build—lightweight but may still have bugs.</p>
         <div class="card-actions">
-          <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file"
-             class="btn download" target="_blank">Download APK</a>
-          <a href="https://discord.gg/ronix"
-             class="btn discord" target="_blank">Discord</a>
+          <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file" class="btn download" target="_blank">Download</a>
+          <a href="https://discord.gg/ronix" class="btn discord" target="_blank">Discord</a>
         </div>
-        <div class="card-footer">
-          Last updated: 24/05/2025, 9:15 pm MYT
-        </div>
+        <div class="card-footer" data-updated="2025-05-24T13:15:00Z">Last updated: <span class="updated-time"></span></div>
       </div>
     </div>
 
     <!-- Delta Android -->
-    <div class="card" data-name="delta android">
+    <div class="card" data-color="black" data-name="delta android">
       <div class="card-header">
-        <h2>Delta Android</h2>
-        <span class="version">v673</span>
-        <div class="badges">
-          <span class="badge sunc">sUNC</span>
-          <span class="badge free">Free</span>
-          <span class="badge paid">Paid</span>
+        <div class="card-left">
+          <h2>Delta Android</h2><div class="version">v673</div>
+          <div class="badges"><div class="badge sunc">sUNC</div><div class="badge free">Free</div><div class="badge paid">Paid</div></div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span class="price">Free / Paid</span><span class="status updated">Updated</span><span class="status undetected">Undetected</span>
         </div>
       </div>
       <div class="card-content">
         <p>Placeholder description—update with real details.</p>
         <div class="card-actions">
-          <a href="https://deltaexploits.gg/delta-executor-mobile"
-             class="btn website" target="_blank">Website</a>
-          <a href="https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file"
-             class="btn download" target="_blank">Download APK</a>
-          <a href="https://discord.gg/deltax"
-             class="btn discord" target="_blank">Discord</a>
+          <a href="https://deltaexploits.gg/delta-executor-mobile" class="btn website" target="_blank">Website</a>
+          <a href="https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file" class="btn download" target="_blank">Download</a>
+          <a href="https://discord.gg/deltax" class="btn discord" target="_blank">Discord</a>
         </div>
-        <div class="card-footer">
-          Last updated: 27/05/2025, 8:00 am MYT
-        </div>
+        <div class="card-footer" data-updated="2025-05-27T00:00:00Z">Last updated: <span class="updated-time"></span></div>
       </div>
     </div>
 
     <!-- Codex Android -->
-    <div class="card" data-name="codex android">
+    <div class="card" data-color="red" data-name="codex android">
       <div class="card-header">
-        <h2>Codex Android</h2>
-        <span class="version">v673</span>
-        <div class="badges">
-          <span class="badge sunc">sUNC</span>
-          <span class="badge free">Free</span>
-          <span class="badge paid">Paid</span>
+        <div class="card-left">
+          <h2>Codex Android</h2><div class="version">v673</div>
+          <div class="badges"><div class="badge sunc">sUNC</div><div class="badge free">Free</div><div class="badge paid">Paid</div></div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span class="price">Free / Paid</span><span class="status updated">Updated</span><span class="status undetected">Undetected</span>
         </div>
       </div>
       <div class="card-content">
         <p>Placeholder for Codex Android—details coming soon.</p>
         <div class="card-actions">
-          <a href="https://codex.lol/android"
-             class="btn website" target="_blank">Website</a>
-          <a href="https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/file"
-             class="btn download" target="_blank">Download APK</a>
-          <a href="https://discord.gg/codexlol"
-             class="btn discord" target="_blank">Discord</a>
+          <a href="https://codex.lol/android" class="btn website" target="_blank">Website</a>
+          <a href="https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/file" class="btn download" target="_blank">Download</a>
+          <a href="https://discord.gg/codexlol" class="btn discord" target="_blank">Discord</a>
         </div>
-        <div class="card-footer">
-          Last updated: 01/06/2025, 8:00 pm MYT
-        </div>
+        <div class="card-footer" data-updated="2025-06-01T12:00:00Z">Last updated: <span class="updated-time"></span></div>
       </div>
     </div>
 
     <!-- Codex iOS -->
-    <div class="card" data-name="codex ios">
+    <div class="card" data-color="red" data-name="codex ios">
       <div class="card-header">
-        <h2>Codex iOS</h2>
-        <span class="version">v1.0.0</span>
-        <div class="badges">
-          <span class="badge sunc">sUNC</span>
-          <span class="badge free">Free</span>
-          <span class="badge paid">Paid</span>
+        <div class="card-left">
+          <h2>Codex iOS</h2><div class="version">v1.0.0</div>
+          <div class="badges"><div class="badge sunc">sUNC</div><div class="badge free">Free</div><div class="badge paid">Paid</div></div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span class="price">Free / Paid</span><span class="status updated">Updated</span><span class="status detected">Detected</span>
         </div>
       </div>
       <div class="card-content">
         <p>iOS‑optimized build—replace with actual details when ready.</p>
         <div class="card-actions">
-          <a href="https://codex.lol/ios"
-             class="btn website" target="_blank">Website</a>
-          <a href="https://www.mediafire.com/file/7afzer5xxo1110n/Codex_2.674.782.ipa/file"
-             class="btn download" target="_blank">Download IPA</a>
-          <a href="https://discord.gg/codexlol"
-             class="btn discord"  target="_blank">Discord</a>
+          <a href="https://codex.lol/ios" class="btn website" target="_blank">Website</a>
+          <a href="https://www.mediafire.com/file/7afzer5xxo1110n/Codex_2.674.782.ipa/file" class="btn download" target="_blank">Download</a>
+          <a href="https://discord.gg/codexlol" class="btn discord" target="_blank">Discord</a>
         </div>
-        <div class="card-footer">
-          Last updated: 01/06/2025, 8:00 pm MYT
-        </div>
+        <div class="card-footer" data-updated="2025-06-01T12:00:00Z">Last updated: <span class="updated-time"></span></div>
       </div>
     </div>
-
   </div>
 
-  <!-- Divider -->
-  <div class="divider"></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Expand/collapse
+      document.querySelectorAll('.card-header').forEach(h =>
+        h.addEventListener('click', () =>
+          h.parentElement.classList.toggle('expanded')
+        )
+      );
 
-  <!-- What Exps Are.Online / API / Links -->
-  <h2>What Exps Are.Online</h2>
-  <ul>
-    <li><a href="https://docs.weao.xyz" target="_blank">API Documentation</a></li>
-    <li><a href="https://discord.gg" target="_blank">Discord</a></li>
-    <li><a href="https://rdd.weao.xyz" target="_blank">RDD</a></li>
-  </ul>
+      // Fade‑in on scroll
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.style.animationPlayState = 'running';
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.card').forEach(c => {
+        c.style.animationPlayState = 'paused';
+        io.observe(c);
+      });
 
-  <!-- Divider -->
-  <div class="divider"></div>
+      // Timestamp formatting
+      const fmt = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Kuala_Lumpur',
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: 'numeric', minute: '2-digit',
+        hour12: true
+      });
+      document.querySelectorAll('.card-footer').forEach(f => {
+        const iso = f.dataset.updated;
+        if (!iso) return;
+        f.querySelector('.updated-time').textContent = fmt.format(new Date(iso));
+      });
 
-  <!-- Join Discord Section -->
-  <h2>Join the WEAO Discord Community!</h2>
-  <p>Get live status updates, support, and update pings from the bot!<br>
-     <a href="https://discord.gg" target="_blank">Join Discord →</a>
-  </p>
+      // Theme dropdown
+      const dropdown = document.getElementById('theme-dropdown');
+      const label = document.getElementById('theme-label');
+      dropdown.querySelectorAll('.theme-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const t = item.dataset.theme;
+          document.body.dataset.theme = t;
+          label.textContent = item.textContent;
+          dropdown.classList.remove('open');
+        });
+      });
+      dropdown.querySelector('.theme-toggle').addEventListener('click', () =>
+        dropdown.classList.toggle('open')
+      );
+      document.addEventListener('click', e => {
+        if (!dropdown.contains(e.target)) dropdown.classList.remove('open');
+      });
 
-  <!-- Divider -->
-  <div class="divider"></div>
-
-  <!-- Roblox Section -->
-  <h2>Roblox</h2>
-  <p>
-    The #1 Roblox exploit status tracker. A nonprofit recreation of BabyHamsta’s WhatExploitsAre.Online
-  </p>
-  <ul>
-    <li><a href="https://status.whatexpsare.online" target="_blank">WhatExpsAre.Online Status</a></li>
-    <li><a href="https://docs.weao.xyz" target="_blank">API Documentation</a></li>
-    <li><a href="#" target="_blank">Privacy Policy</a></li>
-  </ul>
-
-  <!-- Divider -->
-  <div class="divider"></div>
-
-  <!-- Connect Section -->
-  <h2>Connect with Us!</h2>
-  <ul>
-    <li><a href="https://discord.gg" target="_blank">Discord</a></li>
-    <li><a href="https://x.com" target="_blank">Twitter</a></li>
-    <li><a href="mailto:someone@example.com" target="_blank">Email</a></li>
-  </ul>
-
-  <!-- Footer -->
-  <div class="footer">
-    © 2023–2025 Vienna Softworks. All rights reserved.
-  </div>
-
+      // Search filter
+      document.getElementById('search').addEventListener('input', e => {
+        const q = e.target.value.toLowerCase();
+        document.querySelectorAll('.card').forEach(card => {
+          card.style.display = card.dataset.name.includes(q) ? '' : 'none';
+        });
+      });
+    });
+  </script>
 </body>
 </html>
