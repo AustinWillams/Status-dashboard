@@ -18,7 +18,10 @@
       color: #e0e0e0;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
-    a { text-decoration: none; color: inherit; }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
     button {
       cursor: pointer;
       border: none;
@@ -51,7 +54,7 @@
       font-weight: bold;
     }
 
-    /* ---------------- CARDS POP-IN ANIMATION ---------------- */
+    /* ---------------- CARDS POP‐IN ANIMATION ---------------- */
     @keyframes cardFadeIn {
       from {
         opacity: 0;
@@ -67,9 +70,8 @@
       opacity: 0;
       transform: translateY(10px);
       animation: cardFadeIn 0.5s forwards ease-out;
-      /* We will stagger with nth-child below */
+      /* Stagger each card slightly: */
     }
-
     .exploit-item:nth-child(1) {
       animation-delay: 0.05s;
     }
@@ -155,10 +157,10 @@
       font-weight: 500;
     }
     .tag-version { background-color: #333; color: #bbb; }
-    .tag-sunc { background-color: #444; color: #fff; }
+    .tag-sunc     { background-color: #444; color: #fff; }
     .tag-recommended { background-color: #e74c3c; color: #fff; }
-    .tag-longest { background-color: #2980b9; color: #fff; }
-    .tag-price { background-color: #3498db; color: #fff; }
+    .tag-longest  { background-color: #2980b9; color: #fff; }
+    .tag-price    { background-color: #3498db; color: #fff; }
 
     /* -------- STATUS PILL -------- */
     .status-label {
@@ -202,19 +204,20 @@
       padding: 0 20px 12px 20px;
     }
 
-    /* ---------------- CARD BODY (JS HEIGHT & OPACITY) ---------------- */
+    /* ---------------- CARD BODY (CSS‐ONLY ANIMATION) ---------------- */
     .item-body {
-      height: 0;
+      max-height: 0;
       overflow: hidden;
       border-top: 1px solid #333;
-      padding: 0 20px;
       opacity: 0;
-      transition: height 0.35s ease, opacity 0.25s ease;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+      padding: 0 20px; /* padding top/bottom will be toggled in .show */
     }
-
-    .item-body.open {
+    .item-body.show {
       opacity: 1;
-      /* height is managed via inline styles in JS */
+      max-height: 800px; /* large enough to fit your content */
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
 
     /* ---------------- BUTTONS ---------------- */
@@ -263,16 +266,16 @@
   <div class="container">
     <!-- ======== HEADER ======== -->
     <header class="header">
+      <!-- Make sure “logo.jpeg” (your RENDEX logo) sits alongside this HTML file -->
       <img class="logo" src="logo.jpeg" alt="RENDEX Logo" />
       <span class="site-title">RENDEX</span>
     </header>
 
     <!-- ======== EXPLOIT LIST ======== -->
     <section class="exploit-list">
-
       <!-- ----- 1) ZENITH ----- -->
       <div class="exploit-item status-updated recommended">
-        <div class="item-header closed" onclick="toggleCard(this)">
+        <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Zenith</h2>
             <span class="tag tag-version">v1.9.3</span>
@@ -323,7 +326,7 @@
 
       <!-- ----- 2) WAVE ----- -->
       <div class="exploit-item status-updated longest">
-        <div class="item-header closed" onclick="toggleCard(this)">
+        <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Wave</h2>
             <span class="tag tag-version">v2.9.2a</span>
@@ -374,7 +377,7 @@
 
       <!-- ----- 3) AWP.GG ----- -->
       <div class="exploit-item status-notupdated">
-        <div class="item-header closed" onclick="toggleCard(this)">
+        <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>AWP.GG</h2>
             <span class="tag tag-version">v1.0.0.74</span>
@@ -424,7 +427,7 @@
 
       <!-- ----- 4) VOLCANO ----- -->
       <div class="exploit-item status-updated">
-        <div class="item-header closed" onclick="toggleCard(this)">
+        <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Volcano</h2>
             <span class="tag tag-version">v3.1.5 UD?</span>
@@ -471,76 +474,27 @@
           </div>
         </div>
       </div>
-
     </section>
   </div>
 
   <script>
     /**
-     * Smoothly toggles the card body’s height and opacity,
-     * and rotates the chevron SVG. This avoids “stuttery”
-     * behavior by dynamically measuring the content height.
+     * This function simply toggles the “show” class on .item-body,
+     * and switches the header’s “open”/“closed” classes so the chevron rotates.
+     * The CSS transitions (max-height + opacity) do all the work smoothly.
      */
-    function toggleCard(headerEl) {
+    function toggleBody(headerEl) {
       const item = headerEl.closest(".exploit-item");
       const body = item.querySelector(".item-body");
-      const chevron = headerEl.querySelector(".chevron");
-      const isOpen = body.classList.contains("open");
+      const isCurrentlyOpen = body.classList.toggle("show");
 
-      if (isOpen) {
-        // Collapse
-        const fullHeight = body.scrollHeight; 
-        // Temporarily remove 'open' so we can animate from fullHeight → 0
-        body.style.height = fullHeight + "px";
-        body.offsetHeight; // Force reflow
-        body.style.transition = "height 0.35s ease, opacity 0.25s ease";
-        body.style.height = "0";
-        body.style.opacity = "0";
-
+      // Update header classes so the chevron rotates and changes color:
+      if (isCurrentlyOpen) {
+        headerEl.classList.add("open");
+        headerEl.classList.remove("closed");
+      } else {
         headerEl.classList.remove("open");
         headerEl.classList.add("closed");
-
-        // After transition, hide and clean up inline styles
-        body.addEventListener(
-          "transitionend",
-          function handler(e) {
-            if (e.propertyName === "height") {
-              body.classList.remove("open");
-              body.style.removeProperty("height");
-              body.style.removeProperty("transition");
-              body.removeEventListener("transitionend", handler);
-            }
-          }
-        );
-      } else {
-        // Expand
-        body.classList.add("open");
-        body.style.transition = "height 0.35s ease, opacity 0.25s ease";
-        body.style.opacity = "0";
-        body.style.height = "0px";
-
-        // Force reflow so the browser acknowledges height: 0
-        body.offsetHeight;
-
-        // Measure full height, then animate
-        const autoHeight = body.scrollHeight + "px";
-        body.style.height = autoHeight;
-        body.style.opacity = "1";
-
-        headerEl.classList.remove("closed");
-        headerEl.classList.add("open");
-
-        // After transition, clear the height so it can adapt if content changes
-        body.addEventListener(
-          "transitionend",
-          function handler(e) {
-            if (e.propertyName === "height") {
-              body.style.removeProperty("height");
-              body.style.removeProperty("transition");
-              body.removeEventListener("transitionend", handler);
-            }
-          }
-        );
       }
     }
   </script>
