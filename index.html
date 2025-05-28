@@ -11,8 +11,7 @@
       --input-bg: rgba(255,255,255,0.10); --input-fg: #e0e0e0;
       --btn-bg: rgba(0,96,255,0.3); --btn-fg: #fff;
       --shadow: rgba(0,0,0,0.5);
-      --accent-updated: #0c0;
-      --accent-not-updated: #c00;
+      --accent-updated: #0c0; --accent-not-updated: #c00;
     }
     [data-theme="light"] {
       --bg: #f5f5f5; --fg: #222;
@@ -23,7 +22,7 @@
     }
 
     /* — Base — */
-    *,*::before,*::after { box-sizing: border-box; margin:0; padding:0; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
     body {
       background: var(--bg); color: var(--fg);
       font-family: Inter, sans-serif;
@@ -40,14 +39,14 @@
     }
     .logo-placeholder, .title-placeholder {
       background: var(--input-bg); color: var(--input-fg);
-      padding:.5rem 1rem; border-radius:.5rem; backdrop-filter: blur(5px);
+      padding:.5rem 1rem; border-radius:.5rem;
     }
     .controls {
       display:flex; gap:1rem; margin-bottom:1rem; align-items:center;
     }
     .controls input {
       flex:1; padding:.5rem 1rem; border:none; border-radius:.5rem;
-      background:var(--input-bg); color:var(--input-fg); backdrop-filter: blur(5px);
+      background:var(--input-bg); color:var(--input-fg);
     }
 
     /* — Theme Dropdown — */
@@ -56,7 +55,7 @@
       display:flex; align-items:center; gap:.5rem;
       padding:.5rem 1rem; border-radius:.5rem;
       background:var(--input-bg); color:var(--input-fg);
-      cursor:pointer; backdrop-filter: blur(5px);
+      cursor:pointer;
     }
     .theme-toggle svg { width:.8rem; height:.8rem; transition: transform .2s; }
     .theme-dropdown.open .theme-toggle svg { transform: rotate(180deg); }
@@ -67,14 +66,11 @@
       box-shadow:0 4px 12px var(--shadow);
       opacity:0; visibility:hidden; transform:translateY(-5px);
       transition: opacity .2s, transform .2s, visibility .2s;
-      backdrop-filter: blur(10px);
     }
     .theme-dropdown.open .theme-menu {
       opacity:1; visibility:visible; transform:translateY(0);
     }
-    .theme-item {
-      padding:.5rem 1rem; cursor:pointer; white-space:nowrap;
-    }
+    .theme-item { padding:.5rem 1rem; cursor:pointer; white-space:nowrap; }
     .theme-item:hover { background:var(--input-bg); }
 
     /* — Cards Container — */
@@ -88,44 +84,30 @@
       position:relative;
       background:var(--card-bg); color:var(--card-fg);
       border-radius:.75rem; overflow:hidden;
-      backdrop-filter: blur(10px);
       box-shadow:0 8px 20px var(--shadow);
-      opacity:0; transform:translateY(20px);
-      transition: box-shadow .3s;
-      animation: fadeInUp .6s forwards;
     }
-    .card:hover {
-      box-shadow:0 12px 30px var(--shadow);
-    }
-    .card:nth-of-type(odd) { animation-delay:.1s; }
-    .card:nth-of-type(even){ animation-delay:.2s; }
-
-    /* — Accent Strip — */
-    .card::before {
+    .card.updated::before,
+    .card.not-updated::before {
       content:""; position:absolute; top:0; bottom:0; left:0; width:6px;
-      background: var(--accent-not-updated);
     }
-    .card.updated::before {
-      background: var(--accent-updated);
-    }
+    .card.updated::before { background: var(--accent-updated); }
+    .card.not-updated::before { background: var(--accent-not-updated); }
 
     /* — Header — */
     .card-header {
       display:flex; justify-content:space-between; align-items:center;
-      padding:1rem; cursor:pointer; z-index:1; position:relative;
+      padding:1rem; cursor:pointer; position:relative; z-index:1;
     }
     .card-left { display:flex; align-items:baseline; gap:.5rem; }
     .card-left h2 { font-size:1.25rem; margin:0; }
     .version {
       background:var(--input-bg); color:var(--input-fg);
-      padding:.3rem .6rem; border-radius:.75rem;
-      font-size:.9rem; backdrop-filter: blur(5px);
+      padding:.3rem .6rem; border-radius:.75rem; font-size:.9rem;
     }
     .badges { display:flex; gap:.4rem; }
     .badge {
       background:var(--input-bg); padding:.3rem .6rem; border-radius:.75rem;
       font-size:.75rem; font-weight:600; text-transform:uppercase;
-      backdrop-filter: blur(5px);
     }
     .badge.sunc{background:#333;color:#ddd;}
     .badge.free{background:#0f8;color:#000;}
@@ -135,35 +117,39 @@
     .price {
       background:var(--btn-bg); color:var(--btn-fg);
       padding:.3rem .7rem; border-radius:.75rem; font-size:.9rem;
-      backdrop-filter: blur(5px);
     }
     .status {
       padding:.3rem .6rem; border-radius:.75rem;
       font-size:.9rem; font-weight:600;
     }
-    .status.updated{background:var(--accent-updated);color:#fff;}
-    .status.undetected{background:var(--accent-not-updated);color:#fff;}
-    .status.detected{background:var(--accent-updated);color:#fff;}
+    .status.updated { background:var(--accent-updated); color:#fff; }
+    .status.undetected { background:var(--accent-not-updated); color:#fff; }
+    .status.detected { background:var(--accent-updated); color:#fff; }
 
     .expand-icon {
       width:1rem; height:1rem; fill:var(--card-fg);
       transition: transform .3s;
     }
-    .card.expanded .expand-icon {
-      transform: rotate(90deg);
-    }
+    .card.expanded .expand-icon { transform:rotate(90deg); }
 
-    /* — Content & Details — */
-    .card-content {
-      max-height:0; overflow:hidden;
-      transition: max-height .4s ease, padding .4s ease;
-      padding:0 1rem;
-    }
-    .card.expanded .card-content {
-      max-height:400px; padding:1rem;
-    }
+    /* — Content — */
+    .card-content { display:none; padding:0 1rem; }
+    .card.expanded .card-content { display:block; padding:1rem; }
     .card-content p { margin-bottom:1rem; }
 
+    .card-actions {
+      display:flex; gap:.5rem; margin-bottom:1rem;
+    }
+    .btn {
+      display:inline-block; padding:.5rem 1rem;
+      border-radius:.5rem; background:var(--btn-bg);
+      color:var(--btn-fg); font-weight:600;
+      white-space:nowrap; transition: background .2s;
+    }
+    .btn:hover { background:rgba(0,96,255,0.5); }
+
+    /* — Footer & Details — */
+    .card-footer { font-size:.85rem; color:var(--fg); margin-bottom:.5rem; }
     .details {
       display:grid;
       grid-template-columns:auto 1fr;
@@ -172,29 +158,7 @@
     }
     .details div:first-child { font-weight:600; }
 
-    /* — Buttons — */
-    .card-actions {
-      display:flex; gap:.5rem; margin-bottom:1rem;
-    }
-    .btn {
-      flex:1; text-align:center; padding:.5rem;
-      border-radius:.5rem; background:var(--btn-bg);
-      color:var(--btn-fg); font-weight:600;
-      backdrop-filter: blur(5px);
-      transition: background .2s, transform .2s;
-    }
-    .btn:hover {
-      background:rgba(0,96,255,0.5);
-      transform: translateY(-2px);
-    }
-
-    .card-footer {
-      font-size:.85rem; color:var(--fg);
-    }
-
-    @keyframes fadeInUp {
-      to { opacity:1; transform:translateY(0); }
-    }
+    @keyframes fadeInUp { to { opacity:1; transform:translateY(0); } }
   </style>
 </head>
 <body data-theme="dark">
@@ -241,19 +205,19 @@
       </div>
       <div class="card-content">
         <p>Android‑specific build—lightweight but may still have bugs.</p>
-        <div class="details">
-          <div>Cost:</div><div>$6.49 weekly</div>
-          <div>UNC %:</div><div>99%</div>
-          <div>sUNC %:</div><div>100%</div>
-          <div>Decompiler:</div><div>✔ (custom)</div>
-          <div>Multi‑Inject:</div><div>✔ (custom)</div>
-        </div>
         <div class="card-actions">
-          <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file" class="btn download" target="_blank">Download</a>
-          <a href="https://discord.gg/ronix" class="btn discord" target="_blank">Discord</a>
+          <a href="https://www.mediafire.com/file/no47w2pmyh71yzg/ronix671+(1).apk/file" class="btn download">Download</a>
+          <a href="https://discord.gg/ronix" class="btn discord">Discord</a>
         </div>
         <div class="card-footer" data-updated="2025-05-24T13:15:00Z">
           Last updated: <span class="updated-time"></span>
+        </div>
+        <div class="details">
+          <div>Cost:</div><div>$6.49 weekly</div>
+          <div>UNC %:</div><div>99%</div>
+          <div>sUNC %:</div><div>100%</div>
+          <div>Decompiler:</div><div>✔ (custom)</div>
+          <div>Multi‑Inject:</div><div>✔ (custom)</div>
         </div>
       </div>
     </div>
@@ -279,20 +243,20 @@
       </div>
       <div class="card-content">
         <p>Placeholder description—update with real details.</p>
-        <div class="details">
-          <div>Cost:</div><div>$6.49 weekly</div>
-          <div>UNC %:</div><div>99%</div>
-          <div>sUNC %:</div><div>100%</div>
-          <div>Decompiler:</div><div>✔ (custom)</div>
-          <div>Multi‑Inject:</div><div>✔ (custom)</div>
-        </div>
         <div class="card-actions">
-          <a href="https://deltaexploits.gg/delta-executor-mobile" class="btn website" target="_blank">Website</a>
-          <a href="https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file" class="btn download" target="_blank">Download</a>
-          <a href="https://discord.gg/deltax" class="btn discord" target="_blank">Discord</a>
+          <a href="https://deltaexploits.gg/delta-executor-mobile" class="btn website">Website</a>
+          <a href="https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file" class="btn download">Download</a>
+          <a href="https://discord.gg/deltax" class="btn discord">Discord</a>
         </div>
         <div class="card-footer" data-updated="2025-05-27T00:00:00Z">
           Last updated: <span class="updated-time"></span>
+        </div>
+        <div class="details">
+          <div>Cost:</div><div>$6.49 weekly</div>
+          <div>UNC %:</div><div>99%</div>
+          <div>sUNC %:</div><div>100%</div>
+          <div>Decompiler:</div><div>✔ (custom)</div>
+          <div>Multi‑Inject:</div><div>✔ (custom)</div>
         </div>
       </div>
     </div>
@@ -318,20 +282,20 @@
       </div>
       <div class="card-content">
         <p>Placeholder for Codex Android—details coming soon.</p>
-        <div class="details">
-          <div>Cost:</div><div>$6.49 weekly</div>
-          <div>UNC %:</div><div>99%</div>
-          <div>sUNC %:</div><div>100%</div>
-          <div>Decompiler:</div><div>✔ (custom)</div>
-          <div>Multi‑Inject:</div><div>✔ (custom)</div>
-        </div>
         <div class="card-actions">
-          <a href="https://codex.lol/android" class="btn website" target="_blank">Website</a>
-          <a href="https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/file" class="btn download" target="_blank">Download</a>
-          <a href="https://discord.gg/codexlol" class="btn discord" target="_blank">Discord</a>
+          <a href="https://codex.lol/android" class="btn website">Website</a>
+          <a href="https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/file" class="btn download">Download</a>
+          <a href="https://discord.gg/codexlol" class="btn discord">Discord</a>
         </div>
         <div class="card-footer" data-updated="2025-06-01T12:00:00Z">
           Last updated: <span class="updated-time"></span>
+        </div>
+        <div class="details">
+          <div>Cost:</div><div>$6.49 weekly</div>
+          <div>UNC %:</div><div>99%</div>
+          <div>sUNC %:</div><div>100%</div>
+          <div>Decompiler:</div><div>✔ (custom)</div>
+          <div>Multi‑Inject:</div><div>✔ (custom)</div>
         </div>
       </div>
     </div>
@@ -357,20 +321,20 @@
       </div>
       <div class="card-content">
         <p>iOS‑optimized build—replace with actual details when ready.</p>
-        <div class="details">
-          <div>Cost:</div><div>$6.49 weekly</div>
-          <div>UNC %:</div><div>99%</div>
-          <div>sUNC %:</div><div>100%</div>
-          <div>Decompiler:</div><div>✔ (custom)</div>
-          <div>Multi‑Inject:</div><div>✔ (custom)</div>
-        </div>
         <div class="card-actions">
-          <a href="https://codex.lol/ios" class="btn website" target="_blank">Website</a>
-          <a href="https://www.mediafire.com/file/7afzer5xxo1110n/Codex_2.674.782.ipa/file" class="btn download" target="_blank">Download</a>
-          <a href="https://discord.gg/codexlol" class="btn discord" target="_blank">Discord</a>
+          <a href="https://codex.lol/ios" class="btn website">Website</a>
+          <a href="https://www.mediafire.com/file/7afzer5xxo1110n/Codex_2.674.782.ipa/file" class="btn download">Download</a>
+          <a href="https://discord.gg/codexlol" class="btn discord">Discord</a>
         </div>
         <div class="card-footer" data-updated="2025-06-01T12:00:00Z">
           Last updated: <span class="updated-time"></span>
+        </div>
+        <div class="details">
+          <div>Cost:</div><div>$6.49 weekly</div>
+          <div>UNC %:</div><div>99%</div>
+          <div>sUNC %:</div><div>100%</div>
+          <div>Decompiler:</div><div>✔ (custom)</div>
+          <div>Multi‑Inject:</div><div>✔ (custom)</div>
         </div>
       </div>
     </div>
@@ -379,11 +343,11 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Tag cards with “updated” class if they have a status.updated badge
+      // Mark cards updated vs not
       document.querySelectorAll('.card').forEach(card => {
-        if (card.querySelector('.status.updated')) {
-          card.classList.add('updated');
-        }
+        card.classList.add(
+          card.querySelector('.status.updated') ? 'updated' : 'not-updated'
+        );
       });
 
       // Expand/collapse
@@ -392,19 +356,7 @@
           h.parentElement.classList.toggle('expanded')
         )
       );
-      // Fade‑in on scroll
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.style.animationPlayState = 'running';
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.card').forEach(c => {
-        c.style.animationPlayState = 'paused';
-        io.observe(c);
-      });
+
       // Timestamp formatting
       const fmt = new Intl.DateTimeFormat('en-GB', {
         timeZone: 'Asia/Kuala_Lumpur',
@@ -416,20 +368,24 @@
         if (!iso) return;
         f.querySelector('.updated-time').textContent = fmt.format(new Date(iso));
       });
+
       // Theme dropdown
       const dd = document.getElementById('theme-dropdown'),
             lbl = document.getElementById('theme-label');
-      dd.querySelectorAll('.theme-item').forEach(i => i.addEventListener('click', () => {
-        document.body.dataset.theme = i.dataset.theme;
-        lbl.textContent = i.textContent;
-        dd.classList.remove('open');
-      }));
+      dd.querySelectorAll('.theme-item').forEach(i =>
+        i.addEventListener('click', () => {
+          document.body.dataset.theme = i.dataset.theme;
+          lbl.textContent = i.textContent;
+          dd.classList.remove('open');
+        })
+      );
       dd.querySelector('.theme-toggle').addEventListener('click', () =>
         dd.classList.toggle('open')
       );
       document.addEventListener('click', e => {
         if (!dd.contains(e.target)) dd.classList.remove('open');
       });
+
       // Search filter
       document.getElementById('search').addEventListener('input', e => {
         const q = e.target.value.toLowerCase();
