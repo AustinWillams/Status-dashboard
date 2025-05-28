@@ -58,7 +58,7 @@
       width: 100%; max-width: 800px;
       display: flex; gap: 1rem; margin-bottom: 1rem;
     }
-    .controls input {
+    .controls input, .controls select {
       flex: 1;
       padding: .5rem 1rem;
       border: none;
@@ -66,14 +66,7 @@
       background: var(--input-bg);
       color: var(--input-fg);
     }
-    .controls button {
-      padding: .5rem 1rem;
-      border: none;
-      border-radius: .5rem;
-      background: var(--btn-bg);
-      color: var(--btn-fg);
-      cursor: pointer;
-    }
+    .controls select { max-width: 200px; }
 
     /* — Card Container — */
     .cards {
@@ -219,7 +212,10 @@
   <!-- Controls -->
   <div class="controls">
     <input type="text" id="search" placeholder="Search executors…">
-    <button id="toggle-theme">Toggle Light/Dark</button>
+    <select id="theme-select">
+      <option value="dark">Dark Mode</option>
+      <option value="light">Light Mode</option>
+    </select>
   </div>
 
   <!-- Cards -->
@@ -230,7 +226,7 @@
       <div class="card-header">
         <div class="card-left">
           <h2>Ronix Android</h2>
-          <div class="version">v3.4.1</div>
+          <div class="version">v671</div>
           <div class="badges">
             <div class="badge sunc">sUNC</div>
             <div class="badge free">Free</div>
@@ -266,7 +262,7 @@
       <div class="card-header">
         <div class="card-left">
           <h2>Delta Android</h2>
-          <div class="version">vX.Y.Z</div>
+          <div class="version">v673</div>
           <div class="badges">
             <div class="badge sunc">sUNC</div>
             <div class="badge free">Free</div>
@@ -279,7 +275,7 @@
                   fill="none" stroke-linecap="round"/>
           </svg>
           <span class="price">Free / Paid</span>
-          <span class="status not-updated">Not Updated</span>
+          <span class="status updated">Updated</span>
           <span class="status undetected">Undetected</span>
         </div>
       </div>
@@ -304,6 +300,44 @@
       <div class="card-header">
         <div class="card-left">
           <h2>Codex Android</h2>
+          <div class="version">v673</div>
+          <div class="badges">
+            <div class="badge sunc">sUNC</div>
+            <div class="badge free">Free</div>
+            <div class="badge paid">Paid</div>
+          </div>
+        </div>
+        <div class="card-right">
+          <svg class="expand-icon" viewBox="0 0 16 16">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2"
+                  fill="none" stroke-linecap="round"/>
+          </svg>
+          <span class="price">Free / Paid</span>
+          <span class="status updated">Updated</span>
+          <span class="status undetected">Undetected</span>
+        </div>
+      </div>
+      <div class="card-content">
+        <p>Placeholder for Codex Android—details coming soon.</p>
+        <div class="card-actions">
+          <a href="https://codex.lol/android"
+             class="btn website" target="_blank">Website</a>
+          <a href="https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/file"
+             class="btn download" target="_blank">Download</a>
+          <a href="https://discord.gg/codexlol"
+             class="btn discord" target="_blank">Discord</a>
+        </div>
+        <div class="card-footer" data-updated="2025-06-01T12:00:00Z">
+          Last updated: <span class="updated-time"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Codex iOS (Red) -->
+    <div class="card" data-color="red" data-name="codex ios">
+      <div class="card-header">
+        <div class="card-left">
+          <h2>Codex iOS</h2>
           <div class="version">v1.0.0</div>
           <div class="badges">
             <div class="badge sunc">sUNC</div>
@@ -322,14 +356,14 @@
         </div>
       </div>
       <div class="card-content">
-        <p>Placeholder for Codex Android—details coming soon.</p>
+        <p>iOS‑optimized build—replace with actual details when ready.</p>
         <div class="card-actions">
-          <a href="https://codex.lol/android"
+          <a href="https://codex.lol/ios"
              class="btn website" target="_blank">Website</a>
-          <a href="https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/file"
+          <a href="https://www.mediafire.com/file/7afzer5xxo1110n/Codex_2.674.782.ipa/file"
              class="btn download" target="_blank">Download</a>
           <a href="https://discord.gg/codexlol"
-             class="btn discord" target="_blank">Discord</a>
+             class="btn discord"  target="_blank">Discord</a>
         </div>
         <div class="card-footer" data-updated="2025-06-01T12:00:00Z">
           Last updated: <span class="updated-time"></span>
@@ -375,11 +409,10 @@
         f.querySelector('.updated-time').textContent = fmt.format(new Date(iso));
       });
 
-      // Light/Dark toggle
-      document.getElementById('toggle-theme')
-        .addEventListener('click', () => {
-          const b = document.body;
-          b.dataset.theme = b.dataset.theme === 'light' ? 'dark' : 'light';
+      // Theme dropdown
+      document.getElementById('theme-select')
+        .addEventListener('change', e => {
+          document.body.dataset.theme = e.target.value;
         });
 
       // Search filter
