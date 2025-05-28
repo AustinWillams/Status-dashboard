@@ -1,370 +1,407 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>WhatExpsAre.Online – Executor Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RENDex Dashboard</title>
   <style>
-    /* —— Base Colors & Variables —— */
-    :root {
-      --bg: #121212;
-      --fg: #e0e0e0;
-      --card-bg: #1f1f1f;
-      --accent: linear-gradient(90deg, #07f, #0ff);
-      --border-accent: #07f;
-      --banner-bg: #181818;
-      --banner-accent: #0c0;
-      --btn-bg: #07f;
-      --btn-hover: rgba(0, 112, 255, 0.8);
-      --shadow: rgba(0, 0, 0, 0.5);
-    }
-    [data-theme="light"] {
-      --bg: #f5f5f5;
-      --fg: #111;
-      --card-bg: #fff;
-      --banner-bg: #eee;
-      --shadow: rgba(0, 0, 0, 0.2);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: Inter, sans-serif;
-      line-height: 1.5;
-    }
-    a { color: inherit; text-decoration: none; }
-
-    /* —— NAVBAR —— */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 1rem;
-    }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-    .logo span:nth-child(1){ color: #fff; }
-    .logo span:nth-child(2){ color: #f42; }
-    .logo span:nth-child(3){ color: #0f0; }
-    .nav-links {
-      display: flex;
-      gap: 1rem;
-    }
-    .nav-links a {
-      padding: .5rem .8rem;
-      border-radius: .4rem;
-      transition: background .2s;
-    }
-    .nav-links a:hover {
-      background: rgba(255,255,255,0.1);
+    /* ---------- RESET & BASE ---------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    /* —— STATUS BANNER —— */
-    .banner {
-      background: var(--banner-bg);
-      border-top: 1px solid var(--shadow);
-      border-bottom: 1px solid var(--shadow);
-      text-align: center;
-      padding: .75rem;
-      font-size: .9rem;
-      color: var(--banner-accent);
+    html, body {
+      height: 100%;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
     }
 
-    /* —— MAIN CONTAINER —— */
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font: inherit;
+    }
+
+    /* ---------- LAYOUT & CONTAINER ---------- */
     .container {
       max-width: 960px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      margin: 0 auto;
+      padding: 20px;
     }
 
-    /* —— SECTION HEADER —— */
-    .section-title {
-      font-size: 1.25rem;
-      margin-bottom: 1rem;
-      border-left: 4px solid var(--border-accent);
-      padding-left: .75rem;
+    /* ---------- HEADER ---------- */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
     }
 
-    /* —— CARD LAYOUT —— */
-    .cards {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
+    .header img.logo {
+      height: 50px;
+      margin-right: 12px;
     }
-    .card {
+
+    .header h1 {
+      font-size: 2rem;
+      letter-spacing: 2px;
+      color: #7b7bff;
+    }
+
+    /* ---------- LIST OF EXPLOITS ---------- */
+    .exploit-list {
+      margin-top: 30px;
+    }
+
+    .exploit-item {
       display: flex;
       flex-direction: column;
-      background: var(--card-bg);
-      border-radius: .75rem;
+      border: 2px solid #2e2e2e;
+      border-left-width: 6px;
+      border-radius: 8px;
+      margin-bottom: 20px;
       overflow: hidden;
-      box-shadow: 0 4px 12px var(--shadow);
-      border-left: 4px solid transparent;
-      transition: border-color .3s, transform .2s;
+      background-color: #1e1e1e;
+      transition: transform 0.1s;
     }
-    .card.updated { border-color: var(--banner-accent); }
-    .card:hover { transform: translateY(-2px); }
 
-    .card-header {
+    .exploit-item:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Border colors for status */
+    .status-updated   { border-left-color: #27ae60; } /* Green */
+    .status-longest   { border-left-color: #3498db; } /* Blue */
+    .status-notupdated { border-left-color: #e74c3c; } /* Red */
+
+    /* ---------- ITEM HEADER (TITLE ROW) ---------- */
+    .item-header {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      cursor: pointer;
+      padding: 14px 20px;
+      background: linear-gradient(90deg, rgba(50,50,50,0) 0%, rgba(50,50,50,0.2) 100%);
     }
-    .card-left {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-    }
-    .card-left h3 {
-      font-size: 1.1rem;
-      margin: 0;
-    }
-    .badges {
-      display: flex;
-      gap: .4rem;
-    }
-    .badge {
-      font-size: .75rem;
-      text-transform: uppercase;
-      padding: .25rem .5rem;
-      border-radius: .5rem;
-      background: rgba(255,255,255,0.1);
-    }
-    .badge.recommended { background: #f42; color: #fff; }
-    .badge.sunc { background: #9b29b6; color: #fff; }
-    .badge.unc  { background: #fff; color: #000; }
 
-    .card-right {
+    .item-title {
       display: flex;
       align-items: center;
-      gap: 1rem;
     }
-    .status {
-      font-size: .75rem;
-      font-weight: bold;
-      padding: .25rem .6rem;
-      border-radius: .5rem;
+
+    .item-title h2 {
+      font-size: 1.25rem;
+      margin-right: 10px;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      padding: 4px 8px;
+      border-radius: 12px;
+      margin-right: 8px;
+      white-space: nowrap;
+    }
+
+    .tag-version {
+      background-color: #333;
+      color: #bbb;
+    }
+
+    .tag-sunc {
+      background-color: #555;
       color: #fff;
     }
-    .status.updated { background: var(--banner-accent); }
-    .status.undetected { background: var(--border-accent); }
 
-    .arrow {
-      width: 1rem;
-      height: 1rem;
-      transition: transform .3s;
+    .tag-recommended {
+      background-color: #e74c3c;
+      color: #fff;
     }
-    .card.expanded .arrow {
+
+    .tag-longest {
+      background-color: #3498db;
+      color: #fff;
+    }
+
+    .tag-price {
+      background-color: #2980b9;
+      color: #fff;
+    }
+
+    .status-label {
+      font-size: 0.9rem;
+      font-weight: bold;
+      padding: 6px 14px;
+      border-radius: 12px;
+      color: #fff;
+    }
+
+    .status-updated .status-label {
+      background-color: #27ae60; /* Green */
+    }
+
+    .status-notupdated .status-label {
+      background-color: #e74c3c; /* Red */
+    }
+
+    /* ---------- ITEM SUBHEADER ---------- */
+    .item-subheader {
+      font-size: 0.9rem;
+      color: #aaa;
+      padding: 0 20px 12px 20px;
+    }
+
+    /* ---------- ITEM BODY (EXPANDABLE) ---------- */
+    .item-body {
+      border-top: 1px solid #333;
+      padding: 20px;
+      display: none;
+    }
+
+    .item-body.show {
+      display: block;
+    }
+
+    .warning {
+      background-color: #634d00;
+      color: #f5e79e;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .button-group button {
+      background-color: #333;
+      color: #e0e0e0;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background-color 0.1s;
+    }
+
+    .button-group button:hover {
+      background-color: #444;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 20px;
+      font-size: 0.9rem;
+    }
+
+    .details-grid .detail-key {
+      color: #bbb;
+      text-align: right;
+      padding-right: 8px;
+    }
+
+    .details-grid .detail-value {
+      color: #e0e0e0;
+      text-align: left;
+    }
+
+    /* ---------- ICON + ROTATION INDICATOR ---------- */
+    .chevron {
+      transition: transform 0.2s ease;
+      font-size: 1rem;
+      margin-left: 8px;
+    }
+
+    .item-header.open .chevron {
       transform: rotate(90deg);
     }
 
-    /* —— COLLAPSIBLE CONTENT —— */
-    .card-footer {
-      font-size: .85rem;
-      background: rgba(255,255,255,0.03);
-      padding: 0 .75rem .75rem;
-    }
-    .card-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .4s ease, padding .4s ease;
-      padding: 0 .75rem;
-    }
-    .card.expanded .card-content {
-      max-height: 500px;
-      padding: 1rem .75rem;
-    }
-    .separator {
-      height: 1px;
-      background: rgba(255,255,255,0.1);
-      margin: .5rem 0;
-    }
-    .card-actions {
-      display: flex;
-      gap: .5rem;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-    }
-    .btn {
-      background: var(--btn-bg);
-      color: #fff;
-      padding: .5rem 1rem;
-      border-radius: .5rem;
-      transition: background .2s;
-      font-size: .9rem;
-    }
-    .btn:hover { background: var(--btn-hover); }
-    .details-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      font-size: .9rem;
-    }
-    .details-item {
-      display: flex;
-      align-items: center;
-      gap: .3rem;
-    }
-    .details-item svg {
-      width: 1rem;
-      height: 1rem;
-      fill: var(--banner-accent);
+    .item-header.closed .chevron {
+      transform: rotate(0deg);
     }
 
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .card { opacity: 0; transform: translateY(20px); animation: fadeInUp .6s forwards; }
-    .card:nth-of-type(odd){ animation-delay: .1s; }
-    .card:nth-of-type(even){ animation-delay: .2s; }
   </style>
 </head>
-<body data-theme="dark">
 
-  <!-- NAVBAR -->
-  <div class="navbar">
-    <div class="logo">
-      <span>What</span><span>Exps</span><span>Are.Online</span>
-    </div>
-    <nav class="nav-links">
-      <a href="#">API Docs</a>
-      <a href="#">Discord</a>
-      <a href="#">RDD</a>
-      <div class="theme-dropdown" id="theme-dropdown">
-        <div class="theme-toggle">
-          Theme ▾
-        </div>
-        <div class="theme-menu">
-          <div class="theme-item" data-theme="dark">Dark Mode</div>
-          <div class="theme-item" data-theme="light">Light Mode</div>
-        </div>
-      </div>
-    </nav>
-  </div>
-
-  <!-- STATUS BANNER -->
-  <div class="banner">
-    All Roblox executors are <strong>DETECTED</strong>! Exploiting will cause your account to be <em>warned</em> or <em>banned</em>.
-  </div>
-
-  <!-- MAIN CONTENT -->
+<body>
   <div class="container">
+    <!-- Header with logo + title -->
+    <header class="header">
+      <!-- Replace the src with your actual logo path if needed -->
+      <img class="logo" src="https://dummyimage.com/200x50/7b7bff/ffffff&text=R" alt="R Logo" />
+      <h1>RENDEX</h1>
+    </header>
 
-    <!-- LINK PROMO -->
-    <div class="section-link" style="margin:1rem 0; padding:1rem; background:var(--card-bg); border-radius:.5rem; display:flex; justify-content:space-between; align-items:center;">
-      <div>
-        <strong>BloxProducts</strong><br>
-        Wish to purchase any of these exploits? Head over to BloxProducts!
-      </div>
-      <a href="#" class="btn">Visit BloxProducts ↗</a>
-    </div>
+    <!-- Exploit list -->
+    <section class="exploit-list">
 
-    <!-- DISCORD PROMO -->
-    <div class="section-link" style="margin-bottom:2rem; padding:1rem; background:var(--card-bg); border-radius:.5rem; display:flex; justify-content:space-between; align-items:center;">
-      <div>Join the WEAO Discord Community! Get live status updates, support, and update pings from the bot.</div>
-      <a href="#" class="btn">Join Discord →</a>
-    </div>
-
-    <!-- SECTION TITLE -->
-    <div class="section-title">Windows Script Executor Exploits</div>
-
-    <!-- CARDS LIST -->
-    <div class="cards">
-
-      <!-- Example Card -->
-      <div class="card updated" data-name="zenith">
-        <div class="card-header">
-          <div class="card-left">
-            <h3>Zenith</h3>
-            <div class="version">v1.9.3</div>
-            <div class="badges">
-              <div class="badge sunc">sUNC</div>
-              <div class="badge reco">Recommended</div>
-            </div>
+      <!-- ======== Zenith ======== -->
+      <div class="exploit-item status-updated">
+        <div class="item-header closed" onclick="toggleBody(this)">
+          <div class="item-title">
+            <h2>Zenith</h2>
+            <span class="tag tag-version">v1.9.3</span>
+            <span class="tag tag-sunc">sUNC</span>
+            <span class="tag tag-recommended">Recommended</span>
+            <span class="tag tag-price">$6.49 weekly</span>
           </div>
-          <div class="card-right">
-            <span class="status updated">Updated</span>
-            <span class="status undetected">Undetected</span>
-            <svg class="arrow" viewBox="0 0 16 16"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-          </div>
+          <span class="status-label">Updated</span>
+          <span class="chevron">&#9654;</span>
         </div>
-        <div class="card-footer" data-updated="2025-05-22T20:09:00+08:00">
-          Last updated: <span class="updated-time"></span>
+        <div class="item-subheader">
+          Last updated: 05/22/2025 at 8:09 PM UTC
         </div>
-        <div class="card-content">
-          <div class="separator"></div>
-          <div class="card-actions">
-            <a href="#" class="btn website">Website</a>
-            <a href="#" class="btn discord">Discord</a>
-            <a href="#" class="btn download">Purchase</a>
+        <div class="item-body">
+          <div class="warning">
+            <!-- No specific warning for Zenith, so leave this area blank or remove if you want -->
           </div>
-          <div class="details-row">
-            <div class="details-item"><strong>Cost:</strong> $6.49 / wk</div>
-            <div class="details-item"><strong>UNC %:</strong> 99%</div>
-            <div class="details-item"><strong>sUNC %:</strong> 100%</div>
-            <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--banner-accent)" stroke-width="2" fill="none"/></svg>Decompiler</div>
-            <div class="details-item"><svg viewBox="0 0 16 16"><path d="M2 8l3 3 9-9" stroke="var(--banner-accent)" stroke-width="2" fill="none"/></svg>Multi‑Inject</div>
+          <div class="button-group">
+            <button>Website</button>
+            <button>Discord</button>
+            <button>Purchase</button>
+          </div>
+          <div class="details-grid">
+            <div class="detail-key">Cost:</div>          <div class="detail-value">$6.49 weekly</div>
+            <div class="detail-key">UNC Percentage:</div> <div class="detail-value">95%</div>
+            <div class="detail-key">sUNC Percentage:</div><div class="detail-value">100%</div>
+            <div class="detail-key">Decompiler:</div>    <div class="detail-value">&times;</div>
+            <div class="detail-key">Multi-Inject:</div>  <div class="detail-value">&#10003;</div>
           </div>
         </div>
       </div>
 
-      <!-- Add additional .card blocks here for Ronix Android, Delta Android, Codex iOS, etc. -->
+      <!-- ======== Wave ======== -->
+      <div class="exploit-item status-longest">
+        <div class="item-header closed" onclick="toggleBody(this)">
+          <div class="item-title">
+            <h2>Wave</h2>
+            <span class="tag tag-version">v2.9.2a</span>
+            <span class="tag tag-sunc">sUNC</span>
+            <span class="tag tag-longest">Longest Running</span>
+            <span class="tag tag-price">$7.49 weekly</span>
+          </div>
+          <span class="status-label">Updated</span>
+          <span class="chevron">&#9654;</span>
+        </div>
+        <div class="item-subheader">
+          Last updated: 05/23/2025 at 3:50 AM UTC
+        </div>
+        <div class="item-body">
+          <div class="warning">
+            This exploit might be detected by Hyperion, use at your own risk
+          </div>
+          <div class="button-group">
+            <button>Website</button>
+            <button>Discord</button>
+            <button>Purchase</button>
+          </div>
+          <div class="details-grid">
+            <div class="detail-key">Cost:</div>          <div class="detail-value">$7.49 weekly</div>
+            <div class="detail-key">UNC Percentage:</div> <div class="detail-value">99%</div>
+            <div class="detail-key">sUNC Percentage:</div><div class="detail-value">100%</div>
+            <div class="detail-key">Decompiler:</div>    <div class="detail-value">&times;</div>
+            <div class="detail-key">Multi-Inject:</div>  <div class="detail-value">&#10003;</div>
+          </div>
+        </div>
+      </div>
 
-    </div>
+      <!-- ======== AWP.GG ======== -->
+      <div class="exploit-item status-notupdated">
+        <div class="item-header closed" onclick="toggleBody(this)">
+          <div class="item-title">
+            <h2>AWP.GG</h2>
+            <span class="tag tag-version">v1.0.0.74</span>
+            <span class="tag tag-sunc">sUNC</span>
+            <span class="tag tag-price">$6.99 weekly</span>
+          </div>
+          <span class="status-label">Not Updated</span>
+          <span class="chevron">&#9654;</span>
+        </div>
+        <div class="item-subheader">
+          Last updated: 05/23/2025 at 3:46 AM UTC
+        </div>
+        <div class="item-body">
+          <div class="warning"></div>
+          <div class="button-group">
+            <button>Website</button>
+            <button>Discord</button>
+            <button>Purchase</button>
+          </div>
+          <div class="details-grid">
+            <div class="detail-key">Cost:</div>          <div class="detail-value">$6.99 weekly</div>
+            <div class="detail-key">UNC Percentage:</div> <div class="detail-value">96%</div>
+            <div class="detail-key">sUNC Percentage:</div><div class="detail-value">100%</div>
+            <div class="detail-key">Decompiler:</div>    <div class="detail-value">&times;</div>
+            <div class="detail-key">Multi-Inject:</div>  <div class="detail-value">&#10003;</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======== Volcano ======== -->
+      <div class="exploit-item status-updated">
+        <div class="item-header closed" onclick="toggleBody(this)">
+          <div class="item-title">
+            <h2>Volcano</h2>
+            <span class="tag tag-version">v3.1.5 UD?</span>
+            <span class="tag tag-sunc">sUNC</span>
+            <span class="tag tag-price">Free</span>
+          </div>
+          <span class="status-label">Updated</span>
+          <span class="chevron">&#9654;</span>
+        </div>
+        <div class="item-subheader">
+          Last updated: 05/22/2025 at 11:20 AM UTC
+        </div>
+        <div class="item-body">
+          <div class="warning"></div>
+          <div class="button-group">
+            <button>Website</button>
+            <button>Discord</button>
+            <button>Purchase</button>
+          </div>
+          <div class="details-grid">
+            <div class="detail-key">Cost:</div>          <div class="detail-value">Free</div>
+            <div class="detail-key">UNC Percentage:</div> <div class="detail-value">93%</div>
+            <div class="detail-key">sUNC Percentage:</div><div class="detail-value">100%</div>
+            <div class="detail-key">Decompiler:</div>    <div class="detail-value">&times;</div>
+            <div class="detail-key">Multi-Inject:</div>  <div class="detail-value">&#10003;</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
   </div>
 
   <script>
-    // EXPAND / COLLAPSE
-    document.querySelectorAll('.card-header').forEach(h =>
-      h.addEventListener('click', () =>
-        h.closest('.card').classList.toggle('expanded')
-      )
-    );
+    /**
+     * Toggles the visibility of the `.item-body` inside each exploit-item.
+     * Also rotates the chevron accordingly.
+     */
+    function toggleBody(headerEl) {
+      const item = headerEl.closest(".exploit-item");
+      const body = item.querySelector(".item-body");
+      const chevron = headerEl.querySelector(".chevron");
 
-    // LAZY FADE-IN ON SCROLL
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.style.animationPlayState = 'running';
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.card').forEach(c => {
-      c.style.animationPlayState = 'paused';
-      io.observe(c);
-    });
-
-    // DYNAMIC LAST UPDATED CONVERSION
-    document.querySelectorAll('.card-footer').forEach(f => {
-      const iso = f.dataset.updated;
-      const dt = iso && new Date(iso);
-      if (!dt) return;
-      f.querySelector('.updated-time').textContent =
-        dt.toLocaleString(navigator.language, {
-          day: '2-digit', month: '2-digit', year: 'numeric',
-          hour: 'numeric', minute: '2-digit', hour12: true
-        });
-    });
-
-    // THEME TOGGLE
-    const dd = document.getElementById('theme-dropdown'),
-          lbl = dd.querySelector('.theme-toggle');
-    dd.querySelectorAll('.theme-item').forEach(i =>
-      i.addEventListener('click', () => {
-        document.body.dataset.theme = i.dataset.theme;
-        dd.classList.remove('open');
-      })
-    );
-    lbl.addEventListener('click', () => dd.classList.toggle('open'));
-    document.addEventListener('click', e => {
-      if (!dd.contains(e.target)) dd.classList.remove('open');
-    });
+      if (body.classList.contains("show")) {
+        body.classList.remove("show");
+        headerEl.classList.remove("open");
+        headerEl.classList.add("closed");
+      } else {
+        body.classList.add("show");
+        headerEl.classList.remove("closed");
+        headerEl.classList.add("open");
+      }
+    }
   </script>
 </body>
 </html>
