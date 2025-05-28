@@ -21,16 +21,16 @@
       --dropdown-hover:       #333;
       --dropdown-text:        #ffffff;
 
-      /* Accent colors inspired by WEAO.xyz */
-      --color-purple:         #9c27b0;  /* for “s” in sUNC */
-      --color-cyan-light:     #00bcd4;  /* for $ tag gradient */
-      --color-cyan-dark:      #2196f3;
-      --color-pink-light:     #e91e63;  /* for “Recommended” tag gradient */
-      --color-pink-dark:      #f06292;
-      --color-green-light:    #81c784;  /* for “Free” tag & “Updated” pill */
-      --color-green-dark:     #4caf50;
-      --color-red-light:      #f28b82;  /* for “Not Updated” pill */
-      --color-red-dark:       #e57373;
+      /* Accent colors (WEAO.xyz–inspired) */
+      --color-purple-solid:   #B23CFD;  /* for “s” in sUNC */
+      --gradient-cyan-light:  #00FFFF;  /* for $ tag */
+      --gradient-cyan-dark:   #00CFFF;
+      --gradient-pink-light:  #FF0080;  /* for “Recommended” */
+      --gradient-pink-dark:   #FF66A3;
+      --gradient-green-light: #00FF00;  /* for “Free” & “Updated” */
+      --gradient-green-dark:  #00CC00;
+      --gradient-red-light:   #FF0000;  /* for “Not Updated” */
+      --gradient-red-dark:    #CC0000;
     }
     body.light-theme {
       /* LIGHT THEME overrides */
@@ -46,15 +46,15 @@
       --dropdown-hover:       #eee;
       --dropdown-text:        #000000;
 
-      /* Lighter variants for gradient in light mode */
-      --color-cyan-light:     #b3e5fc;
-      --color-cyan-dark:      #81d4fa;
-      --color-pink-light:     #f8bbd0;
-      --color-pink-dark:      #f48fb1;
-      --color-green-light:    #c8e6c9;
-      --color-green-dark:     #a5d6a7;
-      --color-red-light:      #ffcdd2;
-      --color-red-dark:       #ef9a9a;
+      /* Lighter variations for gradients in light mode */
+      --gradient-cyan-light:  #b3fﬁff;  
+      --gradient-cyan-dark:   #a3e5ff;
+      --gradient-pink-light:  #ffb3d9;
+      --gradient-pink-dark:   #f48fb1;
+      --gradient-green-light: #c8e6c9;
+      --gradient-green-dark:  #a5d6a7;
+      --gradient-red-light:   #ffcdd2;
+      --gradient-red-dark:    #ef9a9a;
     }
 
     /* ==================== GLOBAL TRANSITIONS ==================== */
@@ -239,8 +239,8 @@
     }
 
     /* Left stripe colors by status */
-    .status-updated   { border-left-color: var(--color-green-dark); }
-    .status-notupdated{ border-left-color: var(--color-red-dark); }
+    .status-updated   { border-left-color: var(--gradient-green-dark); }
+    .status-notupdated{ border-left-color: var(--gradient-red-dark); }
 
     /* Glow for “Recommended” only */
     .exploit-item.recommended {
@@ -291,16 +291,28 @@
       background-color: #333;
     }
     .tag-sunc .s-letter {
-      color: var(--color-purple);
+      color: var(--color-purple-solid);
     }
     .tag-recommended  {
-      background: linear-gradient(90deg, var(--color-pink-light), var(--color-pink-dark));
+      background: linear-gradient(
+        90deg,
+        var(--gradient-pink-light),
+        var(--gradient-pink-dark)
+      );
     }
     .tag-price        {
-      background: linear-gradient(90deg, var(--color-cyan-light), var(--color-cyan-dark));
+      background: linear-gradient(
+        90deg,
+        var(--gradient-cyan-light),
+        var(--gradient-cyan-dark)
+      );
     }
     .tag-free         {
-      background: linear-gradient(90deg, var(--color-green-light), var(--color-green-dark));
+      background: linear-gradient(
+        90deg,
+        var(--gradient-green-light),
+        var(--gradient-green-dark)
+      );
     }
 
     /* -------- STATUS LABEL (pill) -------- */
@@ -310,12 +322,20 @@
       padding: 6px 14px;
       border-radius: 12px;
       color: #fff;
-      background: linear-gradient(90deg, var(--color-green-light), var(--color-green-dark));
+      background: linear-gradient(
+        90deg,
+        var(--gradient-green-light),
+        var(--gradient-green-dark)
+      );
       white-space: nowrap;
       transition: background 0.5s ease;
     }
     .status-notupdated > .item-header > .status-label {
-      background: linear-gradient(90deg, var(--color-red-light), var(--color-red-dark));
+      background: linear-gradient(
+        90deg,
+        var(--gradient-red-light),
+        var(--gradient-red-dark)
+      );
     }
 
     /* -------- CHEVRON ICON (SVG) -------- */
@@ -443,13 +463,17 @@
           <div class="item-title">
             <h2>Zenith</h2>
             <span class="tag tag-version">v1.9.3</span>
-            <span class="tag tag-sunc"><span class="s-letter">s</span>UNC</span>
+            <span class="tag tag-sunc">
+              <span class="s-letter">s</span>UNC
+            </span>
             <span class="tag tag-recommended">Recommended</span>
             <span class="tag tag-price">$6.49 weekly</span>
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -462,11 +486,26 @@
             <button>Purchase</button>
           </div>
           <div class="details-row">
-            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">$6.49 weekly</span></div>
-            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">95%</span></div>
-            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
-            <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&times;</span></div>
-            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&#10003;</span></div>
+            <div class="detail-item">
+              <span class="detail-key">Cost:</span>
+              <span class="detail-value">$6.49 weekly</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">UNC Percentage:</span>
+              <span class="detail-value">95%</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">sUNC Percentage:</span>
+              <span class="detail-value">100%</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">Decompiler:</span>
+              <span class="detail-value">&times;</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">Multi‑Inject:</span>
+              <span class="detail-value">&#10003;</span>
+            </div>
           </div>
         </div>
       </div>
@@ -477,12 +516,16 @@
           <div class="item-title">
             <h2>Wave</h2>
             <span class="tag tag-version">v2.9.2a</span>
-            <span class="tag tag-sunc"><span class="s-letter">s</span>UNC</span>
+            <span class="tag tag-sunc">
+              <span class="s-letter">s</span>UNC
+            </span>
             <span class="tag tag-price">$7.49 weekly</span>
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -495,11 +538,26 @@
             <button>Purchase</button>
           </div>
           <div class="details-row">
-            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">$7.49 weekly</span></div>
-            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">99%</span></div>
-            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
-            <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&times;</span></div>
-            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&#10003;</span></div>
+            <div class="detail-item">
+              <span class="detail-key">Cost:</span>
+              <span class="detail-value">$7.49 weekly</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">UNC Percentage:</span>
+              <span class="detail-value">99%</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">sUNC Percentage:</span>
+              <span class="detail-value">100%</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">Decompiler:</span>
+              <span class="detail-value">&times;</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">Multi‑Inject:</span>
+              <span class="detail-value">&#10003;</span>
+            </div>
           </div>
         </div>
       </div>
@@ -510,12 +568,16 @@
           <div class="item-title">
             <h2>AWP.GG</h2>
             <span class="tag tag-version">v1.0.0.74</span>
-            <span class="tag tag-sunc"><span class="s-letter">s</span>UNC</span>
+            <span class="tag tag-sunc">
+              <span class="s-letter">s</span>UNC
+            </span>
             <span class="tag tag-price">$6.99 weekly</span>
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -528,11 +590,26 @@
             <button>Purchase</button>
           </div>
           <div class="details-row">
-            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">$6.99 weekly</span></div>
-            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">96%</span></div>
-            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
-            <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&times;</span></div>
-            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&#10003;</span></div>
+            <div class="detail-item">
+              <span class="detail-key">Cost:</span>
+              <span class="detail-value">$6.99 weekly</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">UNC Percentage:</span>
+              <span class="detail-value">96%</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">sUNC Percentage:</span>
+              <span class="detail-value">100%</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">Decompiler:</span>
+              <span class="detail-value">&times;</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">Multi‑Inject:</span>
+              <span class="detail-value">&#10003;</span>
+            </div>
           </div>
         </div>
       </div>
@@ -543,12 +620,16 @@
           <div class="item-title">
             <h2>Volcano</h2>
             <span class="tag tag-version">v3.1.5 UD?</span>
-            <span class="tag tag-sunc"><span class="s-letter">s</span>UNC</span>
+            <span class="tag tag-sunc">
+              <span class="s-letter">s</span>UNC
+            </span>
             <span class="tag tag-free">Free</span>
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -561,11 +642,26 @@
             <button>Purchase</button>
           </div>
           <div class="details-row">
-            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">Free</span></div>
-            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">93%</span></div>
-            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
-            <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&times;</span></div>
-            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&#10003;</span></div>
+            <div class="detail-item">
+              <span class="detail-key">Cost:</span>
+              <span class="detail-value">Free</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">UNC Percentage:</span>
+              <span class="detail-value">93%</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">sUNC Percentage:</span>
+              <span class="detail-value">100%</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">Decompiler:</span>
+              <span class="detail-value">&times;</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-key">Multi‑Inject:</span>
+              <span class="detail-value">&#10003;</span>
+            </div>
           </div>
         </div>
       </div>
@@ -593,16 +689,16 @@
     // Listen for clicks on each option:
     dropdownOptions.querySelectorAll("div").forEach(option => {
       option.addEventListener("click", () => {
-        const chosenValue = option.getAttribute("data-value"); // “dark” or “light”
-        const chosenIcon = option.querySelector(".icon").textContent; // icon
+        const chosenValue = option.getAttribute("data-value");
+        const chosenIcon = option.querySelector(".icon").textContent;
 
-        // Update visible text and icon: “🌙 Theme” or “☀️ Theme”
+        // Update visible text/icon: “🌙 Theme” or “☀️ Theme”
         dropdownSelected.innerHTML =
           `<span>Theme</span> <span class="icon">${chosenIcon}</span>`;
 
         themeDropdown.classList.remove("open");
 
-        // Apply theme to <body>
+        // Toggle body class
         if (chosenValue === "light") {
           document.body.classList.add("light-theme");
         } else {
@@ -616,7 +712,6 @@
       const item = headerEl.closest(".exploit-item");
       const body = item.querySelector(".item-body");
       const isOpen = body.classList.toggle("show");
-
       if (isOpen) {
         headerEl.classList.add("open");
         headerEl.classList.remove("closed");
@@ -632,11 +727,7 @@
       const query = searchInput.value.toLowerCase().trim();
       document.querySelectorAll(".exploit-item").forEach(card => {
         const title = card.querySelector(".item-title h2").textContent.toLowerCase();
-        if (title.includes(query)) {
-          card.style.display = "";
-        } else {
-          card.style.display = "none";
-        }
+        card.style.display = title.includes(query) ? "" : "none";
       });
     });
   </script>
