@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RENDEX Dashboard</title>
 
+  <!-- ====== Import Poppins from Google Fonts ====== -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
   <style>
+    /* ==================== GLOBAL FONT-STACK ==================== */
+    /* We set Poppins (like WEAO.xyz) as the default for everything */
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    /* Ensure headings also inherit Poppins */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Poppins", sans-serif;
+    }
+
     /* ==================== CSS VARIABLES & THEMES ==================== */
     :root {
       /* DARK THEME (default) */
@@ -33,6 +53,7 @@
       --gradient-red-dark:    #CC0000;
     }
     body.light-theme {
+      /* LIGHT THEME overrides */
       --bg:                   #ffffff;
       --text:                 #000000;
       --card-bg:              #f9f9f9;
@@ -57,12 +78,10 @@
     }
 
     /* ==================== GLOBAL TRANSITIONS ==================== */
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      transition: background-color 0.5s ease, color 0.5s ease;
-    }
-    .navbar, .item-header, .item-body, .exploit-item {
+    .navbar,
+    .item-header,
+    .item-body,
+    .exploit-item {
       transition: background-color 0.5s ease,
                   color 0.5s ease,
                   border-color 0.5s ease,
@@ -77,7 +96,6 @@
     }
     html, body {
       height: 100%;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
     a {
       text-decoration: none;
@@ -104,7 +122,7 @@
       font-size: 1.5rem;
       letter-spacing: 2px;
       color: #7b7bff;
-      font-weight: bold;
+      font-weight: 600;
       white-space: nowrap;
     }
     .navbar .search-container {
@@ -275,7 +293,11 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px 20px;
-      background: linear-gradient(90deg, rgba(50,50,50,0) 0%, rgba(50,50,50,0.2) 100%);
+      background: linear-gradient(
+        90deg,
+        rgba(50, 50, 50, 0) 0%,
+        rgba(50, 50, 50, 0.2) 100%
+      );
       cursor: pointer;
       user-select: none;
       transition: background-color 0.5s ease, color 0.5s ease;
@@ -308,13 +330,25 @@
     .tag-sunc         { background-color: #333; cursor: pointer; }
     .tag-sunc .s-letter { color: var(--color-purple-solid); }
     .tag-recommended  {
-      background: linear-gradient(90deg, var(--gradient-pink-light), var(--gradient-pink-dark));
+      background: linear-gradient(
+        90deg,
+        var(--gradient-pink-light),
+        var(--gradient-pink-dark)
+      );
     }
     .tag-price        {
-      background: linear-gradient(90deg, var(--gradient-cyan-light), var(--gradient-cyan-dark));
+      background: linear-gradient(
+        90deg,
+        var(--gradient-cyan-light),
+        var(--gradient-cyan-dark)
+      );
     }
     .tag-free         {
-      background: linear-gradient(90deg, var(--gradient-green-light), var(--gradient-green-dark));
+      background: linear-gradient(
+        90deg,
+        var(--gradient-green-light),
+        var(--gradient-green-dark)
+      );
     }
 
     /* -------- STATUS LABEL (pill) -------- */
@@ -324,12 +358,20 @@
       padding: 6px 14px;
       border-radius: 12px;
       color: #fff;
-      background: linear-gradient(90deg, var(--gradient-green-light), var(--gradient-green-dark));
+      background: linear-gradient(
+        90deg,
+        var(--gradient-green-light),
+        var(--gradient-green-dark)
+      );
       white-space: nowrap;
       transition: background 0.5s ease;
     }
     .status-notupdated .status-label {
-      background: linear-gradient(90deg, var(--gradient-red-light), var(--gradient-red-dark));
+      background: linear-gradient(
+        90deg,
+        var(--gradient-red-light),
+        var(--gradient-red-dark)
+      );
     }
 
     /* -------- CHEVRON ICON (SVG) -------- */
@@ -366,7 +408,11 @@
       border-top: 1px solid var(--card-border);
       padding: 0 20px;
       overflow: hidden;
-      transition: max-height 0.4s ease, opacity 0.3s ease, padding-top 0.4s ease, padding-bottom 0.4s ease;
+      transition:
+        max-height 0.4s ease,
+        opacity 0.3s ease,
+        padding-top 0.4s ease,
+        padding-bottom 0.4s ease;
     }
     .item-body.show {
       max-height: 500px;
@@ -462,6 +508,8 @@
       margin: 0;
       color: var(--text);
       font-size: 1rem;
+      font-family: "Poppins", sans-serif;
+      font-weight: 500;
     }
     .modal-close {
       background: none;
@@ -551,7 +599,9 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -605,7 +655,9 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -659,7 +711,9 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -713,7 +767,9 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
