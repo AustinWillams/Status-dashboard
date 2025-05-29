@@ -13,6 +13,9 @@
 
   <style>
     /* ==================== GLOBAL FONT-STACK ==================== */
+    html {
+      scroll-behavior: smooth; /* Smooth scroll behavior */
+    }
     body {
       font-family: "Poppins", sans-serif;
       background-color: var(--bg);
@@ -265,6 +268,7 @@
     .exploit-item:nth-child(2) { animation-delay: 0.10s; }
     .exploit-item:nth-child(3) { animation-delay: 0.15s; }
     .exploit-item:nth-child(4) { animation-delay: 0.20s; }
+    .exploit-item:nth-child(5) { animation-delay: 0.25s; }
 
     /* ==================== EXPLOIT CARDS ==================== */
     .exploit-list {
@@ -431,7 +435,7 @@
         padding-bottom 0.4s ease;
     }
     .item-body.show {
-      max-height: 500px;
+      max-height: 600px;
       opacity: 1;
       padding-top: 20px;
       padding-bottom: 20px;
@@ -603,12 +607,12 @@
     <!-- ========== iOS SCRIPT EXECUTOR EXPLOITS ========== -->
     <div class="category-heading">iOS Script Executor Exploits</div>
     <section class="exploit-list">
-      <!-- ----- CODEX iOS ----- -->
+      <!-- ----- CODEX ----- -->
       <div class="exploit-item status-updated recommended">
         <div class="card-banner">This exploit is detected by Hyperion</div>
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
-            <h2>Codex iOS</h2>
+            <h2>Codex</h2>
             <span class="tag tag-version">V674</span>
             <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
               <span class="s-letter">s</span>UNC
@@ -624,6 +628,10 @@
           Last updated: 05/22/2025 at 8:09 PM UTC
         </div>
         <div class="item-body">
+          <!-- Banner above buttons -->
+          <div class="card-banner" style="margin-bottom: 16px;">
+            Detected by Hyperion
+          </div>
           <div class="button-group">
             <button onclick="window.open('https://codex.lol/ios','_blank')">Website</button>
             <button onclick="window.open('https://discord.gg/codexlol','_blank')">Discord</button>
@@ -639,17 +647,13 @@
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ========== ANDROID SCRIPT EXECUTOR EXPLOITS ========== -->
-    <div class="category-heading">Android Script Executor Exploits</div>
-    <section class="exploit-list">
-      <!-- ----- DELTA ANDROID ----- -->
+      <!-- ----- DELTA iOS ----- -->
       <div class="exploit-item status-notupdated">
         <div class="card-banner">This exploit is detected by Hyperion</div>
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
-            <h2>Delta Android</h2>
+            <h2>Delta</h2>
             <span class="tag tag-version">V673</span>
             <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=eUzB7XjVHt0I7olH&key=OR7dgvS90bkSMHBaWsAzcORfLlJE8B9i">
               <span class="s-letter">s</span>UNC
@@ -665,6 +669,55 @@
           Last updated: 05/23/2025 at 3:50 AM UTC
         </div>
         <div class="item-body">
+          <!-- Banner above buttons -->
+          <div class="card-banner" style="margin-bottom: 16px;">
+            Detected by Hyperion
+          </div>
+          <div class="button-group">
+            <button onclick="window.open('https://deltaexploits.gg/delta-executor-ios','_blank')">Website</button>
+            <button onclick="window.open('https://discord.gg/deltaexploits','_blank')">Discord</button>
+            <button onclick="window.open('https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file','_blank')">Download</button>
+          </div>
+          <div class="details-row">
+            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">Free</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">99%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">97%</span></div>
+            <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&#10003;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&times;</span></div>
+            <div class="detail-item"><span class="detail-key">Detected:</span><span class="detail-value">&times;</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ANDROID SCRIPT EXECUTOR EXPLOITS ========== -->
+    <div class="category-heading">Android Script Executor Exploits</div>
+    <section class="exploit-list">
+      <!-- ----- DELTA ----- -->
+      <div class="exploit-item status-notupdated">
+        <div class="card-banner">This exploit is detected by Hyperion</div>
+        <div class="item-header closed" onclick="toggleBody(this)">
+          <div class="item-title">
+            <h2>Delta</h2>
+            <span class="tag tag-version">V673</span>
+            <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=eUzB7XjVHt0I7olH&key=OR7dgvS90bkSMHBaWsAzcORfLlJE8B9i">
+              <span class="s-letter">s</span>UNC
+            </span>
+            <span class="tag tag-price">Free</span>
+          </div>
+          <div style="display: flex; align-items: center;">
+            <span class="status-label">Not Updated</span>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+          </div>
+        </div>
+        <div class="item-subheader">
+          Last updated: 05/23/2025 at 3:50 AM UTC
+        </div>
+        <div class="item-body">
+          <!-- Banner above buttons -->
+          <div class="card-banner" style="margin-bottom: 16px;">
+            Detected by Hyperion
+          </div>
           <div class="button-group">
             <button onclick="window.open('https://deltaexploits.gg/delta-executor-mobile','_blank')">Website</button>
             <button onclick="window.open('https://discord.gg/deltaexploits','_blank')">Discord</button>
@@ -681,12 +734,12 @@
         </div>
       </div>
 
-      <!-- ----- RONIX ANDROID ----- -->
+      <!-- ----- RONIX ----- -->
       <div class="exploit-item status-notupdated">
         <div class="card-banner">This exploit is detected by Hyperion</div>
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
-            <h2>Ronix Android</h2>
+            <h2>Ronix</h2>
             <span class="tag tag-version">v1.0.0.74</span>
             <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
               <span class="s-letter">s</span>UNC
@@ -702,6 +755,10 @@
           Last updated: 05/23/2025 at 3:46 AM UTC
         </div>
         <div class="item-body">
+          <!-- Banner above buttons -->
+          <div class="card-banner" style="margin-bottom: 16px;">
+            Detected by Hyperion
+          </div>
           <div class="button-group">
             <button>Website</button>
             <button>Discord</button>
@@ -718,12 +775,12 @@
         </div>
       </div>
 
-      <!-- ----- CODEX ANDROID ----- -->
+      <!-- ----- CODEX ----- -->
       <div class="exploit-item status-updated">
-        <div class="card-banner">This exploit is detected by Hyperion</div>
+        <div class="card-banner">This exploit is detected by Hyperion</div>
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
-            <h2>Codex Android</h2>
+            <h2>Codex</h2>
             <span class="tag tag-version">V673</span>
             <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
               <span class="s-letter">s</span>UNC
@@ -739,6 +796,10 @@
           Last updated: 05/22/2025 at 11:20 AM UTC
         </div>
         <div class="item-body">
+          <!-- Banner above buttons -->
+          <div class="card-banner" style="margin-bottom: 16px;">
+            Detected by Hyperion
+          </div>
           <div class="button-group">
             <button onclick="window.open('https://codex.lol/android','_blank')">Website</button>
             <button onclick="window.open('https://discord.gg/codexlol','_blank')">Discord</button>
