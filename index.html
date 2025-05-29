@@ -235,6 +235,16 @@
       padding: 24px 16px;
     }
 
+    /* ==================== CATEGORY HEADINGS ==================== */
+    .category-heading {
+      margin: 32px 0 16px;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 2px solid var(--card-border);
+      padding-bottom: 8px;
+    }
+
     /* ==================== CARDS POP‑IN ANIMATION ==================== */
     @keyframes cardFadeIn {
       from {
@@ -590,8 +600,10 @@
 
   <!-- ==================== MAIN CONTENT ==================== -->
   <div class="container">
+    <!-- ========== iOS SCRIPT EXECUTOR EXPLOITS ========== -->
+    <div class="category-heading">iOS Script Executor Exploits</div>
     <section class="exploit-list">
-      <!-- ----- 1) CODEX iOS ----- -->
+      <!-- ----- CODEX iOS ----- -->
       <div class="exploit-item status-updated recommended">
         <div class="card-banner">This exploit is detected by Hyperion</div>
         <div class="item-header closed" onclick="toggleBody(this)">
@@ -618,41 +630,27 @@
             <button onclick="window.open('https://www.mediafire.com/file/7afzer5xxo1110n/Codex_2.674.782.ipa/file','_blank')">Download</button>
           </div>
           <div class="details-row">
-            <div class="detail-item">
-              <span class="detail-key">Cost:</span>
-              <span class="detail-value">Free</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">UNC Percentage:</span>
-              <span class="detail-value">90%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">sUNC Percentage:</span>
-              <span class="detail-value">92%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Decompiler:</span>
-              <span class="detail-value">&#10003;</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Multi‑Inject:</span>
-              <span class="detail-value">&times;</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Detected:</span>
-              <span class="detail-value">&#10003;</span>
-            </div>
+            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">Free</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">90%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">92%</span></div>
+            <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&#10003;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&times;</span></div>
+            <div class="detail-item"><span class="detail-key">Detected:</span><span class="detail-value">&#10003;</span></div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- ----- 2) DELTA ANDROID ----- -->
+    <!-- ========== ANDROID SCRIPT EXECUTOR EXPLOITS ========== -->
+    <div class="category-heading">Android Script Executor Exploits</div>
+    <section class="exploit-list">
+      <!-- ----- DELTA ANDROID ----- -->
       <div class="exploit-item status-notupdated">
         <div class="card-banner">This exploit is detected by Hyperion</div>
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Delta Android</h2>
-            <span class="tag tag-version">v–</span>
+            <span class="tag tag-version">V673</span>
             <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=eUzB7XjVHt0I7olH&key=OR7dgvS90bkSMHBaWsAzcORfLlJE8B9i">
               <span class="s-letter">s</span>UNC
             </span>
@@ -668,40 +666,22 @@
         </div>
         <div class="item-body">
           <div class="button-group">
-            <button>Website</button>
-            <button>Discord</button>
-            <button>Purchase</button>
+            <button onclick="window.open('https://deltaexploits.gg/delta-executor-mobile','_blank')">Website</button>
+            <button onclick="window.open('https://discord.gg/deltaexploits','_blank')">Discord</button>
+            <button onclick="window.open('https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file','_blank')">Download</button>
           </div>
           <div class="details-row">
-            <div class="detail-item">
-              <span class="detail-key">Cost:</span>
-              <span class="detail-value">Free</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">UNC Percentage:</span>
-              <span class="detail-value">99%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">sUNC Percentage:</span>
-              <span class="detail-value">97%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Decompiler:</span>
-              <span class="detail-value">&#10003;</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Multi‑Inject:</span>
-              <span class="detail-value">&times;</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Detected:</span>
-              <span class="detail-value">&times;</span>
-            </div>
+            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">Free</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">99%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">97%</span></div>
+            <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&#10003;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&times;</span></div>
+            <div class="detail-item"><span class="detail-key">Detected:</span><span class="detail-value">&times;</span></div>
           </div>
         </div>
       </div>
 
-      <!-- ----- 3) RONIX ANDROID (formerly AWP.GG) ----- -->
+      <!-- ----- RONIX ANDROID ----- -->
       <div class="exploit-item status-notupdated">
         <div class="card-banner">This exploit is detected by Hyperion</div>
         <div class="item-header closed" onclick="toggleBody(this)">
@@ -728,37 +708,19 @@
             <button>Purchase</button>
           </div>
           <div class="details-row">
-            <div class="detail-item">
-              <span class="detail-key">Cost:</span>
-              <span class="detail-value">$6.99 weekly</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">UNC Percentage:</span>
-              <span class="detail-value">96%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">sUNC Percentage:</span>
-              <span class="detail-value">100%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Decompiler:</span>
-              <span class="detail-value">&times;</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Multi‑Inject:</span>
-              <span class="detail-value">&#10003;</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Detected:</span>
-              <span class="detail-value">&times;</span>
-            </div>
+            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">$6.99 weekly</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">96%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
+            <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&times;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&#10003;</span></div>
+            <div class="detail-item"><span class="detail-key">Detected:</span><span class="detail-value">&times;</span></div>
           </div>
         </div>
       </div>
 
-      <!-- ----- 4) CODEX ANDROID ----- -->
+      <!-- ----- CODEX ANDROID ----- -->
       <div class="exploit-item status-updated">
-        <div class="card-banner">This exploit is detected by Hyperion</div>
+        <div class="card-banner">This exploit is detected by Hyperion</div>
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Codex Android</h2>
@@ -783,30 +745,12 @@
             <button onclick="window.open('https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/','_blank')">Download</button>
           </div>
           <div class="details-row">
-            <div class="detail-item">
-              <span class="detail-key">Cost:</span>
-              <span class="detail-value">Free</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">UNC Percentage:</span>
-              <span class="detail-value">93%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">sUNC Percentage:</span>
-              <span class="detail-value">100%</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Decompiler:</span>
-              <span class="detail-value">&times;</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Multi‑Inject:</span>
-              <span class="detail-value">&#10003;</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-key">Detected:</span>
-              <span class="detail-value">&#10003;</span>
-            </div>
+            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">Free</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">93%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
+            <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&times;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&#10003;</span></div>
+            <div class="detail-item"><span class="detail-key">Detected:</span><span class="detail-value">&#10003;</span></div>
           </div>
         </div>
       </div>
