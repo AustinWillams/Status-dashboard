@@ -41,7 +41,9 @@
       --dropdown-hover:       #333;
       --dropdown-text:        #ffffff;
 
-      /* Accent colors (WEAO.xyz–inspired) */
+      /* Accent colors */
+      --accent-yellow-light:  #FFF9C4; /* light yellow accent */
+      --accent-yellow:        #FFEB3B; /* stronger yellow accent */
       --color-purple-solid:   #D39FFC;  /* lighter purple for “s” in sUNC */
       --gradient-cyan-light:  #00FFFF;
       --gradient-cyan-dark:   #00CFFF;
@@ -74,6 +76,8 @@
       --gradient-green-dark:  #43A047;
       --gradient-red-light:   #E57373;
       --gradient-red-dark:    #F44336;
+      --accent-yellow-light:  #FFFDE7;
+      --accent-yellow:        #FFEB3B;
     }
 
     /* ==================== GLOBAL TRANSITIONS ==================== */
@@ -248,7 +252,7 @@
       padding-bottom: 8px;
     }
 
-    /* ==================== CARDS POP‑IN ANIMATION ==================== */
+    /* ==================== CARDS POP-IN ANIMATION ==================== */
     @keyframes cardFadeIn {
       from {
         opacity: 0;
@@ -295,16 +299,6 @@
     .status-notupdated{ border-left-color: var(--gradient-red-dark); }
     .exploit-item.recommended {
       box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
-    }
-
-    /* ==================== CARD BANNER (SEMI-TRANSPARENT YELLOW) ==================== */
-    .card-banner {
-      background-color: rgba(255, 215, 0, 0.7); /* semi-transparent yellow */
-      color: #000;                               /* black text for contrast */
-      text-align: center;
-      font-size: 0.85rem;
-      font-weight: 500;
-      padding: 6px 0;
     }
 
     /* ==================== CARD HEADER (CLICKABLE) ==================== */
@@ -441,6 +435,21 @@
       padding-bottom: 20px;
     }
 
+    /* ==================== CARD BANNER ABOVE BUTTONS ==================== */
+    .card-banner-inner {
+      background-color: rgba(var(--accent-yellow-rgb), 0.4);
+      /* fallback for older browsers */
+      background-color: rgba(255, 235, 59, 0.4);
+      border-left: 4px solid var(--accent-yellow);
+      color: #000;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 6px 0;
+      margin-bottom: 16px;
+      border-radius: 0 0 4px 4px;
+    }
+
     /* ==================== BUTTONS ==================== */
     .button-group {
       display: flex;
@@ -459,7 +468,7 @@
       background-color: var(--input-border);
     }
 
-    /* ==================== DETAILS SIDE‑BY‑SIDE ==================== */
+    /* ==================== DETAILS SIDE-BY-SIDE ==================== */
     .details-row {
       display: flex;
       flex-wrap: wrap;
@@ -609,27 +618,29 @@
     <section class="exploit-list">
       <!-- ----- CODEX ----- -->
       <div class="exploit-item status-updated recommended">
-        <div class="card-banner">This exploit is detected by Hyperion</div>
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Codex</h2>
             <span class="tag tag-version">V674</span>
-            <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
+            <span class="tag tag-sunc"
+                  data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
               <span class="s-letter">s</span>UNC
             </span>
             <span class="tag tag-price">Free</span>
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/22/2025 at 8:09 PM UTC
+          Last updated: 05/22/2025 at 8:09 PM UTC
         </div>
         <div class="item-body">
           <!-- Banner above buttons -->
-          <div class="card-banner" style="margin-bottom: 16px;">
+          <div class="card-banner-inner">
             Detected by Hyperion
           </div>
           <div class="button-group">
@@ -639,10 +650,10 @@
           </div>
           <div class="details-row">
             <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">Free</span></div>
-            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">90%</span></div>
-            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">92%</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">90%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">92%</span></div>
             <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&#10003;</span></div>
-            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&times;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi-Inject:</span><span class="detail-value">&times;</span></div>
             <div class="detail-item"><span class="detail-key">Detected:</span><span class="detail-value">&#10003;</span></div>
           </div>
         </div>
@@ -650,27 +661,29 @@
 
       <!-- ----- DELTA iOS ----- -->
       <div class="exploit-item status-notupdated">
-        <div class="card-banner">This exploit is detected by Hyperion</div>
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Delta</h2>
             <span class="tag tag-version">V673</span>
-            <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=eUzB7XjVHt0I7olH&key=OR7dgvS90bkSMHBaWsAzcORfLlJE8B9i">
+            <span class="tag tag-sunc"
+                  data-sunc-url="https://sunc.rubis.app/?scrap=eUzB7XjVHt0I7olH&key=OR7dgvS90bkSMHBaWsAzcORfLlJE8B9i">
               <span class="s-letter">s</span>UNC
             </span>
             <span class="tag tag-price">Free</span>
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/23/2025 at 3:50 AM UTC
+          Last updated: 05/23/2025 at 3:50 AM UTC
         </div>
         <div class="item-body">
           <!-- Banner above buttons -->
-          <div class="card-banner" style="margin-bottom: 16px;">
+          <div class="card-banner-inner">
             Detected by Hyperion
           </div>
           <div class="button-group">
@@ -680,10 +693,10 @@
           </div>
           <div class="details-row">
             <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">Free</span></div>
-            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">99%</span></div>
-            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">97%</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">99%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">97%</span></div>
             <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&#10003;</span></div>
-            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&times;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi-Inject:</span><span class="detail-value">&times;</span></div>
             <div class="detail-item"><span class="detail-key">Detected:</span><span class="detail-value">&times;</span></div>
           </div>
         </div>
@@ -695,27 +708,29 @@
     <section class="exploit-list">
       <!-- ----- DELTA ----- -->
       <div class="exploit-item status-notupdated">
-        <div class="card-banner">This exploit is detected by Hyperion</div>
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Delta</h2>
             <span class="tag tag-version">V673</span>
-            <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=eUzB7XjVHt0I7olH&key=OR7dgvS90bkSMHBaWsAzcORfLlJE8B9i">
+            <span class="tag tag-sunc"
+                  data-sunc-url="https://sunc.rubis.app/?scrap=eUzB7XjVHt0I7olH&key=OR7dgvS90bkSMHBaWsAzcORfLlJE8B9i">
               <span class="s-letter">s</span>UNC
             </span>
             <span class="tag tag-price">Free</span>
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/23/2025 at 3:50 AM UTC
+          Last updated: 05/23/2025 at 3:50 AM UTC
         </div>
         <div class="item-body">
           <!-- Banner above buttons -->
-          <div class="card-banner" style="margin-bottom: 16px;">
+          <div class="card-banner-inner">
             Detected by Hyperion
           </div>
           <div class="button-group">
@@ -725,10 +740,10 @@
           </div>
           <div class="details-row">
             <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">Free</span></div>
-            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">99%</span></div>
-            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">97%</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">99%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">97%</span></div>
             <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&#10003;</span></div>
-            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&times;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi-Inject:</span><span class="detail-value">&times;</span></div>
             <div class="detail-item"><span class="detail-key">Detected:</span><span class="detail-value">&times;</span></div>
           </div>
         </div>
@@ -736,27 +751,29 @@
 
       <!-- ----- RONIX ----- -->
       <div class="exploit-item status-notupdated">
-        <div class="card-banner">This exploit is detected by Hyperion</div>
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Ronix</h2>
             <span class="tag tag-version">v1.0.0.74</span>
-            <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
+            <span class="tag tag-sunc"
+                  data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
               <span class="s-letter">s</span>UNC
             </span>
-            <span class="tag tag-price">$6.99 weekly</span>
+            <span class="tag tag-price">$6.99 weekly</span>
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/23/2025 at 3:46 AM UTC
+          Last updated: 05/23/2025 at 3:46 AM UTC
         </div>
         <div class="item-body">
           <!-- Banner above buttons -->
-          <div class="card-banner" style="margin-bottom: 16px;">
+          <div class="card-banner-inner">
             Detected by Hyperion
           </div>
           <div class="button-group">
@@ -765,11 +782,11 @@
             <button>Purchase</button>
           </div>
           <div class="details-row">
-            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">$6.99 weekly</span></div>
-            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">96%</span></div>
-            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
+            <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">$6.99 weekly</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">96%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
             <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&times;</span></div>
-            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&#10003;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi-Inject:</span><span class="detail-value">&#10003;</span></div>
             <div class="detail-item"><span class="detail-key">Detected:</span><span class="detail-value">&times;</span></div>
           </div>
         </div>
@@ -777,27 +794,29 @@
 
       <!-- ----- CODEX ----- -->
       <div class="exploit-item status-updated">
-        <div class="card-banner">This exploit is detected by Hyperion</div>
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Codex</h2>
             <span class="tag tag-version">V673</span>
-            <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
+            <span class="tag tag-sunc"
+                  data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
               <span class="s-letter">s</span>UNC
             </span>
             <span class="tag tag-free">Free</span>
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/22/2025 at 11:20 AM UTC
+          Last updated: 05/22/2025 at 11:20 AM UTC
         </div>
         <div class="item-body">
           <!-- Banner above buttons -->
-          <div class="card-banner" style="margin-bottom: 16px;">
+          <div class="card-banner-inner">
             Detected by Hyperion
           </div>
           <div class="button-group">
@@ -807,10 +826,10 @@
           </div>
           <div class="details-row">
             <div class="detail-item"><span class="detail-key">Cost:</span><span class="detail-value">Free</span></div>
-            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">93%</span></div>
-            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
+            <div class="detail-item"><span class="detail-key">UNC Percentage:</span><span class="detail-value">93%</span></div>
+            <div class="detail-item"><span class="detail-key">sUNC Percentage:</span><span class="detail-value">100%</span></div>
             <div class="detail-item"><span class="detail-key">Decompiler:</span><span class="detail-value">&times;</span></div>
-            <div class="detail-item"><span class="detail-key">Multi‑Inject:</span><span class="detail-value">&#10003;</span></div>
+            <div class="detail-item"><span class="detail-key">Multi-Inject:</span><span class="detail-value">&#10003;</span></div>
             <div class="detail-item"><span class="detail-key">Detected:</span><span class="detail-value">&#10003;</span></div>
           </div>
         </div>
