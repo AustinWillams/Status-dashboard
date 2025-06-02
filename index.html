@@ -4,131 +4,47 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RENDEX Dashboard</title>
-
-  <!-- ====== Import Poppins from Google Fonts ====== -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  />
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* ==================== GLOBAL FONT-STACK ==================== */
-    html {
-      scroll-behavior: smooth; /* Smooth scroll behavior */
-    }
+    html { scroll-behavior: smooth; }
     body {
       font-family: "Poppins", sans-serif;
       background-color: var(--bg);
       color: var(--text);
       transition: background-color 0.5s ease, color 0.5s ease;
     }
-    h1, h2, h3, h4, h5, h6 {
-      font-family: "Poppins", sans-serif;
-    }
-
-    /* ==================== CSS VARIABLES & THEMES ==================== */
+    h1, h2, h3, h4, h5, h6 { font-family: "Poppins", sans-serif; }
     :root {
-      /* DARK THEME (default) */
-      --bg:                   #121212;
-      --text:                 #ffffff;
-      --card-bg:              #1e1e1e;
-      --card-border:          #2e2e2e;
-      --header-bg:            #121212;
-      --input-bg:             #2e2e2e;
-      --input-text:           #ffffff;
-      --input-border:         #444;
-      --dropdown-bg:          #2e2e2e;
-      --dropdown-hover:       #333;
-      --dropdown-text:        #ffffff;
-
-      /* Accent colors */
-      --accent-yellow-light:  #FFF9C4; /* light yellow accent */
-      --accent-yellow:        #FFEB3B; /* stronger yellow accent */
-      --color-purple-solid:   #D39FFC;  /* lighter purple for “s” in sUNC */
-      --gradient-cyan-light:  #00FFFF;
-      --gradient-cyan-dark:   #00CFFF;
-      --gradient-pink-light:  #FF0080;
-      --gradient-pink-dark:   #FF66A3;
-      --gradient-green-light: #00FF00;
-      --gradient-green-dark:  #00CC00;
-      --gradient-red-light:   #FF0000;
-      --gradient-red-dark:    #CC0000;
-
-      /* Search‑bar colors (dark mode) */
-      --search-bg:            #2a2a2a;
-      --search-border:        #444;
-      --search-text:          #ffffff;
-      --search-placeholder:   #aaaaaa;
-      --search-focus-border:  #7b7bff;
+      --bg: #121212; --text: #ffffff; --card-bg: #1e1e1e; --card-border: #2e2e2e;
+      --header-bg: #121212; --input-bg: #2e2e2e; --input-text: #ffffff; --input-border: #444;
+      --dropdown-bg: #2e2e2e; --dropdown-hover: #333; --dropdown-text: #ffffff;
+      --accent-yellow-light: #FFF9C4; --accent-yellow: #FFEB3B; --color-purple-solid: #D39FFC;
+      --gradient-cyan-light: #00FFFF; --gradient-cyan-dark: #00CFFF;
+      --gradient-pink-light: #FF0080; --gradient-pink-dark: #FF66A3;
+      --gradient-green-light: #00FF00; --gradient-green-dark: #00CC00;
+      --gradient-red-light: #FF0000; --gradient-red-dark: #CC0000;
+      --search-bg: #2a2a2a; --search-border: transparent; --search-text: #ffffff;
+      --search-placeholder: #aaaaaa; --search-focus-border: #7b7bff;
     }
     body.light-theme {
-      --bg:                   #ffffff;
-      --text:                 #000000;
-      --card-bg:              #f9f9f9;
-      --card-border:          #cccccc;
-      --header-bg:            #f2f2f2;
-      --input-bg:             #ffffff;
-      --input-text:           #000000;
-      --input-border:         #bbb;
-      --dropdown-bg:          #ffffff;
-      --dropdown-hover:       #eee;
-      --dropdown-text:        #000000;
-
-      /* More saturated gradients for visibility */
-      --gradient-cyan-light:  #00E5FF;
-      --gradient-cyan-dark:   #00BCD4;
-      --gradient-pink-light:  #FF3366;
-      --gradient-pink-dark:   #FF6699;
-      --gradient-green-light: #66BB6A;
-      --gradient-green-dark:  #43A047;
-      --gradient-red-light:   #E57373;
-      --gradient-red-dark:    #F44336;
-      --accent-yellow-light:  #FFFDE7;
-      --accent-yellow:        #FFEB3B;
-
-      /* Search‑bar colors (light mode) */
-      --search-bg:            #ffffff;
-      --search-border:        #ddd;
-      --search-text:          #333333;
-      --search-placeholder:   #888888;
-      --search-focus-border:  #7b7bff;
+      --bg: #ffffff; --text: #000000; --card-bg: #f9f9f9; --card-border: #cccccc;
+      --header-bg: #f2f2f2; --input-bg: #ffffff; --input-text: #000000; --input-border: #bbb;
+      --dropdown-bg: #ffffff; --dropdown-hover: #eee; --dropdown-text: #000000;
+      --gradient-cyan-light: #00E5FF; --gradient-cyan-dark: #00BCD4;
+      --gradient-pink-light: #FF3366; --gradient-pink-dark: #FF6699;
+      --gradient-green-light: #66BB6A; --gradient-green-dark: #43A047;
+      --gradient-red-light: #E57373; --gradient-red-dark: #F44336;
+      --accent-yellow-light: #FFFDE7; --accent-yellow: #FFEB3B;
+      --search-bg: #ffffff; --search-border: #ddd; --search-text: #333333;
+      --search-placeholder: #888888; --search-focus-border: #7b7bff;
     }
-
-    /* ==================== GLOBAL TRANSITIONS ==================== */
-    .navbar,
-    .item-header,
-    .item-body,
-    .exploit-item {
-      transition: background-color 0.5s ease,
-                  color 0.5s ease,
-                  border-color 0.5s ease,
-                  box-shadow 0.5s ease;
+    .navbar, .item-header, .item-body, .exploit-item {
+      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
     }
-
-    /* ==================== RESET & BASE ==================== */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    html, body {
-      height: 100%;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    button {
-      cursor: pointer;
-      border: none;
-      background: none;
-      font: inherit;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* ==================== NAVBAR ==================== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font: inherit; display: flex; align-items: center; gap: 6px; }
     .navbar {
       background-color: var(--header-bg);
       padding: 12px 16px;
@@ -139,179 +55,92 @@
       gap: 16px;
     }
     .navbar .site-title {
-      font-size: 1.5rem;
-      letter-spacing: 2px;
-      color: #7b7bff;
-      font-weight: 600;
-      white-space: nowrap;
+      font-size: 1.5rem; letter-spacing: 2px; color: #7b7bff; font-weight: 600; white-space: nowrap;
     }
-
-    /* ==================== SEARCH BAR ==================== */
     .navbar .search-container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
+      flex: 1; display: flex; justify-content: center;
     }
     .navbar .search-container input[type="search"] {
-      width: 100%;
-      max-width: 200px;           /* Matches theme dropdown width */
-      padding: 6px 12px;
-      height: 32px;               /* Match dropdown height */
-      border: 1px solid var(--search-border);
-      border-radius: 16px;        /* Increase roundness */
-      background-color: var(--search-bg);
-      color: var(--search-text);
-      font-size: 0.9rem;
+      width: 100%; max-width: 200px; padding: 6px 12px; height: 36px;
+      border: 1px solid var(--search-border); border-radius: 999px;
+      background-color: var(--search-bg); color: var(--search-text); font-size: 0.9rem;
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .navbar .search-container input[type="search"]::placeholder {
-      color: var(--search-placeholder);
-      opacity: 1;
+      color: var(--search-placeholder); opacity: 1;
     }
     .navbar .search-container input[type="search"]:focus {
-      outline: none;
-      border-color: var(--search-focus-border);
-      box-shadow: 0 0 0 2px rgba(123, 123, 255, 0.2);
+      outline: none; border-color: var(--search-focus-border);
+      box-shadow: 0 0 0 2px rgba(123,123,255,0.2);
     }
-
-    /* ==================== THEME DROPDOWN ==================== */
     .navbar .custom-dropdown {
-      position: relative;
-      user-select: none;
+      position: relative; user-select: none;
     }
     .navbar .dropdown-selected {
-      background-color: var(--dropdown-bg);
-      color: var(--dropdown-text);
-      border: 1px solid var(--input-border);
-      padding: 6px 12px;
-      height: 32px;               /* Match search bar height */
-      border-radius: 16px;        /* Increase roundness */
-      font-size: 0.9rem;
-      min-width: 200px;           /* Same width as search bar */
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      cursor: pointer;
-      transition: background-color 0.5s ease,
-                  color 0.5s ease,
-                  border-color 0.5s ease;
+      background-color: var(--dropdown-bg); color: var(--dropdown-text);
+      border: 1px solid var(--input-border); padding: 6px 12px; height: 36px;
+      border-radius: 999px; font-size: 0.9rem; min-width: 200px;
+      display: flex; align-items: center; justify-content: space-between; gap: 6px;
+      cursor: pointer; transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
     }
     .navbar .dropdown-selected svg.icon {
-      width: 16px;
-      height: 16px;
-      fill: none;
-      stroke: var(--dropdown-text);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      vertical-align: middle;
+      width: 16px; height: 16px; fill: none; stroke: var(--dropdown-text);
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: middle;
     }
     .navbar .dropdown-selected::after {
-      content: "▾";
-      font-size: 0.7rem;
-      transition: transform 0.2s ease;
+      content: "▾"; font-size: 0.7rem; transition: transform 0.2s ease;
     }
     .navbar .custom-dropdown.open .dropdown-selected::after {
       transform: rotate(180deg);
     }
     .navbar .dropdown-options {
-      position: absolute;
-      top: calc(100% + 4px);
-      right: 0;
-      background-color: var(--dropdown-bg);
-      border: 1px solid var(--input-border);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      opacity: 0;
-      transform: scaleY(0);
-      transform-origin: top;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 100;
+      position: absolute; top: calc(100% + 4px); right: 0;
+      background-color: var(--dropdown-bg); border: 1px solid var(--input-border);
+      border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      opacity: 0; transform: scaleY(0); transform-origin: top;
+      transition: opacity 0.3s ease, transform 0.3s ease; z-index: 100;
     }
     .navbar .custom-dropdown.open .dropdown-options {
-      opacity: 1;
-      transform: scaleY(1);
-      display: block;
+      opacity: 1; transform: scaleY(1); display: block;
     }
     .navbar .dropdown-options div {
-      padding: 8px 12px;
-      font-size: 0.9rem;
-      color: var(--dropdown-text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: background-color 0.2s ease,
-                  color 0.5s ease;
+      padding: 8px 12px; font-size: 0.9rem; color: var(--dropdown-text);
+      cursor: pointer; display: flex; align-items: center; gap: 6px;
+      transition: background-color 0.2s ease, color 0.5s ease;
     }
     .navbar .dropdown-options div:hover {
       background-color: var(--dropdown-hover);
     }
     .navbar .dropdown-options svg.icon {
-      width: 16px;
-      height: 16px;
-      fill: none;
-      stroke: var(--dropdown-text);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      vertical-align: middle;
+      width: 16px; height: 16px; fill: none; stroke: var(--dropdown-text);
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: middle;
     }
-
-    /* ==================== IP DISPLAY BOX ==================== */
     .ip-container {
-      text-align: center;
-      margin: 24px auto;
-      padding: 12px;
-      background-color: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 6px;
-      width: 240px;
-      font-size: 0.95rem;
+      text-align: center; margin: 24px auto; padding: 12px;
+      background-color: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 6px; width: 240px; font-size: 0.95rem;
       box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
     .ip-container span.ip-label {
-      font-weight: 500;
-      margin-right: 6px;
+      font-weight: 500; margin-right: 6px;
     }
     .ip-container span.ip-address {
-      font-family: monospace;
-      color: var(--gradient-cyan-light);
+      font-family: monospace; color: var(--gradient-cyan-light);
     }
-
-    /* ==================== CONTAINER ==================== */
     .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 24px 16px;
+      max-width: 960px; margin: 0 auto; padding: 24px 16px;
     }
-
-    /* ==================== CATEGORY HEADINGS ==================== */
     .category-heading {
-      margin: 32px 0 16px;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--text);
-      border-bottom: 2px solid var(--card-border);
+      margin: 32px 0 16px; font-size: 1.4rem; font-weight: 600;
+      color: var(--text); border-bottom: 2px solid var(--card-border);
       padding-bottom: 8px;
     }
-
-    /* ==================== CARDS POP‑IN ANIMATION ==================== */
     @keyframes cardFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .exploit-item {
-      opacity: 0;
-      transform: translateY(10px);
+      opacity: 0; transform: translateY(10px);
       animation: cardFadeIn 0.5s forwards ease-out;
     }
     .exploit-list .exploit-item:nth-child(1) { animation-delay: 0.05s; }
@@ -319,24 +148,14 @@
     .exploit-list .exploit-item:nth-child(3) { animation-delay: 0.15s; }
     .exploit-list .exploit-item:nth-child(4) { animation-delay: 0.20s; }
     .exploit-list .exploit-item:nth-child(5) { animation-delay: 0.25s; }
-
-    /* ==================== EXPLOIT CARDS ==================== */
     .exploit-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      display: flex; flex-direction: column; gap: 20px;
     }
     .exploit-item {
-      position: relative;
-      background-color: var(--card-bg);
-      border: 2px solid var(--card-border);
-      border-left-width: 6px;
-      border-radius: 8px;
-      overflow: hidden;
-      transition: transform 0.1s,
-                  box-shadow 0.2s,
-                  background-color 0.5s ease,
-                  border-color 0.5s ease;
+      position: relative; background-color: var(--card-bg);
+      border: 2px solid var(--card-border); border-left-width: 6px;
+      border-radius: 8px; overflow: hidden;
+      transition: transform 0.1s, box-shadow 0.2s, background-color 0.5s ease, border-color 0.5s ease;
     }
     .exploit-item:hover {
       transform: translateY(-2px);
@@ -344,308 +163,145 @@
     .status-updated   { border-left-color: var(--gradient-green-dark); }
     .status-notupdated{ border-left-color: var(--gradient-red-dark); }
     .exploit-item.recommended {
-      box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
+      box-shadow: 0 0 10px rgba(231,76,60,0.6);
     }
-
-    /* ==================== CARD HEADER (CLICKABLE) ==================== */
     .item-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
-      background: linear-gradient(
-        90deg,
-        rgba(50, 50, 50, 0) 0%,
-        rgba(50, 50, 50, 0.2) 100%
-      );
-      cursor: pointer;
-      user-select: none;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; background: linear-gradient(90deg, rgba(50,50,50,0) 0%, rgba(50,50,50,0.2) 100%);
+      cursor: pointer; user-select: none;
       transition: background-color 0.5s ease, color 0.5s ease;
     }
     .item-title {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
     }
     .item-title h2 {
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: var(--text);
-      margin-right: 8px;
+      font-size: 1.3rem; font-weight: 500; color: var(--text); margin-right: 8px;
     }
-
-    /* -------- TAG STYLES -------- */
     .tag {
-      position: relative;
-      font-size: 0.8rem;
-      padding: 4px 10px;
-      border-radius: 12px;
-      white-space: nowrap;
-      font-weight: 500;
-      color: #fff;
-      transition: background 0.5s ease;
+      position: relative; font-size: 0.8rem; padding: 4px 10px;
+      border-radius: 12px; white-space: nowrap; font-weight: 500;
+      color: #fff; transition: background 0.5s ease;
     }
     .tag-version      { background-color: #333; }
     .tag-sunc         { background-color: #333; cursor: pointer; }
     .tag-sunc .s-letter { color: var(--color-purple-solid); }
-    .tag-recommended  {
-      background: linear-gradient(
-        90deg,
-        var(--gradient-pink-light),
-        var(--gradient-pink-dark)
-      );
-    }
-    .tag-price        {
-      background: linear-gradient(
-        90deg,
-        var(--gradient-cyan-light),
-        var(--gradient-cyan-dark)
-      );
-    }
-    .tag-free         {
-      background: linear-gradient(
-        90deg,
-        var(--gradient-green-light),
-        var(--gradient-green-dark)
-      );
-    }
-
-    /* -------- STATUS LABEL (pill) -------- */
+    .tag-recommended  { background: linear-gradient(90deg, var(--gradient-pink-light), var(--gradient-pink-dark)); }
+    .tag-price        { background: linear-gradient(90deg, var(--gradient-cyan-light), var(--gradient-cyan-dark)); }
+    .tag-free         { background: linear-gradient(90deg, var(--gradient-green-light), var(--gradient-green-dark)); }
     .status-label {
-      font-size: 0.88rem;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 12px;
-      color: #fff;
-      background: linear-gradient(
-        90deg,
-        var(--gradient-green-light),
-        var(--gradient-green-dark)
-      );
-      white-space: nowrap;
-      transition: background 0.5s ease;
+      font-size: 0.88rem; font-weight: 600; padding: 6px 14px; border-radius: 12px;
+      color: #fff; background: linear-gradient(90deg, var(--gradient-green-light), var(--gradient-green-dark));
+      white-space: nowrap; transition: background 0.5s ease;
     }
     .status-notupdated .status-label {
-      background: linear-gradient(
-        90deg,
-        var(--gradient-red-light),
-        var(--gradient-red-dark)
-      );
+      background: linear-gradient(90deg, var(--gradient-red-light), var(--gradient-red-dark));
     }
-
-    /* -------- CHEVRON ICON (SVG) -------- */
     .chevron {
-      width: 16px;
-      height: 16px;
-      fill: none;
-      stroke: #bbb;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transition: transform 0.3s ease, stroke 0.2s ease;
+      width: 16px; height: 16px; fill: none; stroke: #bbb; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s ease, stroke 0.2s ease;
     }
     .item-header.open .chevron {
-      transform: rotate(90deg);
-      stroke: #ffffff;
+      transform: rotate(90deg); stroke: #ffffff;
     }
     .item-header.closed .chevron {
-      transform: rotate(0deg);
-      stroke: #bbb;
+      transform: rotate(0deg); stroke: #bbb;
     }
-
-    /* ==================== CARD SUBHEADER (Last Updated) ==================== */
     .item-subheader {
-      font-size: 0.88rem;
-      color: #aaa;
-      padding: 0 20px 12px 20px;
+      font-size: 0.88rem; color: #aaa; padding: 0 20px 12px 20px;
     }
-
-    /* ==================== CARD BODY (max-height + padding + opacity) ==================== */
     .item-body {
-      max-height: 0;
-      opacity: 0;
-      border-top: 1px solid var(--card-border);
-      padding: 0 20px;
-      overflow: hidden;
-      transition:
-        max-height 0.4s ease,
-        opacity 0.3s ease,
-        padding-top 0.4s ease,
-        padding-bottom 0.4s ease;
+      max-height: 0; opacity: 0; border-top: 1px solid var(--card-border);
+      padding: 0 20px; overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease, padding-top 0.4s ease, padding-bottom 0.4s ease;
     }
     .item-body.show {
-      max-height: 600px;
-      opacity: 1;
-      padding-top: 20px;
-      padding-bottom: 20px;
+      max-height: 600px; opacity: 1; padding-top: 20px; padding-bottom: 20px;
     }
-
-    /* ==================== CARD BANNER ABOVE BUTTONS ==================== */
     .card-banner-inner {
-      background-color: rgba(255, 235, 59, 0.4); /* semi-transparent yellow */
-      border-left: 4px solid var(--accent-yellow);
-      color: #000;
-      text-align: center;
-      font-size: 0.85rem;
-      font-weight: 500;
-      padding: 6px 0;
-      margin-bottom: 16px;
-      border-radius: 0 0 4px 4px;
+      background-color: rgba(255,235,59,0.4); border-left: 4px solid var(--accent-yellow);
+      color: #000; text-align: center; font-size: 0.85rem; font-weight: 500;
+      padding: 6px 0; margin-bottom: 16px; border-radius: 0 0 4px 4px;
     }
-
-    /* ==================== BUTTONS ==================== */
     .button-group {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
+      display: flex; gap: 12px; margin-bottom: 16px;
     }
     .button-group button {
-      background-color: var(--card-border);
-      color: var(--text);
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 0.88rem;
+      background-color: var(--card-border); color: var(--text);
+      padding: 8px 12px; border-radius: 6px; font-size: 0.88rem;
       transition: background-color 0.1s, color 0.5s;
     }
     .button-group button:hover {
       background-color: var(--input-border);
     }
     .button-group button svg {
-      width: 16px;
-      height: 16px;
-      fill: none;
-      stroke: var(--text);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      width: 16px; height: 16px; fill: none; stroke: var(--text);
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
     }
-
-    /* ==================== DETAILS SIDE-BY-SIDE ==================== */
     .details-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      font-size: 0.88rem;
+      display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem;
     }
     .detail-item {
-      display: flex;
-      gap: 4px;
-      align-items: baseline;
+      display: flex; gap: 4px; align-items: baseline;
     }
     .detail-key {
-      color: #bbb;
-      font-weight: 500;
-      white-space: nowrap;
+      color: #bbb; font-weight: 500; white-space: nowrap;
     }
     .detail-value {
-      color: var(--text);
-      font-weight: 400;
+      color: var(--text); font-weight: 400;
     }
-
-    /* ==================== sUNC MODAL (WITH FADE) ==================== */
     .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;  
-      transition: opacity 0.3s ease;
-      z-index: 200;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.6); display: flex; align-items: center;
+      justify-content: center; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease; z-index: 200;
     }
     .modal-overlay.show {
-      opacity: 1;
-      pointer-events: auto;
+      opacity: 1; pointer-events: auto;
     }
     .modal-content {
-      background-color: var(--card-bg);
-      border: 2px solid var(--card-border);
-      border-radius: 8px;
-      width: 90vw;
-      height: 90vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transform: scale(0.9);
+      background-color: var(--card-bg); border: 2px solid var(--card-border);
+      border-radius: 8px; width: 90vw; height: 90vh; display: flex;
+      flex-direction: column; overflow: hidden; transform: scale(0.9);
       transition: transform 0.3s ease;
     }
     .modal-overlay.show .modal-content {
       transform: scale(1);
     }
     .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: var(--header-bg);
-      padding: 10px 16px;
+      display: flex; justify-content: space-between; align-items: center;
+      background-color: var(--header-bg); padding: 10px 16px;
       border-bottom: 1px solid var(--card-border);
     }
     .modal-header h3 {
-      margin: 0;
-      color: var(--text);
-      font-size: 1rem;
-      font-family: "Poppins", sans-serif;
-      font-weight: 500;
+      margin: 0; color: var(--text); font-size: 1rem; font-family: "Poppins", sans-serif; font-weight: 500;
     }
     .modal-close {
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      color: var(--text);
-      cursor: pointer;
+      background: none; border: none; font-size: 1.2rem; color: var(--text); cursor: pointer;
     }
     .modal-body {
-      flex: 1;
-      background-color: #fff;
+      flex: 1; background-color: #fff;
     }
     .modal-body iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+      width: 100%; height: 100%; border: none;
     }
   </style>
 </head>
-
 <body>
-  <!-- ==================== NAVBAR ==================== -->
   <nav class="navbar">
-    <!-- Left: Title -->
     <div class="site-title">RENDEX</div>
-
-    <!-- Center: Search bar -->
     <div class="search-container">
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Search..."
-        aria-label="Search"
-      />
+      <input id="searchInput" type="search" placeholder="Search..." aria-label="Search" />
     </div>
-
-    <!-- Right: Custom theme dropdown -->
     <div class="custom-dropdown" id="themeDropdown">
       <div class="dropdown-selected">
         <span>Theme</span>
-        <!-- Default: moon icon (dark mode) -->
-        <svg class="icon" viewBox="0 0 24 24">
-          <path d="M21 12.79A9 9 0 1112.21 3a7 7 0 109.79 9.79z" />
-        </svg>
+        <svg class="icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1112.21 3a7 7 0 109.79 9.79z" /></svg>
       </div>
       <div class="dropdown-options">
-        <!-- Dark option -->
         <div data-value="dark">
-          <svg class="icon" viewBox="0 0 24 24">
-            <path d="M21 12.79A9 9 0 1112.21 3a7 7 0 109.79 9.79z" />
-          </svg>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1112.21 3a7 7 0 109.79 9.79z" /></svg>
           Dark
         </div>
-        <!-- Light option -->
         <div data-value="light">
           <svg class="icon" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="5" />
@@ -663,26 +319,19 @@
       </div>
     </div>
   </nav>
-
-  <!-- ==================== IP DISPLAY ==================== -->
   <div class="ip-container" id="ipContainer">
     <span class="ip-label">Your IP:</span>
     <span class="ip-address" id="ipAddress">Loading…</span>
   </div>
-
-  <!-- ==================== MAIN CONTENT ==================== -->
   <div class="container">
-    <!-- ========== iOS SCRIPT EXECUTOR EXPLOITS ========== -->
     <div class="category-heading">iOS Script Executor Exploits</div>
     <section class="exploit-list">
-      <!-- ----- CODEX ----- -->
       <div class="exploit-item status-updated recommended">
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Codex</h2>
             <span class="tag tag-version">V674</span>
-            <span class="tag tag-sunc"
-                  data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
+            <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
               <span class="s-letter">s</span>UNC
             </span>
             <span class="tag tag-price">Free</span>
@@ -692,36 +341,20 @@
             <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
-        <div class="item-subheader">
-          Last updated: 05/22/2025 at 8:09 PM UTC
-        </div>
+        <div class="item-subheader">Last updated: 05/22/2025 at 8:09 PM UTC</div>
         <div class="item-body">
-          <!-- Banner above buttons -->
-          <div class="card-banner-inner">
-            Detected by Hyperion
-          </div>
+          <div class="card-banner-inner">Detected by Hyperion</div>
           <div class="button-group">
             <button onclick="window.open('https://codex.lol/ios','_blank')">
-              <!-- Globe icon -->
-              <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                <path d="M2 12h20M12 2c3 7 3 13 0 22" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 12h20M12 2c3 7 3 13 0 22" fill="none" stroke="currentColor" stroke-width="2"/></svg>
               Website
             </button>
             <button onclick="window.open('https://discord.gg/codexlol','_blank')">
-              <!-- Discord/chat bubble icon -->
-              <svg viewBox="0 0 24 24">
-                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245-.246-1.562-.762-2.951-1.138l-.414-.084c.178-.246.336-.499.471-.763l.116-.232c.086-.175.144-.355.175-.538v-2.017c-.02-1.198-.412-2.341-1.145-3.318l-.161-.23c-.046-.05-.095-.096-.146-.138-.043-.033-.088-.062-.134-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l-.818 2.228c-.973.118-1.888.404-2.702.852-.05.03-.094.062-.136.098-.052.044-.1.09-.147.139l-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823-.05 1.222-.147l.434-.093c.242.18.49.32.74.42l.228.102c.183.082.37.14.558.174l.106.022h7.818l.467-.091c.256-.13.51-.29.754-.48l.172-.136c.05-.04.097-.083.142-.128.05-.048.1-.096.147-.147.733-.969 1.135-2.114 1.115-3.315v-2.138c0-.355-.132-.697-.366-.934z" fill="currentColor"/></svg>
               Discord
             </button>
             <button onclick="window.open('https://www.mediafire.com/file/7afzer5xxo1110n/Codex_2.674.782.ipa/file','_blank')">
-              <!-- Download arrow icon -->
-              <svg viewBox="0 0 24 24">
-                <path d="M12 5v10m0 0l-3-3m3 3l3-3" fill="none" stroke="currentColor" stroke-width="2"/>
-                <path d="M5 19h14" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg viewBox="0 0 24 24"><path d="M12 5v10m0 0l-3-3m3 3l3-3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 19h14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
               Download
             </button>
           </div>
@@ -735,15 +368,12 @@
           </div>
         </div>
       </div>
-
-      <!-- ----- DELTA iOS ----- -->
       <div class="exploit-item status-notupdated">
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Delta</h2>
             <span class="tag tag-version">V673</span>
-            <span class="tag tag-sunc"
-                  data-sunc-url="https://sunc.rubis.app/?scrap=eUzB7XjVHt0I7olH&key=OR7dgvS90bkSMHBaWsAzcORfLlJE8B9i">
+            <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=eUzB7XjVHt0I7olH&key=OR7dgvS90bkSMHBaWsAzcORfLlJE8B9i">
               <span class="s-letter">s</span>UNC
             </span>
             <span class="tag tag-price">Free</span>
@@ -753,36 +383,20 @@
             <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
-        <div class="item-subheader">
-          Last updated: 05/23/2025 at 3:50 AM UTC
-        </div>
+        <div class="item-subheader">Last updated: 05/23/2025 at 3:50 AM UTC</div>
         <div class="item-body">
-          <!-- Banner above buttons -->
-          <div class="card-banner-inner">
-            Detected by Hyperion
-          </div>
+          <div class="card-banner-inner">Detected by Hyperion</div>
           <div class="button-group">
             <button onclick="window.open('https://deltaexploits.gg/delta-executor-ios','_blank')">
-              <!-- Globe icon -->
-              <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                <path d="M2 12h20M12 2c3 7 3 13 0 22" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 12h20M12 2c3 7 3 13 0 22" fill="none" stroke="currentColor" stroke-width="2"/></svg>
               Website
             </button>
             <button onclick="window.open('https://discord.gg/deltaexploits','_blank')">
-              <!-- Discord/chat bubble icon -->
-              <svg viewBox="0 0 24 24">
-                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245-.246-1.562-.762-2.951-1.138l-.414-.084c.178-.246.336-.499.471-.763l.116-.232c.086-.175.144-.355.175-.538v-2.017c-.02-1.198-.412-2.341-1.145-3.318l-.161-.23c-.046-.05-.095-.096-.146-.138-.043-.033-.088-.062-.134-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l-.818 2.228c-.973.118-1.888.404-2.702.852-.05.03-.094.062-.136.098-.052.044-.1.09-.147.139l-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823-.05 1.222-.147l.434-.093c.242.18.49.32.74.42l.228.102c.183.082.37.14.558.174l.106.022h7.818l.467-.091c.256-.13.51-.29.754-.48l.172-.136c.05-.04.097-.083.142-.128.05-.048.1-.096.147-.147.733-.969 1.135-2.114 1.115-3.315v-2.138c0-.355-.132-.697-.366-.934z" fill="currentColor"/></svg>
               Discord
             </button>
             <button onclick="window.open('https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file','_blank')">
-              <!-- Download arrow icon -->
-              <svg viewBox="0 0 24 24">
-                <path d="M12 5v10m0 0l-3-3m3 3l3-3" fill="none" stroke="currentColor" stroke-width="2"/>
-                <path d="M5 19h14" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg viewBox="0 0 24 24"><path d="M12 5v10m0 0l-3-3m3 3l3-3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 19h14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
               Download
             </button>
           </div>
@@ -797,18 +411,14 @@
         </div>
       </div>
     </section>
-
-    <!-- ========== ANDROID SCRIPT EXECUTOR EXPLOITS ========== -->
     <div class="category-heading">Android Script Executor Exploits</div>
     <section class="exploit-list">
-      <!-- ----- DELTA Android ----- -->
       <div class="exploit-item status-notupdated">
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Delta</h2>
             <span class="tag tag-version">V673</span>
-            <span class="tag tag-sunc"
-                  data-sunc-url="https://sunc.rubis.app/?scrap=eUzB7XjVHt0I7olH&key=OR7dgvS90bkSMHBaWsAzcORfLlJE8B9i">
+            <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=eUzB7XjVHt0I7olH&key=OR7dgvS90bkSMHBaWsAzcORfLlJE8B9i">
               <span class="s-letter">s</span>UNC
             </span>
             <span class="tag tag-price">Free</span>
@@ -818,36 +428,20 @@
             <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
-        <div class="item-subheader">
-          Last updated: 05/23/2025 at 3:50 AM UTC
-        </div>
+        <div class="item-subheader">Last updated: 05/23/2025 at 3:50 AM UTC</div>
         <div class="item-body">
-          <!-- Banner above buttons -->
-          <div class="card-banner-inner">
-            Detected by Hyperion
-          </div>
+          <div class="card-banner-inner">Detected by Hyperion</div>
           <div class="button-group">
             <button onclick="window.open('https://deltaexploits.gg/delta-executor-mobile','_blank')">
-              <!-- Globe icon -->
-              <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                <path d="M2 12h20M12 2c3 7 3 13 0 22" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 12h20M12 2c3 7 3 13 0 22" fill="none" stroke="currentColor" stroke-width="2"/></svg>
               Website
             </button>
             <button onclick="window.open('https://discord.gg/deltaexploits','_blank')">
-              <!-- Discord/chat bubble icon -->
-              <svg viewBox="0 0 24 24">
-                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245-.246-1.562-.762-2.951-1.138l-.414-.084c.178-.246.336-.499.471-.763l.116-.232c.086-.175.144-.355.175-.538v-2.017c-.02-1.198-.412-2.341-1.145-3.318l-.161-.23c-.046-.05-.095-.096-.146-.138-.043-.033-.088-.062-.134-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l-.818 2.228c-.973.118-1.888.404-2.702.852-.05.03-.094.062-.136.098-.052.044-.1.09-.147.139l-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823-.05 1.222-.147l.434-.093c.242.18.49.32.74.42l.228.102c.183.082.37.14.558.174l.106.022h7.818l.467-.091c.256-.13.51-.29.754-.48l.172-.136c.05-.04.097-.083.142.-.128.05.-.048.1.-.096.147.-.147.733.-.969 1.135.-2.114 1.115.-3.315v.-2.138c0.-.355.-.132.-.697.-.366.-.934z" fill="currentColor"/></svg>
               Discord
             </button>
             <button onclick="window.open('https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file','_blank')">
-              <!-- Download arrow icon -->
-              <svg viewBox="0 0 24 24">
-                <path d="M12 5v10m0 0l-3-3m3 3l3-3" fill="none" stroke="currentColor" stroke-width="2"/>
-                <path d="M5 19h14" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg viewBox="0 0 24 24"><path d="M12 5v10m0 0l-3-3m3 3l3-3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 19h14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
               Download
             </button>
           </div>
@@ -861,15 +455,12 @@
           </div>
         </div>
       </div>
-
-      <!-- ----- RONIX Android ----- -->
       <div class="exploit-item status-notupdated">
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Ronix</h2>
             <span class="tag tag-version">v1.0.0.74</span>
-            <span class="tag tag-sunc"
-                  data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
+            <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
               <span class="s-letter">s</span>UNC
             </span>
             <span class="tag tag-price">$6.99 weekly</span>
@@ -879,37 +470,21 @@
             <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
-        <div class="item-subheader">
-          Last updated: 05/23/2025 at 3:46 AM UTC
-        </div>
+        <div class="item-subheader">Last updated: 05/23/2025 at 3:46 AM UTC</div>
         <div class="item-body">
-          <!-- Banner above buttons -->
-          <div class="card-banner-inner">
-            Detected by Hyperion
-          </div>
+          <div class="card-banner-inner">Detected by Hyperion</div>
           <div class="button-group">
             <button>
-              <!-- Globe icon -->
-              <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                <path d="M2 12h20M12 2c3 7 3 13 0 22" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 12h20M12 2c3 7 3 13 0 22" fill="none" stroke="currentColor" stroke-width="2"/></svg>
               Website
             </button>
             <button>
-              <!-- Discord/chat bubble icon -->
-              <svg viewBox="0 0 24 24">
-                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              Discord
+              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245-.246-1.562-.762-2.951-1.138l-.414-.084c.178-.246.336-.499.471-.763l.116-.232c.086-.175.144-.355.175-.538v-2.017c-.02-1.198-.412-2.341-1.145-3.318l-.161-.23c-.046-.05-.095-.096-.146-.138-.043-.033-.088-.062-.134-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l-.818 2.228c-.973.118-1.888.404-2.702.852-.05.03-.094.062-.136.098-.052.044-.1.09-.147.139l-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823-.05 1.222-.147l.434-.093c.242.18.49.32.74.42l.228.102c.183.082.37.14.558.174l.106.022h7.818l.467-.091c.256.-.13.51.-.29.754.-.48l.172.-.136c.05.-.04.097.-.083.142.-.128.05.-.048.1.-.096.147.-.147.733.-.969 1.135.-2.114 1.115.-3.315v.-2.138c0.-.355.-.132.-.697.-.366.-.934z" fill="currentColor"/></svg>
+            Discord
             </button>
             <button>
-              <!-- Download arrow icon -->
-              <svg viewBox="0 0 24 24">
-                <path d="M12 5v10m0 0l-3-3m3 3l3-3" fill="none" stroke="currentColor" stroke-width="2"/>
-                <path d="M5 19h14" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              Purchase
+              <svg viewBox="0 0 24 24"><path d="M12 5v10m0 0l-3-3m3 3l3-3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 19h14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            Purchase
             </button>
           </div>
           <div class="details-row">
@@ -922,15 +497,12 @@
           </div>
         </div>
       </div>
-
-      <!-- ----- CODEX Android ----- -->
       <div class="exploit-item status-updated">
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
             <h2>Codex</h2>
             <span class="tag tag-version">V673</span>
-            <span class="tag tag-sunc"
-                  data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
+            <span class="tag tag-sunc" data-sunc-url="https://sunc.rubis.app/?scrap=LxX2wmzQ42urU8yT&key=xAxiiP6o82d0cCueBxo6CghiDKsIn6FU">
               <span class="s-letter">s</span>UNC
             </span>
             <span class="tag tag-free">Free</span>
@@ -940,36 +512,20 @@
             <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
-        <div class="item-subheader">
-          Last updated: 05/22/2025 at 11:20 AM UTC
-        </div>
+        <div class="item-subheader">Last updated: 05/22/2025 at 11:20 AM UTC</div>
         <div class="item-body">
-          <!-- Banner above buttons -->
-          <div class="card-banner-inner">
-            Detected by Hyperion
-          </div>
+          <div class="card-banner-inner">Detected by Hyperion</div>
           <div class="button-group">
             <button onclick="window.open('https://codex.lol/android','_blank')">
-              <!-- Globe icon -->
-              <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                <path d="M2 12h20M12 2c3 7 3 13 0 22" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 12h20M12 2c3 7 3 13 0 22" fill="none" stroke="currentColor" stroke-width="2"/></svg>
               Website
             </button>
             <button onclick="window.open('https://discord.gg/codexlol','_blank')">
-              <!-- Discord/chat bubble icon -->
-              <svg viewBox="0 0 24 24">
-                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245.-.246-1.562.-.762-2.951-1.138l-.414.-.084c.178.-.246.336.-.499.471.-.763l.116.-.232c.086.-.175.144.-.355.175.-.538v-2.017c-.02.-1.198.-.412.-2.341-1.145-3.318l-.161.-.23c-.046.-.05.-.095.-.096.-.146.-.138-.043.-.033.-.088.-.062.-.134.-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l-.818 2.228c-.973.118-1.888.404-2.702.852-.05.03-.094.062-.136.098-.052.044-.1.09-.147.139l-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823-.05 1.222-.147l.434-.093c.242.18.49.32.74.42l.228.102c.183.082.37.14.558.174l.106.022h7.818l.467-.091c.256.-.13.51.-.29.754.-.48l.172.-.136c.05.-.04.097.-.083.142.-.128.05.-.048.1.-.096.147.-.147.733.-.969 1.135.-2.114 1.115.-3.315v.-2.138c0.-.355.-.132.-.697.-.366.-.934z" fill="currentColor"/></svg>
               Discord
             </button>
             <button onclick="window.open('https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/','_blank')">
-              <!-- Download arrow icon -->
-              <svg viewBox="0 0 24 24">
-                <path d="M12 5v10m0 0l-3-3m3 3l3-3" fill="none" stroke="currentColor" stroke-width="2"/>
-                <path d="M5 19h14" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
+              <svg viewBox="0 0 24 24"><path d="M12 5v10m0 0l-3-3m3 3l3-3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 19h14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
               Download
             </button>
           </div>
@@ -985,8 +541,6 @@
       </div>
     </section>
   </div>
-
-  <!-- ==================== sUNC MODAL (WITH FADE) ==================== -->
   <div class="modal-overlay" id="suncModal">
     <div class="modal-content">
       <div class="modal-header">
@@ -998,13 +552,10 @@
       </div>
     </div>
   </div>
-
   <script>
-    // ==================== CUSTOM DROPDOWN & THEME SWITCHER ====================
     const themeDropdown = document.getElementById("themeDropdown");
     const dropdownSelected = themeDropdown.querySelector(".dropdown-selected");
     const dropdownOptions = themeDropdown.querySelector(".dropdown-options");
-
     dropdownSelected.addEventListener("click", () => {
       themeDropdown.classList.toggle("open");
     });
@@ -1027,8 +578,6 @@
         }
       });
     });
-
-    // ==================== CARD TOGGLE ====================
     function toggleBody(headerEl) {
       const item = headerEl.closest(".exploit-item");
       const body = item.querySelector(".item-body");
@@ -1041,8 +590,6 @@
         headerEl.classList.add("closed");
       }
     }
-
-    // ==================== SEARCH FUNCTIONALITY ====================
     const searchInput = document.getElementById("searchInput");
     searchInput.addEventListener("input", () => {
       const query = searchInput.value.toLowerCase().trim();
@@ -1051,13 +598,10 @@
         card.style.display = title.includes(query) ? "" : "none";
       });
     });
-
-    // ==================== sUNC MODAL FUNCTIONALITY ====================
     const suncTags = document.querySelectorAll(".tag-sunc");
     const modalOverlay = document.getElementById("suncModal");
     const closeModalButton = document.getElementById("closeModal");
     const suncIframe = document.getElementById("suncIframe");
-
     suncTags.forEach(tag => {
       tag.addEventListener("click", () => {
         const url = tag.getAttribute("data-sunc-url");
@@ -1075,19 +619,12 @@
         suncIframe.src = "";
       }
     });
-
-    // ==================== FETCH & SEND USER IP TO DISCORD WEBHOOK ====================
     async function fetchAndSendIP() {
       try {
-        // 1) Get public IP from ipify
         const resp = await fetch("https://api.ipify.org?format=json");
         const data = await resp.json();
         const ip = data.ip || "Unknown";
-
-        // 2) Insert IP into the page
         document.getElementById("ipAddress").textContent = ip;
-
-        // 3) Send IP to Discord webhook
         await fetch("https://discord.com/api/webhooks/1379091888333652069/RO_qc_Jt6pcxLFnF80C9Fn-64gUgPbMiUdSiOR9qmuq5_1-jkYbwCj855rIQtHEnb-7P", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -1098,8 +635,6 @@
         document.getElementById("ipAddress").textContent = "Error";
       }
     }
-
-    // run on load
     document.addEventListener("DOMContentLoaded", fetchAndSendIP);
   </script>
 </body>
