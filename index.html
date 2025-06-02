@@ -53,6 +53,11 @@
       --gradient-green-dark:  #00CC00;
       --gradient-red-light:   #FF0000;
       --gradient-red-dark:    #CC0000;
+      --search-bg-light:      #ffffff;
+      --search-border-light:  #ddd;
+      --search-text-light:    #333333;
+      --search-placeholder-light: #888888;
+      --search-focus-border:  #7b7bff;
     }
     body.light-theme {
       --bg:                   #ffffff;
@@ -78,6 +83,19 @@
       --gradient-red-dark:    #F44336;
       --accent-yellow-light:  #FFFDE7;
       --accent-yellow:        #FFEB3B;
+
+      /* Search‑bar overrides for light mode */
+      --search-bg:            var(--search-bg-light);
+      --search-border:        var(--search-border-light);
+      --search-text:          var(--search-text-light);
+      --search-placeholder:   var(--search-placeholder-light);
+    }
+    body:not(.light-theme) {
+      /* Dark‑mode search‑bar colors */
+      --search-bg:            var(--input-bg);
+      --search-border:        var(--input-border);
+      --search-text:          var(--input-text);
+      --search-placeholder:   var(--input-text);
     }
 
     /* ==================== GLOBAL TRANSITIONS ==================== */
@@ -135,21 +153,28 @@
     }
     .navbar .search-container input[type="search"] {
       width: 100%;
-      max-width: 400px;
-      padding: 6px 12px;
-      border: 1px solid var(--input-border);
-      border-radius: 4px;
-      background-color: var(--input-bg);
-      color: var(--input-text);
-      font-size: 0.9rem;
-      transition: background-color 0.5s ease,
-                  color 0.5s ease,
-                  border-color 0.5s ease;
+      max-width: 450px;
+      padding: 10px 16px 10px 40px;
+      border: 1px solid var(--search-border);
+      border-radius: 25px;
+      background-color: var(--search-bg);
+      color: var(--search-text);
+      font-size: 1rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23888' %3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' /%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 12px center;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .navbar .search-container input[type="search"]::placeholder {
-      color: var(--input-text);
-      opacity: 0.7;
+      color: var(--search-placeholder);
+      opacity: 1;
     }
+    .navbar .search-container input[type="search"]:focus {
+      outline: none;
+      border-color: var(--search-focus-border);
+      box-shadow: 0 0 0 2px rgba(123, 123, 255, 0.2);
+    }
+
     .navbar .custom-dropdown {
       position: relative;
       user-select: none;
@@ -273,7 +298,7 @@
       padding-bottom: 8px;
     }
 
-    /* ==================== CARDS POP-IN ANIMATION ==================== */
+    /* ==================== CARDS POP‑IN ANIMATION ==================== */
     @keyframes cardFadeIn {
       from {
         opacity: 0;
@@ -584,12 +609,12 @@
     <!-- Left: Title -->
     <div class="site-title">RENDEX</div>
 
-    <!-- Center: Search bar -->
+    <!-- Center: Search bar (styled like docs.weao.xyz) -->
     <div class="search-container">
       <input
         id="searchInput"
         type="search"
-        placeholder="Search..."
+        placeholder="Search documentation…"
         aria-label="Search"
       />
     </div>
@@ -655,9 +680,7 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -698,9 +721,7 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -745,9 +766,7 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -788,9 +807,7 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -831,9 +848,7 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
           </div>
         </div>
         <div class="item-subheader">
