@@ -53,10 +53,12 @@
       --gradient-green-dark:  #00CC00;
       --gradient-red-light:   #FF0000;
       --gradient-red-dark:    #CC0000;
-      --search-bg-light:      #ffffff;
-      --search-border-light:  #ddd;
-      --search-text-light:    #333333;
-      --search-placeholder-light: #888888;
+
+      /* Search‑bar colors, dark mode */
+      --search-bg:            #2a2a2a;
+      --search-border:        transparent;
+      --search-text:          #ffffff;
+      --search-placeholder:   #cccccc;
       --search-focus-border:  #7b7bff;
     }
     body.light-theme {
@@ -84,18 +86,12 @@
       --accent-yellow-light:  #FFFDE7;
       --accent-yellow:        #FFEB3B;
 
-      /* Search‑bar overrides for light mode */
-      --search-bg:            var(--search-bg-light);
-      --search-border:        var(--search-border-light);
-      --search-text:          var(--search-text-light);
-      --search-placeholder:   var(--search-placeholder-light);
-    }
-    body:not(.light-theme) {
-      /* Dark‑mode search‑bar colors */
-      --search-bg:            var(--input-bg);
-      --search-border:        var(--input-border);
-      --search-text:          var(--input-text);
-      --search-placeholder:   var(--input-text);
+      /* Search‑bar colors, light mode */
+      --search-bg:            #ffffff;
+      --search-border:        #ddd;
+      --search-text:          #333333;
+      --search-placeholder:   #888888;
+      --search-focus-border:  #7b7bff;
     }
 
     /* ==================== GLOBAL TRANSITIONS ==================== */
@@ -146,118 +142,51 @@
       font-weight: 600;
       white-space: nowrap;
     }
-    .navbar .search-container {
+
+    /* ==================== SEARCH BAR (WEAO.XYZ STYLE) ==================== */
+    .search-container {
       flex: 1;
       display: flex;
       justify-content: center;
     }
-    .navbar .search-container input[type="search"] {
+    .search-box {
+      position: relative;
       width: 100%;
-      max-width: 450px;
-      padding: 10px 16px 10px 40px;
-      border: 1px solid var(--search-border);
-      border-radius: 25px;
+      max-width: 600px;
+    }
+    .search-box input[type="search"] {
+      width: 100%;
+      padding: 12px 16px 12px 44px;
       background-color: var(--search-bg);
+      border: 1px solid var(--search-border);
+      border-radius: 8px;
       color: var(--search-text);
       font-size: 1rem;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23888' %3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' /%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: 12px center;
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      caret-color: var(--search-text);
     }
-    .navbar .search-container input[type="search"]::placeholder {
+    .search-box input[type="search"]::placeholder {
       color: var(--search-placeholder);
       opacity: 1;
     }
-    .navbar .search-container input[type="search"]:focus {
+    .search-box input[type="search"]:focus {
       outline: none;
       border-color: var(--search-focus-border);
       box-shadow: 0 0 0 2px rgba(123, 123, 255, 0.2);
     }
-
-    .navbar .custom-dropdown {
-      position: relative;
-      user-select: none;
-    }
-    .navbar .dropdown-selected {
-      background-color: var(--dropdown-bg);
-      color: var(--dropdown-text);
-      border: 1px solid var(--input-border);
-      padding: 6px 10px;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      min-width: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      cursor: pointer;
-      transition: background-color 0.5s ease,
-                  color 0.5s ease,
-                  border-color 0.5s ease;
-    }
-    .navbar .dropdown-selected svg.icon {
-      width: 16px;
-      height: 16px;
-      fill: none;
-      stroke: var(--dropdown-text);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      vertical-align: middle;
-    }
-    .navbar .dropdown-selected::after {
-      content: "▾";
-      font-size: 0.7rem;
-      transition: transform 0.2s ease;
-    }
-    .navbar .custom-dropdown.open .dropdown-selected::after {
-      transform: rotate(180deg);
-    }
-    /* Dropdown animation */
-    .navbar .dropdown-options {
+    .search-box .search-icon {
       position: absolute;
-      top: calc(100% + 4px);
-      right: 0;
-      background-color: var(--dropdown-bg);
-      border: 1px solid var(--input-border);
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      opacity: 0;
-      transform: scaleY(0);
-      transform-origin: top;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 100;
-    }
-    .navbar .custom-dropdown.open .dropdown-options {
-      opacity: 1;
-      transform: scaleY(1);
-      display: block;
-    }
-    .navbar .dropdown-options div {
-      padding: 8px 12px;
-      font-size: 0.9rem;
-      color: var(--dropdown-text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: background-color 0.2s ease,
-                  color 0.5s ease;
-    }
-    .navbar .dropdown-options div:hover {
-      background-color: var(--dropdown-hover);
-    }
-    .navbar .dropdown-options svg.icon {
-      width: 16px;
-      height: 16px;
-      fill: none;
-      stroke: var(--dropdown-text);
+      top: 50%;
+      left: 16px;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      fill: transparent;
+      stroke: var(--search-placeholder);
       stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
-      vertical-align: middle;
+      pointer-events: none;
     }
 
     /* ==================== IP DISPLAY BOX ==================== */
@@ -314,11 +243,11 @@
       transform: translateY(10px);
       animation: cardFadeIn 0.5s forwards ease-out;
     }
-    .exploit-item:nth-child(1) { animation-delay: 0.05s; }
-    .exploit-item:nth-child(2) { animation-delay: 0.10s; }
-    .exploit-item:nth-child(3) { animation-delay: 0.15s; }
-    .exploit-item:nth-child(4) { animation-delay: 0.20s; }
-    .exploit-item:nth-child(5) { animation-delay: 0.25s; }
+    .exploit-list .exploit-item:nth-child(1) { animation-delay: 0.05s; }
+    .exploit-list .exploit-item:nth-child(2) { animation-delay: 0.10s; }
+    .exploit-list .exploit-item:nth-child(3) { animation-delay: 0.15s; }
+    .exploit-list .exploit-item:nth-child(4) { animation-delay: 0.20s; }
+    .exploit-list .exploit-item:nth-child(5) { animation-delay: 0.25s; }
 
     /* ==================== EXPLOIT CARDS ==================== */
     .exploit-list {
@@ -609,14 +538,21 @@
     <!-- Left: Title -->
     <div class="site-title">RENDEX</div>
 
-    <!-- Center: Search bar (styled like docs.weao.xyz) -->
+    <!-- Center: Search bar (WEAO.xyz style) -->
     <div class="search-container">
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Search documentation…"
-        aria-label="Search"
-      />
+      <div class="search-box">
+        <!-- Magnifying glass icon -->
+        <svg class="search-icon" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="7" />
+          <line x1="16.65" y1="16.65" x2="21" y2="21" />
+        </svg>
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search content…"
+          aria-label="Search"
+        />
+      </div>
     </div>
 
     <!-- Right: Custom theme dropdown -->
@@ -680,7 +616,9 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -721,7 +659,9 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -766,7 +706,9 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -807,7 +749,9 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Not Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
@@ -848,7 +792,9 @@
           </div>
           <div style="display: flex; align-items: center;">
             <span class="status-label">Updated</span>
-            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+            <svg class="chevron" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
           </div>
         </div>
         <div class="item-subheader">
