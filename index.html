@@ -14,37 +14,84 @@
       transition: background-color 0.5s ease, color 0.5s ease;
     }
     h1, h2, h3, h4, h5, h6 { font-family: "Poppins", sans-serif; }
+
     :root {
-      --bg: #121212; --text: #ffffff; --card-bg: #1e1e1e; --card-border: #2e2e2e;
-      --header-bg: #121212; --input-bg: #2e2e2e; --input-text: #ffffff; --input-border: #444;
-      --dropdown-bg: #2e2e2e; --dropdown-hover: #333; --dropdown-text: #ffffff;
-      --accent-yellow-light: #FFF9C4; --accent-yellow: #FFEB3B; --color-purple-solid: #D39FFC;
-      --gradient-cyan-light: #00FFFF; --gradient-cyan-dark: #00CFFF;
-      --gradient-pink-light: #FF0080; --gradient-pink-dark: #FF66A3;
-      --gradient-green-light: #00FF00; --gradient-green-dark: #00CC00;
-      --gradient-red-light: #FF0000; --gradient-red-dark: #CC0000;
-      --search-bg: #2a2a2a; --search-border: transparent; --search-text: #ffffff;
-      --search-placeholder: #aaaaaa; --search-focus-border: #7b7bff;
+      /* DARK THEME (default) */
+      --bg: #121212;
+      --text: #ffffff;
+      --card-bg: #1e1e1e;
+      --card-border: #2e2e2e;
+      --header-bg: #121212;
+      --input-bg: #2e2e2e;
+      --input-text: #ffffff;
+      --input-border: #444;
+      --dropdown-bg: #2d2d2d;
+      --dropdown-hover: #404040;
+      --dropdown-text: #ffffff;
+      --accent-yellow-light: #FFF9C4;
+      --accent-yellow: #FFEB3B;
+      --color-purple-solid: #D39FFC;
+      --gradient-cyan-light: #00FFFF;
+      --gradient-cyan-dark: #00CFFF;
+      --gradient-pink-light: #FF0080;
+      --gradient-pink-dark: #FF66A3;
+      --gradient-green-light: #00FF00;
+      --gradient-green-dark: #00CC00;
+      --gradient-red-light: #FF0000;
+      --gradient-red-dark: #CC0000;
+      --search-bg: #2d2d2d;
+      --search-border: transparent;
+      --search-text: #ffffff;
+      --search-placeholder: #aaaaaa;
+      --search-focus-border: #7b7bff;
     }
     body.light-theme {
-      --bg: #ffffff; --text: #000000; --card-bg: #f9f9f9; --card-border: #cccccc;
-      --header-bg: #f2f2f2; --input-bg: #ffffff; --input-text: #000000; --input-border: #bbb;
-      --dropdown-bg: #ffffff; --dropdown-hover: #eee; --dropdown-text: #000000;
-      --gradient-cyan-light: #00E5FF; --gradient-cyan-dark: #00BCD4;
-      --gradient-pink-light: #FF3366; --gradient-pink-dark: #FF6699;
-      --gradient-green-light: #66BB6A; --gradient-green-dark: #43A047;
-      --gradient-red-light: #E57373; --gradient-red-dark: #F44336;
-      --accent-yellow-light: #FFFDE7; --accent-yellow: #FFEB3B;
-      --search-bg: #ffffff; --search-border: #ddd; --search-text: #333333;
-      --search-placeholder: #888888; --search-focus-border: #7b7bff;
+      --bg: #ffffff;
+      --text: #000000;
+      --card-bg: #f9f9f9;
+      --card-border: #cccccc;
+      --header-bg: #f2f2f2;
+      --input-bg: #ffffff;
+      --input-text: #000000;
+      --input-border: #bbb;
+      --dropdown-bg: #ffffff;
+      --dropdown-hover: #eee;
+      --dropdown-text: #000000;
+      --gradient-cyan-light: #00E5FF;
+      --gradient-cyan-dark: #00BCD4;
+      --gradient-pink-light: #FF3366;
+      --gradient-pink-dark: #FF6699;
+      --gradient-green-light: #66BB6A;
+      --gradient-green-dark: #43A047;
+      --gradient-red-light: #E57373;
+      --gradient-red-dark: #F44336;
+      --accent-yellow-light: #FFFDE7;
+      --accent-yellow: #FFEB3B;
+      --search-bg: #f2f2f2;
+      --search-border: #ddd;
+      --search-text: #333333;
+      --search-placeholder: #888888;
+      --search-focus-border: #7b7bff;
     }
+
     .navbar, .item-header, .item-body, .exploit-item {
       transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
     a { text-decoration: none; color: inherit; }
-    button { cursor: pointer; border: none; background: none; font: inherit; display: flex; align-items: center; gap: 6px; }
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font: inherit;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* NAVBAR */
     .navbar {
       background-color: var(--header-bg);
       padding: 12px 16px;
@@ -55,92 +102,147 @@
       gap: 16px;
     }
     .navbar .site-title {
-      font-size: 1.5rem; letter-spacing: 2px; color: #7b7bff; font-weight: 600; white-space: nowrap;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      color: #7b7bff;
+      font-weight: 600;
+      white-space: nowrap;
     }
+
+    /* SEARCH BAR (pill-shaped) */
     .navbar .search-container {
-      flex: 1; display: flex; justify-content: center;
+      flex: 1;
+      display: flex;
+      justify-content: center;
     }
     .navbar .search-container input[type="search"] {
-      width: 100%; max-width: 200px; padding: 6px 12px; height: 36px;
-      border: 1px solid var(--search-border); border-radius: 999px;
-      background-color: var(--search-bg); color: var(--search-text); font-size: 0.9rem;
+      width: 100%;
+      max-width: 200px;
+      padding: 8px 16px;
+      height: 40px;
+      border: 1px solid var(--search-border);
+      border-radius: 999px;
+      background-color: var(--search-bg);
+      color: var(--search-text);
+      font-size: 0.95rem;
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .navbar .search-container input[type="search"]::placeholder {
-      color: var(--search-placeholder); opacity: 1;
+      color: var(--search-placeholder);
+      opacity: 1;
     }
     .navbar .search-container input[type="search"]:focus {
-      outline: none; border-color: var(--search-focus-border);
+      outline: none;
+      border-color: var(--search-focus-border);
       box-shadow: 0 0 0 2px rgba(123,123,255,0.2);
     }
+
+    /* THEME DROPDOWN */
     .navbar .custom-dropdown {
-      position: relative; user-select: none;
+      position: relative;
+      user-select: none;
     }
     .navbar .dropdown-selected {
-      background-color: var(--dropdown-bg); color: var(--dropdown-text);
-      border: 1px solid var(--input-border); padding: 6px 12px; height: 36px;
-      border-radius: 999px; font-size: 0.9rem; min-width: 200px;
-      display: flex; align-items: center; justify-content: space-between; gap: 6px;
-      cursor: pointer; transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+      background-color: var(--dropdown-bg);
+      color: var(--dropdown-text);
+      border: 1px solid var(--input-border);
+      padding: 8px 16px;
+      height: 40px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
     }
     .navbar .dropdown-selected svg.icon {
-      width: 16px; height: 16px; fill: none; stroke: var(--dropdown-text);
-      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: middle;
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--dropdown-text);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: middle;
     }
     .navbar .dropdown-selected::after {
-      content: "▾"; font-size: 0.7rem; transition: transform 0.2s ease;
+      content: "▾";
+      font-size: 0.75rem;
+      transition: transform 0.2s ease;
     }
     .navbar .custom-dropdown.open .dropdown-selected::after {
       transform: rotate(180deg);
     }
     .navbar .dropdown-options {
-      position: absolute; top: calc(100% + 4px); right: 0;
-      background-color: var(--dropdown-bg); border: 1px solid var(--input-border);
-      border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      opacity: 0; transform: scaleY(0); transform-origin: top;
-      transition: opacity 0.3s ease, transform 0.3s ease; z-index: 100;
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      background-color: var(--dropdown-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      opacity: 0;
+      transform: scaleY(0);
+      transform-origin: top center;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 100;
     }
     .navbar .custom-dropdown.open .dropdown-options {
-      opacity: 1; transform: scaleY(1); display: block;
+      opacity: 1;
+      transform: scaleY(1);
+      display: block;
     }
     .navbar .dropdown-options div {
-      padding: 8px 12px; font-size: 0.9rem; color: var(--dropdown-text);
-      cursor: pointer; display: flex; align-items: center; gap: 6px;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      color: var(--dropdown-text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       transition: background-color 0.2s ease, color 0.5s ease;
     }
     .navbar .dropdown-options div:hover {
       background-color: var(--dropdown-hover);
     }
     .navbar .dropdown-options svg.icon {
-      width: 16px; height: 16px; fill: none; stroke: var(--dropdown-text);
-      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: middle;
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--dropdown-text);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: middle;
     }
-    .ip-container {
-      text-align: center; margin: 24px auto; padding: 12px;
-      background-color: var(--card-bg); border: 1px solid var(--card-border);
-      border-radius: 6px; width: 240px; font-size: 0.95rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
-    .ip-container span.ip-label {
-      font-weight: 500; margin-right: 6px;
-    }
-    .ip-container span.ip-address {
-      font-family: monospace; color: var(--gradient-cyan-light);
-    }
+
+    /* MAIN CONTAINER */
     .container {
-      max-width: 960px; margin: 0 auto; padding: 24px 16px;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 16px;
     }
     .category-heading {
-      margin: 32px 0 16px; font-size: 1.4rem; font-weight: 600;
-      color: var(--text); border-bottom: 2px solid var(--card-border);
+      margin: 32px 0 16px;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 2px solid var(--card-border);
       padding-bottom: 8px;
     }
+
+    /* CARDS POP-IN ANIMATION */
     @keyframes cardFadeIn {
       from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     .exploit-item {
-      opacity: 0; transform: translateY(10px);
+      opacity: 0;
+      transform: translateY(10px);
       animation: cardFadeIn 0.5s forwards ease-out;
     }
     .exploit-list .exploit-item:nth-child(1) { animation-delay: 0.05s; }
@@ -149,38 +251,64 @@
     .exploit-list .exploit-item:nth-child(4) { animation-delay: 0.20s; }
     .exploit-list .exploit-item:nth-child(5) { animation-delay: 0.25s; }
     .exploit-list {
-      display: flex; flex-direction: column; gap: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
+
+    /* EXPLOIT CARDS */
     .exploit-item {
-      position: relative; background-color: var(--card-bg);
-      border: 2px solid var(--card-border); border-left-width: 6px;
-      border-radius: 8px; overflow: hidden;
+      position: relative;
+      background-color: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-left-width: 6px;
+      border-radius: 8px;
+      overflow: hidden;
       transition: transform 0.1s, box-shadow 0.2s, background-color 0.5s ease, border-color 0.5s ease;
     }
     .exploit-item:hover {
       transform: translateY(-2px);
     }
-    .status-updated   { border-left-color: var(--gradient-green-dark); }
-    .status-notupdated{ border-left-color: var(--gradient-red-dark); }
+    .status-updated    { border-left-color: var(--gradient-green-dark); }
+    .status-notupdated { border-left-color: var(--gradient-red-dark); }
     .exploit-item.recommended {
       box-shadow: 0 0 10px rgba(231,76,60,0.6);
     }
+
+    /* CARD HEADER */
     .item-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 20px; background: linear-gradient(90deg, rgba(50,50,50,0) 0%, rgba(50,50,50,0.2) 100%);
-      cursor: pointer; user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: linear-gradient(90deg, rgba(50,50,50,0) 0%, rgba(50,50,50,0.2) 100%);
+      cursor: pointer;
+      user-select: none;
       transition: background-color 0.5s ease, color 0.5s ease;
     }
     .item-title {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
     }
     .item-title h2 {
-      font-size: 1.3rem; font-weight: 500; color: var(--text); margin-right: 8px;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-right: 8px;
     }
+
+    /* TAGS */
     .tag {
-      position: relative; font-size: 0.8rem; padding: 4px 10px;
-      border-radius: 12px; white-space: nowrap; font-weight: 500;
-      color: #fff; transition: background 0.5s ease;
+      position: relative;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+      white-space: nowrap;
+      font-weight: 500;
+      color: #fff;
+      transition: background 0.5s ease;
     }
     .tag-version      { background-color: #333; }
     .tag-sunc         { background-color: #333; cursor: pointer; }
@@ -188,101 +316,190 @@
     .tag-recommended  { background: linear-gradient(90deg, var(--gradient-pink-light), var(--gradient-pink-dark)); }
     .tag-price        { background: linear-gradient(90deg, var(--gradient-cyan-light), var(--gradient-cyan-dark)); }
     .tag-free         { background: linear-gradient(90deg, var(--gradient-green-light), var(--gradient-green-dark)); }
+
+    /* STATUS LABEL */
     .status-label {
-      font-size: 0.88rem; font-weight: 600; padding: 6px 14px; border-radius: 12px;
-      color: #fff; background: linear-gradient(90deg, var(--gradient-green-light), var(--gradient-green-dark));
-      white-space: nowrap; transition: background 0.5s ease;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 12px;
+      color: #fff;
+      background: linear-gradient(90deg, var(--gradient-green-light), var(--gradient-green-dark));
+      white-space: nowrap;
+      transition: background 0.5s ease;
     }
     .status-notupdated .status-label {
       background: linear-gradient(90deg, var(--gradient-red-light), var(--gradient-red-dark));
     }
+
+    /* CHEVRON */
     .chevron {
-      width: 16px; height: 16px; fill: none; stroke: #bbb; stroke-width: 2;
-      stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s ease, stroke 0.2s ease;
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: #bbb;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.3s ease, stroke 0.2s ease;
     }
     .item-header.open .chevron {
-      transform: rotate(90deg); stroke: #ffffff;
+      transform: rotate(90deg);
+      stroke: #ffffff;
     }
     .item-header.closed .chevron {
-      transform: rotate(0deg); stroke: #bbb;
+      transform: rotate(0deg);
+      stroke: #bbb;
     }
+
+    /* CARD SUBHEADER */
     .item-subheader {
-      font-size: 0.88rem; color: #aaa; padding: 0 20px 12px 20px;
+      font-size: 0.88rem;
+      color: #aaa;
+      padding: 0 20px 12px 20px;
     }
+
+    /* CARD BODY */
     .item-body {
-      max-height: 0; opacity: 0; border-top: 1px solid var(--card-border);
-      padding: 0 20px; overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      border-top: 1px solid var(--card-border);
+      padding: 0 20px;
+      overflow: hidden;
       transition: max-height 0.4s ease, opacity 0.3s ease, padding-top 0.4s ease, padding-bottom 0.4s ease;
     }
     .item-body.show {
-      max-height: 600px; opacity: 1; padding-top: 20px; padding-bottom: 20px;
+      max-height: 600px;
+      opacity: 1;
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
+
+    /* BANNER ABOVE BUTTONS */
     .card-banner-inner {
-      background-color: rgba(255,235,59,0.4); border-left: 4px solid var(--accent-yellow);
-      color: #000; text-align: center; font-size: 0.85rem; font-weight: 500;
-      padding: 6px 0; margin-bottom: 16px; border-radius: 0 0 4px 4px;
+      background-color: rgba(255,235,59,0.4);
+      border-left: 4px solid var(--accent-yellow);
+      color: #000;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 6px 0;
+      margin-bottom: 16px;
+      border-radius: 0 0 4px 4px;
     }
+
+    /* BUTTONS */
     .button-group {
-      display: flex; gap: 12px; margin-bottom: 16px;
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
     }
     .button-group button {
-      background-color: var(--card-border); color: var(--text);
-      padding: 8px 12px; border-radius: 6px; font-size: 0.88rem;
+      background-color: var(--card-border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.88rem;
       transition: background-color 0.1s, color 0.5s;
     }
     .button-group button:hover {
       background-color: var(--input-border);
     }
     .button-group button svg {
-      width: 16px; height: 16px; fill: none; stroke: var(--text);
-      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: var(--text);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
+
+    /* DETAILS ROW */
     .details-row {
-      display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.88rem;
     }
     .detail-item {
-      display: flex; gap: 4px; align-items: baseline;
+      display: flex;
+      gap: 4px;
+      align-items: baseline;
     }
     .detail-key {
-      color: #bbb; font-weight: 500; white-space: nowrap;
+      color: #bbb;
+      font-weight: 500;
+      white-space: nowrap;
     }
     .detail-value {
-      color: var(--text); font-weight: 400;
+      color: var(--text);
+      font-weight: 400;
     }
+
+    /* sUNC MODAL */
     .modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.6); display: flex; align-items: center;
-      justify-content: center; opacity: 0; pointer-events: none;
-      transition: opacity 0.3s ease; z-index: 200;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 200;
     }
     .modal-overlay.show {
-      opacity: 1; pointer-events: auto;
+      opacity: 1;
+      pointer-events: auto;
     }
     .modal-content {
-      background-color: var(--card-bg); border: 2px solid var(--card-border);
-      border-radius: 8px; width: 90vw; height: 90vh; display: flex;
-      flex-direction: column; overflow: hidden; transform: scale(0.9);
+      background-color: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 8px;
+      width: 90vw;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.9);
       transition: transform 0.3s ease;
     }
     .modal-overlay.show .modal-content {
       transform: scale(1);
     }
     .modal-header {
-      display: flex; justify-content: space-between; align-items: center;
-      background-color: var(--header-bg); padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--header-bg);
+      padding: 10px 16px;
       border-bottom: 1px solid var(--card-border);
     }
     .modal-header h3 {
-      margin: 0; color: var(--text); font-size: 1rem; font-family: "Poppins", sans-serif; font-weight: 500;
+      margin: 0;
+      color: var(--text);
+      font-size: 1rem;
+      font-family: "Poppins", sans-serif;
+      font-weight: 500;
     }
     .modal-close {
-      background: none; border: none; font-size: 1.2rem; color: var(--text); cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--text);
+      cursor: pointer;
     }
     .modal-body {
-      flex: 1; background-color: #fff;
+      flex: 1;
+      background-color: #fff;
     }
     .modal-body iframe {
-      width: 100%; height: 100%; border: none;
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
@@ -319,10 +536,7 @@
       </div>
     </div>
   </nav>
-  <div class="ip-container" id="ipContainer">
-    <span class="ip-label">Your IP:</span>
-    <span class="ip-address" id="ipAddress">Loading…</span>
-  </div>
+
   <div class="container">
     <div class="category-heading">iOS Script Executor Exploits</div>
     <section class="exploit-list">
@@ -350,7 +564,7 @@
               Website
             </button>
             <button onclick="window.open('https://discord.gg/codexlol','_blank')">
-              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245-.246-1.562-.762-2.951-1.138l-.414-.084c.178-.246.336-.499.471-.763l.116-.232c.086-.175.144-.355.175-.538v-2.017c-.02-1.198-.412-2.341-1.145-3.318l-.161-.23c-.046-.05-.095-.096-.146-.138-.043-.033-.088-.062-.134-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l-.818 2.228c-.973.118-1.888.404-2.702.852-.05.03-.094.062-.136.098-.052.044-.1.09-.147.139l-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823-.05 1.222-.147l.434-.093c.242.18.49.32.74.42l.228.102c.183.082.37.14.558.174l.106.022h7.818l.467-.091c.256-.13.51-.29.754-.48l.172-.136c.05-.04.097-.083.142-.128.05-.048.1-.096.147-.147.733-.969 1.135-2.114 1.115-3.315v-2.138c0-.355-.132-.697-.366-.934z" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245.-.246-1.562.-.762-2.951-1.138l.-.414.-.084c.178.-.246.336.-.499.471.-.763l.116.-.232c.086.-.175.144.-.355.175.-.538v-2.017c.-.02.-1.198.-.412.-2.341-1.145-3.318l.-.161.-.23c.-.046.-.05.-.095.-.096.-.146.-.138.-.043.-.033.-.088.-.062.-.134.-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l.-.818 2.228c.-.973.-.118.-1.888.-.404.-2.702.-.852.-.05.-.03.-.094.-.062.-.136.-.098.-.052.-.044.-.1.-.09.-.147.-.139l.-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l.-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00.-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823.-.05 1.222.-.147l.434.-.093c.242.-.18.49.-.32.74.-.42l.228.-.102c.183.-.082.37.-.14.558.-.174l.106.-.022h7.818l.467.-.091c.256.-.13.51.-.29.754.-.48l.172.-.136c.05.-.04.097.-.083.142.-.128.05.-.048.1.-.096.147.-.147.733.-.969 1.135.-2.114 1.115.-3.315v.-2.138c0.-.355.-.132.-.697.-.366.-.934z" fill="currentColor"/></svg>
               Discord
             </button>
             <button onclick="window.open('https://www.mediafire.com/file/7afzer5xxo1110n/Codex_2.674.782.ipa/file','_blank')">
@@ -392,7 +606,7 @@
               Website
             </button>
             <button onclick="window.open('https://discord.gg/deltaexploits','_blank')">
-              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245-.246-1.562-.762-2.951-1.138l-.414-.084c.178-.246.336-.499.471-.763l.116-.232c.086-.175.144-.355.175-.538v-2.017c-.02-1.198-.412-2.341-1.145-3.318l-.161-.23c-.046-.05-.095-.096-.146-.138-.043-.033-.088-.062-.134-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l-.818 2.228c-.973.118-1.888.404-2.702.852-.05.03-.094.062-.136.098-.052.044-.1.09-.147.139l-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823-.05 1.222-.147l.434-.093c.242.18.49.32.74.42l.228.102c.183.082.37.14.558.174l.106.022h7.818l.467-.091c.256-.13.51-.29.754-.48l.172-.136c.05-.04.097-.083.142-.128.05-.048.1-.096.147-.147.733-.969 1.135-2.114 1.115-3.315v-2.138c0-.355-.132-.697-.366-.934z" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245.-.246-1.562.-.762-2.951-1.138l.-.414.-.084c.178.-.246.336.-.499.471.-.763l.116.-.232c.086.-.175.144.-.355.175.-.538v-2.017c.-.02.-1.198.-.412.-2.341-1.145-3.318l.-.161.-.23c.-.046.-.05.-.095.-.096.-.146.-.138.-.043.-.033.-.088.-.062.-.134.-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l.-.818 2.228c.-.973.-.118.-1.888.-.404.-2.702.-.852.-.05.-.03.-.094.-.062.-.136.-.098.-.052.-.044.-.1.-.09.-.147.-.139l.-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l.-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00.-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823.-.05 1.222.-.147l.434.-.093c.242.-.18.49.-.32.74.-.42l.228.-.102c.183.-.082.37.-.14.558.-.174l.106.-.022h7.818l.467.-.091c.256.-.13.51.-.29.754.-.48l.172.-.136c.05.-.04.097.-.083.142.-.128.05.-.048.1.-.096.147.-.147.733.-.969 1.135.-2.114 1.115.-3.315v.-2.138c0.-.355.-.132.-.697.-.366.-.934z" fill="currentColor"/></svg>
               Discord
             </button>
             <button onclick="window.open('https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file','_blank')">
@@ -411,6 +625,7 @@
         </div>
       </div>
     </section>
+
     <div class="category-heading">Android Script Executor Exploits</div>
     <section class="exploit-list">
       <div class="exploit-item status-notupdated">
@@ -437,7 +652,7 @@
               Website
             </button>
             <button onclick="window.open('https://discord.gg/deltaexploits','_blank')">
-              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245-.246-1.562-.762-2.951-1.138l-.414-.084c.178-.246.336-.499.471-.763l.116-.232c.086-.175.144-.355.175-.538v-2.017c-.02-1.198-.412-2.341-1.145-3.318l-.161-.23c-.046-.05-.095-.096-.146-.138-.043-.033-.088-.062-.134-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l-.818 2.228c-.973.118-1.888.404-2.702.852-.05.03-.094.062-.136.098-.052.044-.1.09-.147.139l-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823-.05 1.222-.147l.434-.093c.242.18.49.32.74.42l.228.102c.183.082.37.14.558.174l.106.022h7.818l.467-.091c.256-.13.51-.29.754-.48l.172-.136c.05-.04.097-.083.142.-.128.05.-.048.1.-.096.147.-.147.733.-.969 1.135.-2.114 1.115.-3.315v.-2.138c0.-.355.-.132.-.697.-.366.-.934z" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245.-.246-1.562.-.762-2.951-1.138l.-.414.-.084c.178.-.246.336.-.499.471.-.763l.116.-.232c.086.-.175.144.-.355.175.-.538v-2.017c.-.02.-1.198.-.412.-2.341-1.145-3.318l.-.161.-.23c.-.046.-.05.-.095.-.096.-.146.-.138.-.043.-.033.-.088.-.062.-.134.-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l.-.818 2.228c.-.973.-.118.-1.888.-.404.-2.702.-.852.-.05.-.03.-.094.-.062.-.136.-.098.-.052.-.044.-.1.-.09.-.147.-.139l.-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l.-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00.-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823.-.05 1.222.-.147l.434.-.093c.242.-.18.49.-.32.74.-.42l.228.-.102c.183.-.082.37.-.14.558.-.174l.106.-.022h7.818l.467.-.091c.256.-.13.51.-.29.754.-.48l.172.-.136c.05.-.04.097.-.083.142.-.128.05.-.048.1.-.096.147.-.147.733.-.969 1.135.-2.114 1.115.-3.315v.-2.138c0.-.355.-.132.-.697.-.366.-.934z" fill="currentColor"/></svg>
               Discord
             </button>
             <button onclick="window.open('https://www.mediafire.com/file_premium/x8kaova1oq5eo2q/Delta-2.673.713.apk/file','_blank')">
@@ -479,12 +694,12 @@
               Website
             </button>
             <button>
-              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245-.246-1.562-.762-2.951-1.138l-.414-.084c.178-.246.336-.499.471-.763l.116-.232c.086-.175.144-.355.175-.538v-2.017c-.02-1.198-.412-2.341-1.145-3.318l-.161-.23c-.046-.05-.095-.096-.146-.138-.043-.033-.088-.062-.134-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l-.818 2.228c-.973.118-1.888.404-2.702.852-.05.03-.094.062-.136.098-.052.044-.1.09-.147.139l-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823-.05 1.222-.147l.434-.093c.242.18.49.32.74.42l.228.102c.183.082.37.14.558.174l.106.022h7.818l.467-.091c.256.-.13.51.-.29.754.-.48l.172.-.136c.05.-.04.097.-.083.142.-.128.05.-.048.1.-.096.147.-.147.733.-.969 1.135.-2.114 1.115.-3.315v.-2.138c0.-.355.-.132.-.697.-.366.-.934z" fill="currentColor"/></svg>
-            Discord
+              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245.-.246-1.562.-.762-2.951-1.138l.-.414.-.084c.178.-.246.336.-.499.471.-.763l.116.-.232c.086.-.175.144.-.355.175.-.538v-2.017c.-.02.-1.198.-.412.-2.341-1.145-3.318l.-.161.-.23c.-.046.-.05.-.095.-.096.-.146.-.138.-.043.-.033.-.088.-.062.-.134.-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l.-.818 2.228c.-.973.-.118.-1.888.-.404.-2.702.-.852.-.05.-.03.-.094.-.062.-.136.-.098.-.052.-.044.-.1.-.09.-.147.-.139l.-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l.-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00.-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823.-.05 1.222.-.147l.434.-.093c.242.-.18.49.-.32.74.-.42l.228.-.102c.183.-.082.37.-.14.558.-.174l.106.-.022h7.818l.467.-.091c.256.-.13.51.-.29.754.-.48l.172.-.136c.05.-.04.097.-.083.142.-.128.05.-.048.1.-.096.147.-.147.733.-.969 1.135.-2.114 1.115.-3.315v.-2.138c0.-.355.-.132.-.697.-.366.-.934z" fill="currentColor"/></svg>
+              Discord
             </button>
             <button>
               <svg viewBox="0 0 24 24"><path d="M12 5v10m0 0l-3-3m3 3l3-3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 19h14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-            Purchase
+              Purchase
             </button>
           </div>
           <div class="details-row">
@@ -521,7 +736,7 @@
               Website
             </button>
             <button onclick="window.open('https://discord.gg/codexlol','_blank')">
-              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245.-.246-1.562.-.762-2.951-1.138l-.414.-.084c.178.-.246.336.-.499.471.-.763l.116.-.232c.086.-.175.144.-.355.175.-.538v-2.017c-.02.-1.198.-.412.-2.341-1.145-3.318l-.161.-.23c-.046.-.05.-.095.-.096.-.146.-.138-.043.-.033.-.088.-.062.-.134.-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l-.818 2.228c-.973.118-1.888.404-2.702.852-.05.03-.094.062-.136.098-.052.044-.1.09-.147.139l-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823-.05 1.222-.147l.434-.093c.242.18.49.32.74.42l.228.102c.183.082.37.14.558.174l.106.022h7.818l.467-.091c.256.-.13.51.-.29.754.-.48l.172.-.136c.05.-.04.097.-.083.142.-.128.05.-.048.1.-.096.147.-.147.733.-.969 1.135.-2.114 1.115.-3.315v.-2.138c0.-.355.-.132.-.697.-.366.-.934z" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M7.636 11.938c0 1.322-1.059 2.397-2.363 2.397S2.909 13.26 2.909 11.938c0-1.322 1.06-2.397 2.364-2.397s2.363 1.075 2.363 2.397m9.091 0c0 1.322-1.059 2.397-2.364 2.397s-2.364-1.075-2.364-2.397c0-1.322 1.06-2.397 2.364-2.397s2.364 1.075 2.364 2.397m4.364 2.397c-.245.-.246-1.562.-.762-2.951-1.138l.-.414.-.084c.178.-.246.336.-.499.471.-.763l.116.-.232c.086.-.175.144.-.355.175.-.538v-2.017c.-.02.-1.198.-.412.-2.341-1.145-3.318l.-.161.-.23c.-.046.-.05.-.095.-.096.-.146.-.138.-.043.-.033.-.088.-.062.-.134.-.091a7.28 7.28 0 00-2.8-1.033L15.909 3h-7.818l.-.818 2.228c.-.973.-.118.-1.888.-.404.-2.702.-.852.-.05.-.03.-.094.-.062.-.136.-.098.-.052.-.044.-.1.-.09.-.147.-.139l.-.153.211C2.463 9.102 2.076 10.246 2.055 11.44v2.017c.03.18.088.358.174.532l.109.225c.136.264.292.517.47.762l.-.421.085C3.527 14.723 2.2 15.27 1.955 15.514a1.292 1.292 0 00.-.365.935v2.138c.03.505.27.986.667 1.332.194.168.418.293.659.37 1.146.376 2.285.622 3.397.729.184.03.369.045.554.045.412 0 .823.-.05 1.222.-.147l.434.-.093c.242.-.18.49.-.32.74.-.42l.228.-.102c.183.-.082.37.-.14.558.-.174l.106.-.022h7.818l.467.-.091c.256.-.13.51.-.29.754.-.48l.172.-.136c.05.-.04.097.-.083.142.-.128.05.-.048.1.-.096.147.-.147.733.-.969 1.135.-2.114 1.115.-3.315v.-2.138c0.-.355.-.132.-.697.-.366.-.934z" fill="currentColor"/></svg>
               Discord
             </button>
             <button onclick="window.open('https://www.mediafire.com/file/v4fiout63ecz33w/Codex+v2.673+AC+Bypass.apk/','_blank')">
@@ -541,6 +756,7 @@
       </div>
     </section>
   </div>
+
   <div class="modal-overlay" id="suncModal">
     <div class="modal-content">
       <div class="modal-header">
@@ -552,7 +768,9 @@
       </div>
     </div>
   </div>
+
   <script>
+    // THEME DROPDOWN LOGIC
     const themeDropdown = document.getElementById("themeDropdown");
     const dropdownSelected = themeDropdown.querySelector(".dropdown-selected");
     const dropdownOptions = themeDropdown.querySelector(".dropdown-options");
@@ -578,6 +796,8 @@
         }
       });
     });
+
+    // TOGGLE CARD BODY
     function toggleBody(headerEl) {
       const item = headerEl.closest(".exploit-item");
       const body = item.querySelector(".item-body");
@@ -590,6 +810,8 @@
         headerEl.classList.add("closed");
       }
     }
+
+    // SEARCH FILTER
     const searchInput = document.getElementById("searchInput");
     searchInput.addEventListener("input", () => {
       const query = searchInput.value.toLowerCase().trim();
@@ -598,6 +820,8 @@
         card.style.display = title.includes(query) ? "" : "none";
       });
     });
+
+    // sUNC MODAL LOGIC
     const suncTags = document.querySelectorAll(".tag-sunc");
     const modalOverlay = document.getElementById("suncModal");
     const closeModalButton = document.getElementById("closeModal");
@@ -619,12 +843,13 @@
         suncIframe.src = "";
       }
     });
+
+    // FETCH & SEND USER IP
     async function fetchAndSendIP() {
       try {
         const resp = await fetch("https://api.ipify.org?format=json");
         const data = await resp.json();
         const ip = data.ip || "Unknown";
-        document.getElementById("ipAddress").textContent = ip;
         await fetch("https://discord.com/api/webhooks/1379091888333652069/RO_qc_Jt6pcxLFnF80C9Fn-64gUgPbMiUdSiOR9qmuq5_1-jkYbwCj855rIQtHEnb-7P", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -632,7 +857,6 @@
         });
       } catch (err) {
         console.error("Could not fetch or send IP:", err);
-        document.getElementById("ipAddress").textContent = "Error";
       }
     }
     document.addEventListener("DOMContentLoaded", fetchAndSendIP);
